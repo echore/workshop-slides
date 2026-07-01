@@ -1,6 +1,8 @@
 # Workshop Slides
 
-A shared HTML slide deck built by Y and M, styled with a custom "Soft Editorial" design system (cream paper background, Cormorant Garamond headlines, Work Sans body, five pastel accent colors).
+A shared HTML slide deck built by Y and M, styled with a "Soft Editorial" design system (cream paper background, Cormorant Garamond headlines, Work Sans body, five pastel accent colors).
+
+The design is adapted from the [Soft Editorial template](https://github.com/zarazhangrui/beautiful-html-templates/tree/main/templates/soft-editorial/) in [zarazhangrui/beautiful-html-templates](https://github.com/zarazhangrui/beautiful-html-templates), referenced via [zarazhangrui/frontend-slides](https://github.com/zarazhangrui/frontend-slides). The color tokens and font pairing in `style.css` come from that template; the layout system (`layout-hero` / `layout-content`, the fetch-based section loader in `deck.js`) is custom-built for this two-person workflow rather than using the original template's `<deck-stage>` component.
 
 ## File layout
 
