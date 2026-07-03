@@ -6,13 +6,13 @@
   .acc-hint { font: italic 400 1.1vw "Cormorant Garamond", serif; color: var(--ink-soft); text-align: center; margin-top: 0.4vw; }
   .acc-panel { width: 44vw; display: flex; align-items: center; justify-content: center; }
   .acc-screen { display: none; flex-direction: column; align-items: center; gap: 1.1vw; width: 100%; }
-  .acc-shot { width: 100%; height: 19vw; border: 1.5px dashed var(--rule-soft); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; background: var(--card-fill); color: var(--ink-soft); font-size: 1.4vw; overflow: hidden; }
-  .acc-shot img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
-  .acc-shot video { width: 100%; height: 100%; object-fit: contain; border-radius: var(--radius); }
+  .acc-shot { width: 100%; min-height: 21vw; display: flex; align-items: center; justify-content: center; }
+  .acc-shot.ph { height: 21vw; border: 1.5px dashed var(--rule-soft); border-radius: var(--radius); background: var(--card-fill); color: var(--ink-soft); font-size: 1.4vw; }
+  .acc-shot img, .acc-shot video, .cb-i { max-width: 100%; max-height: 21vw; border-radius: 12px; box-shadow: 0 8px 28px rgba(42, 36, 27, 0.16); }
   .acc-cap { font: 400 1.4vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; margin: 0; }
   .concept-label { font: 500 3vw "Cormorant Garamond", serif; color: var(--ink); margin: 0; }
   .acc-s1 > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
-  .cb-i { display: none; width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
+  .cb-i { display: none; }
   #cb-1:checked ~ .cb-imgs .cb-i1,
   #cb-2:checked ~ .cb-imgs .cb-i2,
   #cb-3:checked ~ .cb-imgs .cb-i3 { display: block; }
@@ -240,7 +240,7 @@
             <p class="acc-cap">The same cloud model, inside an app.</p>
           </div>
           <div class="acc-screen acc-s3">
-            <div class="acc-shot">CLI / terminal screenshot</div>
+            <div class="acc-shot ph">CLI / terminal screenshot</div>
             <p class="acc-cap">It reaches your real files, not just chat.</p>
           </div>
           <div class="acc-screen acc-s4">
@@ -248,7 +248,7 @@
             <p class="acc-cap">Built into apps you already use. Notion's agent can build, edit, and take action.</p>
           </div>
           <div class="acc-screen acc-s5">
-            <div class="acc-shot">Local app (Ollama, LM Studio)</div>
+            <div class="acc-shot ph">Local app (Ollama, LM Studio)</div>
             <p class="acc-cap">Runs on your own computer. Offline, private, weaker.</p>
           </div>
         </div>
