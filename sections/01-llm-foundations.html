@@ -1,10 +1,56 @@
-<section class="slide" data-label="Hook">
-  <div class="eyebrow">Part 1 &middot; How LLMs Work</div>
+<style>
+  .acc-wrap > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .acc { display: flex; align-items: center; justify-content: center; gap: 3vw; }
+  .acc-col { display: flex; flex-direction: column; gap: 0.9vw; }
+  .acc-chip { display: block; width: 15vw; text-align: center; font-size: 1.6vw; cursor: pointer; transition: transform .12s ease; }
+  .acc-hint { font: italic 400 1.1vw "Cormorant Garamond", serif; color: var(--ink-soft); text-align: center; margin-top: 0.4vw; }
+  .acc-panel { width: 44vw; display: flex; align-items: center; justify-content: center; }
+  .acc-screen { display: none; flex-direction: column; align-items: center; gap: 1.1vw; width: 100%; }
+  .acc-shot { width: 100%; min-height: 21vw; display: flex; align-items: center; justify-content: center; }
+  .acc-shot.ph { height: 21vw; border: 1.5px dashed var(--rule-soft); border-radius: var(--radius); background: var(--card-fill); color: var(--ink-soft); font-size: 1.4vw; }
+  .acc-shot img, .acc-shot video, .cb-i { max-width: 100%; max-height: 21vw; border-radius: 12px; box-shadow: 0 8px 28px rgba(42, 36, 27, 0.16); }
+  .acc-cap { font: 400 1.4vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; margin: 0; }
+  .concept-label { font: 500 3vw "Cormorant Garamond", serif; color: var(--ink); margin: 0; }
+  .acc-s1 > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .cb-i { display: none; }
+  #cb-1:checked ~ .cb-imgs .cb-i1,
+  #cb-2:checked ~ .cb-imgs .cb-i2,
+  #cb-3:checked ~ .cb-imgs .cb-i3 { display: block; }
+  .cb-tabs { display: flex; gap: 0.6vw; }
+  .cb-tabs label { font: 400 1.2vw "Work Sans", sans-serif; padding: 0.3vw 1.1vw; border-radius: 999px; border: 1.5px solid var(--rule-soft); color: var(--ink-soft); cursor: pointer; }
+  #cb-1:checked ~ .cb-tabs label[for="cb-1"],
+  #cb-2:checked ~ .cb-tabs label[for="cb-2"],
+  #cb-3:checked ~ .cb-tabs label[for="cb-3"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  #acc-1:checked ~ .acc .acc-s1,
+  #acc-2:checked ~ .acc .acc-s2,
+  #acc-3:checked ~ .acc .acc-s3,
+  #acc-4:checked ~ .acc .acc-s4,
+  #acc-5:checked ~ .acc .acc-s5 { display: flex; }
+  #acc-1:checked ~ .acc label[for="acc-1"],
+  #acc-2:checked ~ .acc label[for="acc-2"],
+  #acc-3:checked ~ .acc label[for="acc-3"],
+  #acc-4:checked ~ .acc label[for="acc-4"],
+  #acc-5:checked ~ .acc label[for="acc-5"] { transform: scale(1.05); outline: 2.5px solid var(--ink); outline-offset: 3px; }
+</style>
+
+<section class="slide" data-label="Title">
+  <div class="eyebrow" style="font-size: 1.4vw;">AI4PH &middot; Workshop</div>
   <div class="pagedot"></div>
-  <div class="layout-hero">
-    <p class="kicker">Let's play a game</p>
-    <h1 class="headline">One word at a time.</h1>
-    <div class="chip-row">
+  <div class="layout-hero" style="top: 10%; bottom: 10%; gap: 1.2vw;">
+    <p class="kicker" style="font-size: 1.9vw;">July 20, 2026</p>
+    <h1 class="headline" style="font-size: 4vw; max-width: 84vw;">Introduction to Generative AI<br>for Public Health</h1>
+    <p class="subhead" style="color: var(--ink-soft);">Foundations, Methods, and Responsible Use</p>
+    <p class="body" style="font-size: 1.7vw; margin-top: 1vw;">Presented by Melissa Ouellet &amp; Yachen Li</p>
+  </div>
+</section>
+
+<section class="slide" data-label="Hook">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.5vw;">
+    <p class="kicker" style="font-size: 2vw;">Let's play a game</p>
+    <h1 class="headline" style="font-size: 3.5vw;">One word at a time.</h1>
+    <div class="chip-row" style="font-size: 1.7vw; gap: 1vw;">
       <span class="chip card--pink">The</span>
       <span class="chip card--lemon">cat</span>
       <span class="chip card--blush">sat</span>
@@ -13,74 +59,199 @@
       <span class="chip chip--blank">&hellip;?</span>
     </div>
   </div>
-  <div class="footer"><span>Workshop &middot; Session 1</span><span>How LLMs Work</span></div>
 </section>
 
 <section class="slide" data-label="Training">
-  <div class="eyebrow">Part 1 &middot; How LLMs Work</div>
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
   <div class="pagedot"></div>
-  <div class="layout-hero">
-    <h1 class="headline">The student who read <em>everything</em>.</h1>
-    <div style="width: 32vw;">
-      <p class="kicker" style="margin-bottom: 1vw;">"Once upon a &hellip;"</p>
-      <div class="bar-row">
-        <span class="bar-label body-sm">time</span>
-        <div class="bar-track"><div class="bar-fill" style="width: 78%; background: var(--pink);"></div></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.6vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
+      <p class="concept-label">Training</p>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 74vw;">Trained on most of the public internet, it learned to predict the next word.</h1>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8vw;">
+      <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 1vw; font-size: 1.6vw;">
+        <span class="chip card--pink">Read text</span>
+        <span style="color: var(--ink-soft);">&rarr;</span>
+        <span class="chip card--lemon">Hide next word</span>
+        <span style="color: var(--ink-soft);">&rarr;</span>
+        <span class="chip card--blush">Guess</span>
+        <span style="color: var(--ink-soft);">&rarr;</span>
+        <span class="chip card--sage">Check, then adjust</span>
       </div>
-      <div class="bar-row">
-        <span class="bar-label body-sm">day</span>
-        <div class="bar-track"><div class="bar-fill" style="width: 38%; background: var(--lemon);"></div></div>
-      </div>
-      <div class="bar-row" style="margin-bottom: 0;">
-        <span class="bar-label body-sm">star</span>
-        <div class="bar-track"><div class="bar-fill" style="width: 16%; background: var(--sage);"></div></div>
-      </div>
+      <p class="body-sm" style="font-size: 1.5vw; color: var(--ink-soft);">&#8635; repeated billions of times</p>
+    </div>
+    <div class="card" style="padding: 1.3vw 2.4vw; max-width: 64vw;">
+      <p class="body" style="font-size: 1.6vw; text-align: center;">It learned the patterns, not the text: which words tend to follow which.</p>
     </div>
   </div>
-  <div class="footer"><span>Workshop &middot; Session 1</span><span>How LLMs Work</span></div>
 </section>
 
-<section class="slide" data-label="Tokens">
-  <div class="eyebrow">Part 1 &middot; How LLMs Work</div>
+<section class="slide" data-label="Token">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
   <div class="pagedot"></div>
-  <div class="layout-hero">
-    <h1 class="headline">Language, broken into blocks.</h1>
-    <div class="brick-row">
-      <div class="brick-col">
-        <div class="brick-studs"><span class="brick-stud" style="background:#c98aab;"></span><span class="brick-stud" style="background:#c98aab;"></span></div>
-        <div class="brick" style="background: var(--pink);">Under</div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.6vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
+      <p class="concept-label">Tokens</p>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 76vw;">It spells any word from a small set of pieces, whole or split into parts.</h1>
+    </div>
+    <div style="display: flex; align-items: flex-end; justify-content: center; gap: 6vw;">
+      <div style="text-align: center;">
+        <div class="brick-row" style="justify-content: center;">
+          <div class="brick-col">
+            <div class="brick-studs"><span class="brick-stud" style="background: #c98aab;"></span><span class="brick-stud" style="background: #c98aab;"></span></div>
+            <div class="brick" style="background: var(--pink); font-size: 1.9vw;">health</div>
+          </div>
+        </div>
+        <p class="body-sm" style="font-size: 1.5vw; color: var(--ink-soft); margin-top: 0.9vw;">1 piece</p>
       </div>
-      <div class="brick-col">
-        <div class="brick-studs"><span class="brick-stud" style="background:#b7bf4f;"></span><span class="brick-stud" style="background:#b7bf4f;"></span></div>
-        <div class="brick" style="background: var(--lemon);">stand</div>
-      </div>
-      <div class="brick-col">
-        <div class="brick-studs"><span class="brick-stud" style="background:#d9ad94;"></span></div>
-        <div class="brick" style="background: var(--blush);">ing</div>
+      <div style="text-align: center;">
+        <div class="brick-row" style="justify-content: center;">
+          <div class="brick-col">
+            <div class="brick-studs"><span class="brick-stud" style="background: #b7bf4f;"></span><span class="brick-stud" style="background: #b7bf4f;"></span></div>
+            <div class="brick" style="background: var(--lemon); font-size: 1.9vw;">hand</div>
+          </div>
+          <div class="brick-col">
+            <div class="brick-studs"><span class="brick-stud" style="background: #d9ad94;"></span><span class="brick-stud" style="background: #d9ad94;"></span></div>
+            <div class="brick" style="background: var(--blush); font-size: 1.9vw;">wash</div>
+          </div>
+          <div class="brick-col">
+            <div class="brick-studs"><span class="brick-stud" style="background: #98ab86;"></span></div>
+            <div class="brick" style="background: var(--sage); font-size: 1.9vw;">ing</div>
+          </div>
+        </div>
+        <p class="body-sm" style="font-size: 1.5vw; color: var(--ink-soft); margin-top: 0.9vw;">3 pieces</p>
       </div>
     </div>
-    <p class="body-sm" style="color: var(--ink-soft);">3 blocks &middot; 1 word</p>
+    <div class="card" style="padding: 1.3vw 2.4vw; max-width: 64vw;">
+      <p class="body" style="font-size: 1.6vw; text-align: center;">Longer words are built from smaller, familiar pieces.</p>
+    </div>
   </div>
-  <div class="footer"><span>Workshop &middot; Session 1</span><span>How LLMs Work</span></div>
 </section>
 
 <section class="slide" data-label="Prediction">
-  <div class="eyebrow">Part 1 &middot; How LLMs Work</div>
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
   <div class="pagedot"></div>
-  <div class="layout-hero">
-    <h1 class="headline">Forward only. No do-overs.</h1>
-    <p class="kicker">context window</p>
-    <div class="timeline-row">
-      <span class="chip faded body-sm">Hi</span>
-      <span class="chip faded body-sm">there</span>
-      <span class="body-sm" style="color: var(--ink-soft);">&rarr;</span>
-      <div class="window-box">
-        <span class="chip card--pink body-sm">a trip</span>
-        <span class="chip card--lemon body-sm">to</span>
-        <span class="chip chip--blank body-sm">?</span>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.4vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
+      <p class="concept-label">Prediction</p>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 76vw;">Just like the game you just played: one word at a time, with no going back.</h1>
+    </div>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 0.7vw; font-size: 1.6vw;">
+      <span class="chip card--pink">The</span>
+      <span class="chip card--lemon">cat</span>
+      <span class="chip card--blush">sat</span>
+      <span class="chip card--sage">on</span>
+      <span class="chip card--lilac">the</span>
+      <span class="chip chip--blank">&hellip;?</span>
+    </div>
+    <div class="window-box" style="flex-direction: column; gap: 0.8vw; padding: 1.1vw 1.4vw; width: 40vw;">
+      <div class="bar-row" style="margin-bottom: 0;">
+        <span class="bar-label" style="width: 6vw; font-size: 1.5vw;">mat</span>
+        <div class="bar-track"><div class="bar-fill" style="width: 71%; background: var(--pink);"></div></div>
+        <span style="width: 4vw; font-size: 1.5vw; text-align: right; color: var(--ink-soft);">71%</span>
+      </div>
+      <div class="bar-row" style="margin-bottom: 0;">
+        <span class="bar-label" style="width: 6vw; font-size: 1.5vw;">floor</span>
+        <div class="bar-track"><div class="bar-fill" style="width: 15%; background: var(--lemon);"></div></div>
+        <span style="width: 4vw; font-size: 1.5vw; text-align: right; color: var(--ink-soft);">15%</span>
+      </div>
+      <div class="bar-row" style="margin-bottom: 0;">
+        <span class="bar-label" style="width: 6vw; font-size: 1.5vw;">roof</span>
+        <div class="bar-track"><div class="bar-fill" style="width: 6%; background: var(--sage);"></div></div>
+        <span style="width: 4vw; font-size: 1.5vw; text-align: right; color: var(--ink-soft);">6%</span>
       </div>
     </div>
-    <span class="chip card--lilac body-sm">next &rarr; hallucination</span>
+    <p class="body-sm" style="font-size: 1.5vw; color: var(--ink-soft);">&rarr;&rarr;&rarr; forward only, no backspace</p>
   </div>
-  <div class="footer"><span>Workshop &middot; Session 1</span><span>How LLMs Work</span></div>
+</section>
+
+<section class="slide" data-label="Context">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.5vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
+      <p class="concept-label">Context</p>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 74vw;">Its memory is a context window, so it forgets the start of long chats.</h1>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.9vw;">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 0.8vw; font-size: 1.6vw;">
+        <span class="chip faded">msg 1</span>
+        <span class="chip faded">msg 2</span>
+        <span class="chip faded">msg 3</span>
+        <div class="window-box" style="align-items: center; padding: 0.8vw 0.9vw; gap: 0.6vw;">
+          <span class="chip card--pink">msg 8</span>
+          <span class="chip card--lemon">msg 9</span>
+          <span class="chip card--sage">msg 10</span>
+        </div>
+      </div>
+      <p class="body-sm" style="font-size: 1.5vw; color: var(--ink-soft);">&uarr; context window: only the most recent messages stay in view</p>
+    </div>
+    <div class="card" style="padding: 1.3vw 2.4vw; max-width: 66vw;">
+      <p class="body" style="font-size: 1.6vw; text-align: center;">It holds only so much. Talk long enough, and the earliest messages drop out.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-label="Access">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.5vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
+      <p class="concept-label">How you reach AI</p>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 78vw;">Most ways to reach AI call the same cloud model.</h1>
+    </div>
+    <div class="acc-wrap">
+      <input type="radio" name="acc" id="acc-1" checked>
+      <input type="radio" name="acc" id="acc-2">
+      <input type="radio" name="acc" id="acc-3">
+      <input type="radio" name="acc" id="acc-4">
+      <input type="radio" name="acc" id="acc-5">
+      <div class="acc">
+        <div>
+          <div class="acc-col">
+            <label for="acc-1" class="chip card--pink acc-chip">Chatbot</label>
+            <label for="acc-2" class="chip card--lemon acc-chip">Desktop app</label>
+            <label for="acc-3" class="chip card--blush acc-chip">CLI</label>
+            <label for="acc-4" class="chip card--sage acc-chip">API</label>
+            <label for="acc-5" class="chip chip--blank acc-chip">Local</label>
+          </div>
+        </div>
+        <div class="acc-panel">
+          <div class="acc-screen acc-s1">
+            <input type="radio" name="cb" id="cb-1" checked>
+            <input type="radio" name="cb" id="cb-2">
+            <input type="radio" name="cb" id="cb-3">
+            <div class="acc-shot cb-imgs">
+              <img class="cb-i cb-i1" src="images/chatbot-claude.png" alt="Chatbot: Claude">
+              <img class="cb-i cb-i2" src="images/chatbot-gemini.png" alt="Chatbot: Gemini">
+              <img class="cb-i cb-i3" src="images/chatbot-chatgpt.png" alt="Chatbot: ChatGPT">
+            </div>
+            <div class="cb-tabs">
+              <label for="cb-1">Claude</label>
+              <label for="cb-2">Gemini</label>
+              <label for="cb-3">ChatGPT</label>
+            </div>
+            <p class="acc-cap">The same question, different chatbots.</p>
+          </div>
+          <div class="acc-screen acc-s2">
+            <div class="acc-shot"><img src="images/desktop.png" alt="Desktop app: Claude Code"></div>
+            <p class="acc-cap">The same cloud model, inside an app.</p>
+          </div>
+          <div class="acc-screen acc-s3">
+            <div class="acc-shot ph">CLI / terminal screenshot</div>
+            <p class="acc-cap">It reaches your real files, not just chat.</p>
+          </div>
+          <div class="acc-screen acc-s4">
+            <div class="acc-shot"><video src="images/api-notion.mp4" autoplay loop muted playsinline></video></div>
+            <p class="acc-cap">Built into apps you already use. Notion's agent can build, edit, and take action.</p>
+          </div>
+          <div class="acc-screen acc-s5">
+            <div class="acc-shot ph">Local app (Ollama, LM Studio)</div>
+            <p class="acc-cap">Runs on your own computer. Offline, private, weaker.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
