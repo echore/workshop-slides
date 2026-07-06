@@ -172,23 +172,23 @@
   <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.5vw;">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
       <p class="concept-label">Context</p>
-      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 74vw;">Its memory is a context window, so it forgets the start of long chats.</h1>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 76vw;">The context window is the limited amount of information a model can process at one time.</h1>
     </div>
     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.9vw;">
-      <div style="display: flex; align-items: center; justify-content: center; gap: 0.8vw; font-size: 1.6vw;">
-        <span class="chip faded">msg 1</span>
-        <span class="chip faded">msg 2</span>
-        <span class="chip faded">msg 3</span>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 0.8vw; font-size: 1.5vw;">
+        <span class="chip faded">removed</span>
+        <span class="chip faded">summarized</span>
         <div class="window-box" style="align-items: center; padding: 0.8vw 0.9vw; gap: 0.6vw;">
-          <span class="chip card--pink">msg 8</span>
-          <span class="chip card--lemon">msg 9</span>
-          <span class="chip card--sage">msg 10</span>
+          <span class="chip card--pink">message</span>
+          <span class="chip card--lemon">history</span>
+          <span class="chip card--blush">instructions</span>
+          <span class="chip card--sage">files</span>
         </div>
       </div>
-      <p class="body-sm" style="font-size: 1.5vw; color: var(--ink-soft);">&uarr; context window: only the most recent messages stay in view</p>
+      <p class="body-sm" style="font-size: 1.5vw; color: var(--ink-soft);">&uarr; context window: everything given to the model for this request</p>
     </div>
     <div class="card" style="padding: 1.3vw 2.4vw; max-width: 66vw;">
-      <p class="body" style="font-size: 1.6vw; text-align: center;">It holds only so much. Talk long enough, and the earliest messages drop out.</p>
+      <p class="body" style="font-size: 1.6vw; text-align: center;">When that limit is reached, some older information may need to be removed or summarized to make room for new input.</p>
     </div>
   </div>
 </section>
