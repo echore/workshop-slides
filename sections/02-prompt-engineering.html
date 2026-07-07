@@ -1,3 +1,122 @@
+<!-- ============================================================= -->
+<!--  PROMPT ENGINEERING SECTION  ·  working file                  -->
+<!--  Owner: Melissa                                               -->
+<!--                                                               -->
+<!--  HOW TO USE THIS FILE                                         -->
+<!--  - Each slide below is wrapped in a clearly-labelled comment. -->
+<!--  - Copy the <section>...</section> block you need into your   -->
+<!--    GitHub file (02-prompt-engineering.html).                  -->
+<!--  - ONE-TIME: the Give Direction slide needs the extra CSS in  -->
+<!--    the STYLE block just below. Paste it into your file's      -->
+<!--    <style> block once. (Your base CSS - variables, .card,     -->
+<!--    .chip, .headline, .layout-hero, etc. - is assumed already  -->
+<!--    present and is NOT redefined here.)                        -->
+<!--                                                               -->
+<!--  SLIDE ORDER                                                  -->
+<!--    1. Section divider                                         -->
+<!--    2. Quick poll (how do you write prompts)                   -->
+<!--    3. Why it matters (intro + Altman)                         -->
+<!--    4. The principles (overview of 5)                          -->
+<!--    5. Give Direction (interactive Run 1-4 ladder)             -->
+<!-- ============================================================= -->
+
+
+<!-- ============================================================= -->
+<!--  ONE-TIME CSS  ·  paste inside your existing <style> block    -->
+<!--  Needed only for Slide 5 (Give Direction accordion).          -->
+<!-- ============================================================= -->
+<style>
+  /* Give Direction accordion (radio group name="gd") */
+  #gd-1:checked ~ .acc .gd-s1,
+  #gd-2:checked ~ .acc .gd-s2,
+  #gd-3:checked ~ .acc .gd-s3,
+  #gd-4:checked ~ .acc .gd-s4 { display: flex; }
+  #gd-1:checked ~ .acc label[for="gd-1"],
+  #gd-2:checked ~ .acc label[for="gd-2"],
+  #gd-3:checked ~ .acc label[for="gd-3"],
+  #gd-4:checked ~ .acc label[for="gd-4"] { transform: scale(1.05); outline: 2.5px solid var(--ink); outline-offset: 3px; }
+</style>
+
+
+<!-- ============================================================= -->
+<!--  SLIDE 1  ·  SECTION DIVIDER                                   -->
+<!-- ============================================================= -->
+<section class="slide" data-label="Prompt Engineering">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.4vw;">
+    <p class="kicker" style="font-size: 2vw;">Melissa Ouellet</p>
+    <h1 class="headline" style="font-size: 3.6vw;">Prompt Engineering</h1>
+    <p class="subhead" style="color: var(--ink-soft);">The one lever you control: what you put in.</p>
+  </div>
+</section>
+
+
+<!-- ============================================================= -->
+<!--  SLIDE 2  ·  QUICK POLL                                        -->
+<!-- ============================================================= -->
+<section class="slide" data-label="Poll">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 10%; bottom: 10%; gap: 1.6vw; align-items: center;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1vw;">
+      <p class="concept-label">Quick poll</p>
+      <h1 class="headline" style="font-size: 2.2vw; line-height: 1.25; max-width: 72vw;">When you ask AI to do something, how do you usually write it?</h1>
+      <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft);">Show of hands &mdash; be honest.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 1vw; width: 62vw;">
+      <div class="card" style="padding: 1vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+        <span class="chip card--pink" style="font-size: 1.5vw;">A</span>
+        <p class="body" style="font-size: 1.7vw; margin: 0;">A quick line &mdash; &ldquo;summarize this,&rdquo; &ldquo;fix this,&rdquo; &ldquo;explain this.&rdquo;</p>
+      </div>
+      <div class="card" style="padding: 1vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+        <span class="chip card--lemon" style="font-size: 1.5vw;">B</span>
+        <p class="body" style="font-size: 1.7vw; margin: 0;">A line, then I keep correcting it in follow-ups.</p>
+      </div>
+      <div class="card" style="padding: 1vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+        <span class="chip card--sage" style="font-size: 1.5vw;">C</span>
+        <p class="body" style="font-size: 1.7vw; margin: 0;">I add some context &mdash; who it's for, what I want back.</p>
+      </div>
+      <div class="card" style="padding: 1vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+        <span class="chip card--lilac" style="font-size: 1.5vw;">D</span>
+        <p class="body" style="font-size: 1.7vw; margin: 0;">I don't really use these tools yet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================= -->
+<!--  SLIDE 3  ·  WHY IT MATTERS  (intro + Altman)                  -->
+<!--  NOTE: verify Altman quote's original source before presenting -->
+<!-- ============================================================= -->
+<section class="slide" data-label="Why">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.5vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
+      <p class="concept-label">Why it matters</p>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 76vw;">What you get out depends on what you put in.</h1>
+    </div>
+    <div class="card" style="padding: 1.5vw 2.6vw; max-width: 62vw;">
+      <p class="body" style="font-size: 1.7vw; text-align: center; font-style: italic;">It's not about a magic word &mdash; what matters is &ldquo;the quality of ideas and the understanding of what you want.&rdquo;</p>
+      <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); text-align: center; margin-top: 0.6vw;">&mdash; Sam Altman</p>
+    </div>
+    <div class="chip-row" style="gap: 1vw; font-size: 1.6vw;">
+      <span class="chip card--pink">More reliable</span>
+      <span class="chip card--lemon">More efficient</span>
+      <span class="chip card--blush">More accurate</span>
+    </div>
+    <div class="card" style="padding: 1.3vw 2.4vw; max-width: 66vw;">
+      <p class="body" style="font-size: 1.6vw; text-align: center;">A skill, like knowing Excel &mdash; and it comes down to a few core principles.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================= -->
+<!--  SLIDE 4  ·  THE PRINCIPLES  (overview of 5, left-aligned)     -->
+<!-- ============================================================= -->
 <section class="slide" data-label="The Principles">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
@@ -40,6 +159,60 @@
         <div>
           <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Divide the work</p>
           <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Break big tasks into steps, done one at a time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================= -->
+<!--  SLIDE 5  ·  GIVE DIRECTION  (interactive Run 1-4 ladder)      -->
+<!--  Needs the ONE-TIME CSS at the top of this file.              -->
+<!--  Swap each `.acc-shot ph` div for <img src="images/..."> once -->
+<!--  you've captured your screenshots (see the Access slide       -->
+<!--  pattern in your deck).                                        -->
+<!-- ============================================================= -->
+<section class="slide" data-label="Give Direction">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.5vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
+      <p class="concept-label">Give Direction</p>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 78vw;">Tell it who to be and what matters. Same paper, same model &mdash; watch the answer sharpen.</h1>
+    </div>
+    <div class="acc-wrap">
+      <input type="radio" name="gd" id="gd-1" checked>
+      <input type="radio" name="gd" id="gd-2">
+      <input type="radio" name="gd" id="gd-3">
+      <input type="radio" name="gd" id="gd-4">
+      <div class="acc">
+        <div>
+          <div class="acc-col">
+            <label for="gd-1" class="chip faded acc-chip">Run 1 &middot; Vague</label>
+            <label for="gd-2" class="chip card--lemon acc-chip">Run 2 &middot; + Reader</label>
+            <label for="gd-3" class="chip card--sage acc-chip">Run 3 &middot; + Structure</label>
+            <label for="gd-4" class="chip card--lilac acc-chip">Run 4 &middot; Swap role</label>
+          </div>
+          <p class="acc-hint">click each run</p>
+        </div>
+        <div class="acc-panel">
+          <div class="acc-screen gd-s1">
+            <div class="acc-shot ph">Run 1 screenshot</div>
+            <p class="acc-cap">&ldquo;Summarize this study.&rdquo; &rarr; a long, unfocused wall of text. No clear lead.</p>
+          </div>
+          <div class="acc-screen gd-s2">
+            <div class="acc-shot ph">Run 2 screenshot</div>
+            <p class="acc-cap">Add a persona and a reader &rarr; it starts writing for a decision-maker.</p>
+          </div>
+          <div class="acc-screen gd-s3">
+            <div class="acc-shot ph">Run 3 screenshot</div>
+            <p class="acc-cap">Add structure and a length limit &rarr; a tight, decision-ready brief.</p>
+          </div>
+          <div class="acc-screen gd-s4">
+            <div class="acc-shot ph">Run 4 screenshot</div>
+            <p class="acc-cap">Change only the role to &ldquo;peer reviewer&rdquo; &rarr; same paper, now it leads with methods and bias.</p>
+          </div>
         </div>
       </div>
     </div>
