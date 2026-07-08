@@ -35,9 +35,17 @@
   .dv-shot { width: 26vw; min-height: 34vw; }
   .dv-shot.ph { height: 34vw; }
   .dv-shot img { max-height: 34vw; max-width: 26vw; }
-  /* Run C: three separate-chat screenshots side by side */
-  .dv-trio { width: 40vw; flex-direction: row; gap: 0.8vw; align-items: flex-start; }
-  .dv-trio img { max-height: 34vw; max-width: 12.6vw; width: auto; }
+  /* Run C: one step image at a time, switched by tabs below */
+  .dv-s3 > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .dvc-i { display: none; }
+  #dvc-1:checked ~ .dvc-imgs .dvc-i1,
+  #dvc-2:checked ~ .dvc-imgs .dvc-i2,
+  #dvc-3:checked ~ .dvc-imgs .dvc-i3 { display: block; }
+  .dvc-tabs { display: flex; gap: 0.6vw; margin-top: 0.4vw; }
+  .dvc-tabs label { font: 400 1.2vw "Work Sans", sans-serif; padding: 0.3vw 1.1vw; border-radius: 999px; border: 1.5px solid var(--rule-soft); color: var(--ink-soft); cursor: pointer; }
+  #dvc-1:checked ~ .dvc-tabs label[for="dvc-1"],
+  #dvc-2:checked ~ .dvc-tabs label[for="dvc-2"],
+  #dvc-3:checked ~ .dvc-tabs label[for="dvc-3"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 </style>
 
 
@@ -271,10 +279,18 @@
             <p class="acc-cap">One prompt, but you spell out the steps. The stages become visible and ordered.</p>
           </div>
           <div class="acc-screen dv-s3">
-            <div class="acc-shot dv-shot dv-trio">
-              <img src="images/dv-run3-p1.png" alt="Run C step 1: list findings in its own chat">
-              <img src="images/dv-run3-p2.png" alt="Run C step 2: mark what matters in its own chat">
-              <img src="images/dv-run3-p3.png" alt="Run C step 3: write the brief in its own chat">
+            <input type="radio" name="dvc" id="dvc-1" checked>
+            <input type="radio" name="dvc" id="dvc-2">
+            <input type="radio" name="dvc" id="dvc-3">
+            <div class="acc-shot dv-shot dvc-imgs">
+              <img class="dvc-i dvc-i1" src="images/dv-run3-p1.png" alt="Run C step 1: list findings in its own chat">
+              <img class="dvc-i dvc-i2" src="images/dv-run3-p2.png" alt="Run C step 2: mark what matters in its own chat">
+              <img class="dvc-i dvc-i3" src="images/dv-run3-p3.png" alt="Run C step 3: write the brief in its own chat">
+            </div>
+            <div class="dvc-tabs">
+              <label for="dvc-1">Step 1</label>
+              <label for="dvc-2">Step 2</label>
+              <label for="dvc-3">Step 3</label>
             </div>
             <p class="acc-cap">Each step its own prompt. You check and fix each output before it feeds the next. When the model chains its own steps, that's an agent.</p>
           </div>
