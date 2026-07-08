@@ -274,3 +274,81 @@
     </div>
   </div>
 </section>
+
+<style>
+  .pq-wrap > .pq-t { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .pq-row { display: flex; gap: 2vw; width: 84vw; align-items: stretch; justify-content: center; }
+  .pq-card { flex: 1; display: flex; flex-direction: column; gap: 1vw; border: 1.5px solid var(--rule-soft); border-radius: 1.6vw; padding: 1.7vw 1.6vw; cursor: pointer; text-align: left; transition: border-color .15s ease, transform .15s ease, background .15s ease; }
+  .pq-b1 { background: #E8ECA9; }
+  .pq-b2 { background: #F2E1D7; }
+  .pq-b3 { background: #E1DBEC; }
+  .pq-card:hover { transform: translateY(-0.4vw); border-color: var(--ink-soft); }
+  .pq-num { display: inline-flex; align-items: center; justify-content: center; width: 2.6vw; height: 2.6vw; border-radius: 50%; background: rgba(42, 36, 27, 0.12); font: italic 500 1.5vw "Cormorant Garamond", serif; color: var(--ink); }
+  .pq-scenario { font: 400 1.5vw/1.42 "Work Sans", sans-serif; margin: 0; }
+  .pq-reveal { margin-top: auto; }
+  .pq-prompt { display: flex; align-items: center; gap: 0.5vw; font: italic 400 1.3vw "Cormorant Garamond", serif; color: var(--ink-soft); }
+  .pq-answer { display: none; flex-direction: column; gap: 0.7vw; }
+  .pq-answer .chip { align-self: flex-start; font-size: 1.6vw; }
+  .pq-reason { font: 400 1.3vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
+  #pq1:checked ~ .pq-row label[for="pq1"] .pq-prompt,
+  #pq2:checked ~ .pq-row label[for="pq2"] .pq-prompt,
+  #pq3:checked ~ .pq-row label[for="pq3"] .pq-prompt { display: none; }
+  #pq1:checked ~ .pq-row label[for="pq1"] .pq-answer,
+  #pq2:checked ~ .pq-row label[for="pq2"] .pq-answer,
+  #pq3:checked ~ .pq-row label[for="pq3"] .pq-answer { display: flex; }
+  #pq1:checked ~ .pq-row label[for="pq1"] { border-color: var(--ink); background: #E3E895; }
+  #pq2:checked ~ .pq-row label[for="pq2"] { border-color: var(--ink); background: #EFDACD; }
+  #pq3:checked ~ .pq-row label[for="pq3"] { border-color: var(--ink); background: #DAD2E7; }
+</style>
+
+<section class="slide" data-label="Practice">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.9vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
+      <p class="concept-label">Your turn</p>
+      <h1 class="headline" style="font-size: 2.4vw;">Which way fits the job?</h1>
+      <p class="body" style="font-size: 1.4vw; color: var(--ink-soft);">Chatbot, desktop, CLI, API, or local? Guess, then tap a card.</p>
+    </div>
+    <div class="pq-wrap">
+      <input class="pq-t" type="checkbox" id="pq1">
+      <input class="pq-t" type="checkbox" id="pq2">
+      <input class="pq-t" type="checkbox" id="pq3">
+      <div class="pq-row">
+        <label class="pq-card pq-b1" for="pq1">
+          <span class="pq-num">1</span>
+          <p class="pq-scenario">8,000 open-ended survey answers to sort into themes.</p>
+          <div class="pq-reveal">
+            <span class="pq-prompt">&#9656; tap to reveal</span>
+            <span class="pq-answer">
+              <span class="chip card--sage">API</span>
+              <p class="pq-reason">Many items, and repeatable. Build it once, run on all 8,000.</p>
+            </span>
+          </div>
+        </label>
+        <label class="pq-card pq-b2" for="pq2">
+          <span class="pq-num">2</span>
+          <p class="pq-scenario">A line list with patient names and addresses to summarize. None of it can leave your computer.</p>
+          <div class="pq-reveal">
+            <span class="pq-prompt">&#9656; tap to reveal</span>
+            <span class="pq-answer">
+              <span class="chip chip--blank">Local</span>
+              <p class="pq-reason">Sensitive data. It stays on your machine, even offline.</p>
+            </span>
+          </div>
+        </label>
+        <label class="pq-card pq-b3" for="pq3">
+          <span class="pq-num">3</span>
+          <p class="pq-scenario">One plain-language summary of a new vaccine guideline for the public.</p>
+          <div class="pq-reveal">
+            <span class="pq-prompt">&#9656; tap to reveal</span>
+            <span class="pq-answer">
+              <span class="chip card--pink">Chatbot</span>
+              <p class="pq-reason">Just one, and interactive. No code needed.</p>
+            </span>
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+</section>
