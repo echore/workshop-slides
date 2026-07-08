@@ -13,6 +13,17 @@
   .gd-shot { width: 26vw; min-height: 34vw; }
   .gd-shot.ph { height: 34vw; }
   .gd-shot img { max-height: 34vw; max-width: 26vw; }
+
+  /* Show an Example accordion (radio group name="se") */
+  #se-1:checked ~ .acc .se-s1,
+  #se-2:checked ~ .acc .se-s2,
+  #se-3:checked ~ .acc .se-s3 { display: flex; }
+  #se-1:checked ~ .acc label[for="se-1"],
+  #se-2:checked ~ .acc label[for="se-2"],
+  #se-3:checked ~ .acc label[for="se-3"] { transform: scale(1.05); outline: 2.5px solid var(--ink); outline-offset: 3px; }
+  .se-shot { width: 26vw; min-height: 34vw; }
+  .se-shot.ph { height: 34vw; }
+  .se-shot img { max-height: 34vw; max-width: 26vw; }
 </style>
 
 
@@ -166,6 +177,47 @@
           <div class="acc-screen gd-s4">
             <div class="acc-shot gd-shot"><img src="images/prompt_run4.png" alt="Run 4: peer reviewer role, methods-focused"></div>
             <p class="acc-cap">Change only the role to &ldquo;peer reviewer&rdquo; &rarr; same paper, now it weighs methods and bias.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="slide" data-label="Show an Example">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.5vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
+      <p class="concept-label">Show an Example</p>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 78vw;">Don't describe the format you want. Show one worked case, and the model matches it.</h1>
+    </div>
+    <div class="acc-wrap">
+      <input type="radio" name="se" id="se-1" checked>
+      <input type="radio" name="se" id="se-2">
+      <input type="radio" name="se" id="se-3">
+      <div class="acc">
+        <div>
+          <div class="acc-col">
+            <label for="se-1" class="chip faded acc-chip">Run A &middot; No example</label>
+            <label for="se-2" class="chip card--sage acc-chip">Run B &middot; One example</label>
+            <label for="se-3" class="chip card--lilac acc-chip">Run C &middot; Reuse it</label>
+          </div>
+          <p class="acc-hint">click each run</p>
+        </div>
+        <div class="acc-panel">
+          <div class="acc-screen se-s1">
+            <div class="acc-shot se-shot ph">Run A screenshot</div>
+            <p class="acc-cap">&ldquo;Extract the key details.&rdquo; &rarr; a loose paragraph. Different fields, different shape every time.</p>
+          </div>
+          <div class="acc-screen se-s2">
+            <div class="acc-shot se-shot ph">Run B screenshot</div>
+            <p class="acc-cap">Give one worked example &rarr; the study comes back in the exact same fields.</p>
+          </div>
+          <div class="acc-screen se-s3">
+            <div class="acc-shot se-shot ph">Run C screenshot</div>
+            <p class="acc-cap">Same prompt, next study &rarr; identical structure. Set the pattern once, reuse it across a whole review.</p>
           </div>
         </div>
       </div>
