@@ -7,42 +7,47 @@ const SECTIONS = [
   'sections/06-regulatory-closing.html',
 ];
 
-// Named anchors -> the data-label of that section's FIRST slide
+// URL hash -> which SECTIONS file it belongs to (by index above)
 const SECTION_ANCHORS = {
-  'llm-foundations': 'Title',
-  'prompt-engineering': 'Prompt Engineering',
-  'rag': null,
-  'agents': null,
-  'safety': null,
-  'regulatory-closing': null,
+  'llm-foundations': 0,
+  'prompt-engineering': 1,
+  'rag': 2,
+  'agents': 3,
+  'safety': 4,
+  'regulatory-closing': 5,
 };
 
 const deck = document.getElementById('deck');
 let slides = [];
 let current = 0;
+
 function goTo(index) {
   if (!slides.length) return;
   current = Math.max(0, Math.min(slides.length - 1, index));
   slides.forEach((slide, i) => slide.classList.toggle('is-active', i === current));
 }
+
 function startFromHash() {
   const hash = decodeURIComponent(window.location.hash.replace('#', '')).trim();
   if (!hash) { goTo(0); return; }
-  // 1) numeric hash like #9  -> that slide number (1-based)
+  // numeric hash like #13 -> that slide number (1-based)
   const asNumber = parseInt(hash, 10);
   if (!Number.isNaN(asNumber)) { goTo(asNumber - 1); return; }
-  // 2) named hash like #prompt-engineering -> that section's first slide
-  const label = SECTION_ANCHORS[hash];
-  if (label) {
-    const idx = slides.findIndex((s) => s.getAttribute('data-label') === label);
+  // named hash like #rag -> first slide from that section file
+  const sectionIndex = SECTION_ANCHORS[hash];
+  if (sectionIndex !== undefined) {
+    const idx = slides.findIndex((s) => Number(s.dataset.section) === sectionIndex);
     if (idx !== -1) { goTo(idx); return; }
   }
   goTo(0);
 }
+
 async function loadSections() {
-  for (const path of SECTIONS) {
-    const html = await fetch(path).then((response) => response.text());
+  for (let s = 0; s < SECTIONS.length; s++) {
+    const html = await fetch(SECTIONS[s]).then((response) => response.text());
     const fragment = document.createRange().createContextualFragment(html);
+    // tag every slide in this fragment with its section index
+    fragment.querySelectorAll('.slide').forEach((slide) => { slide.dataset.section = s; });
     deck.append(fragment);
   }
   slides = Array.from(deck.querySelectorAll('.slide'));
@@ -52,9 +57,11 @@ async function loadSections() {
   });
   startFromHash();
 }
+
 window.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowRight' || event.key === ' ') goTo(current + 1);
   if (event.key === 'ArrowLeft') goTo(current - 1);
 });
 window.addEventListener('hashchange', startFromHash);
+
 loadSections();
