@@ -19,18 +19,18 @@
   #gd-1:checked ~ .tech-left .gd-c1, #gd-2:checked ~ .tech-left .gd-c2, #gd-3:checked ~ .tech-left .gd-c3, #gd-4:checked ~ .tech-left .gd-c4,
   #se-1:checked ~ .tech-left .se-c1, #se-2:checked ~ .tech-left .se-c2, #se-3:checked ~ .tech-left .se-c3,
   #sf-1:checked ~ .tech-left .sf-c1, #sf-2:checked ~ .tech-left .sf-c2, #sf-3:checked ~ .tech-left .sf-c3,
-  #eq-1:checked ~ .tech-left .eq-c1, #eq-2:checked ~ .tech-left .eq-c2, #eq-3:checked ~ .tech-left .eq-c3,
+  #eq-1:checked ~ .tech-left .eq-c1, #eq-2:checked ~ .tech-left .eq-c2, #eq-3:checked ~ .tech-left .eq-c3, #eq-4:checked ~ .tech-left .eq-c4,
   #dv-1:checked ~ .tech-left .dv-c1, #dv-2:checked ~ .tech-left .dv-c2, #dv-3:checked ~ .tech-left .dv-c3 { display: block; }
   #gd-1:checked ~ .tech-right .gd-i1, #gd-2:checked ~ .tech-right .gd-i2, #gd-3:checked ~ .tech-right .gd-i3, #gd-4:checked ~ .tech-right .gd-i4,
   #se-1:checked ~ .tech-right .se-i1, #se-2:checked ~ .tech-right .se-i2, #se-3:checked ~ .tech-right .se-i3,
   #sf-1:checked ~ .tech-right .sf-i1, #sf-2:checked ~ .tech-right .sf-i2, #sf-3:checked ~ .tech-right .sf-i3,
-  #eq-1:checked ~ .tech-right .eq-i1, #eq-2:checked ~ .tech-right .eq-i2, #eq-3:checked ~ .tech-right .eq-i3,
+  #eq-1:checked ~ .tech-right .eq-i1, #eq-2:checked ~ .tech-right .eq-i2, #eq-3:checked ~ .tech-right .eq-i3, #eq-4:checked ~ .tech-right .eq-i4,
   #dv-1:checked ~ .tech-right .dv-i1, #dv-2:checked ~ .tech-right .dv-i2, #dv-3:checked ~ .tech-right .dv-i3 { display: flex; }
   /* highlight active run button */
   #gd-1:checked ~ .tech-left label[for="gd-1"], #gd-2:checked ~ .tech-left label[for="gd-2"], #gd-3:checked ~ .tech-left label[for="gd-3"], #gd-4:checked ~ .tech-left label[for="gd-4"],
   #se-1:checked ~ .tech-left label[for="se-1"], #se-2:checked ~ .tech-left label[for="se-2"], #se-3:checked ~ .tech-left label[for="se-3"],
   #sf-1:checked ~ .tech-left label[for="sf-1"], #sf-2:checked ~ .tech-left label[for="sf-2"], #sf-3:checked ~ .tech-left label[for="sf-3"],
-  #eq-1:checked ~ .tech-left label[for="eq-1"], #eq-2:checked ~ .tech-left label[for="eq-2"], #eq-3:checked ~ .tech-left label[for="eq-3"],
+  #eq-1:checked ~ .tech-left label[for="eq-1"], #eq-2:checked ~ .tech-left label[for="eq-2"], #eq-3:checked ~ .tech-left label[for="eq-3"], #eq-4:checked ~ .tech-left label[for="eq-4"],
   #dv-1:checked ~ .tech-left label[for="dv-1"], #dv-2:checked ~ .tech-left label[for="dv-2"], #dv-3:checked ~ .tech-left label[for="dv-3"] { transform: scale(1.03); outline: 2.5px solid var(--ink); outline-offset: 3px; }
 
   /* Divide the Work · Run C: step tabs under its image */
@@ -296,6 +296,7 @@
     <input type="radio" name="eq" id="eq-1" checked>
     <input type="radio" name="eq" id="eq-2">
     <input type="radio" name="eq" id="eq-3">
+    <input type="radio" name="eq" id="eq-4">
     <div class="tech-left">
       <p class="concept-label" style="text-align: left;">Evaluate Quality</p>
       <h1 class="headline tech-head">Don't take the first answer on faith. Make the model check its own work.</h1>
@@ -303,15 +304,18 @@
         <label for="eq-1" class="chip faded acc-chip">Run A &middot; Take at face value</label>
         <label for="eq-2" class="chip card--sage acc-chip">Run B &middot; Ask it to check</label>
         <label for="eq-3" class="chip card--lilac acc-chip">Run C &middot; Rate confidence</label>
+        <label for="eq-4" class="chip card--pink acc-chip">Run D &middot; Second model checks</label>
       </div>
       <p class="acc-cap tech-cap eq-c1">The model gives an answer. It reads well, so it's tempting to trust it as-is.</p>
       <p class="acc-cap tech-cap eq-c2">&ldquo;Check your answer against the source. Flag anything unsupported.&rdquo; &rarr; it catches its own gaps.</p>
       <p class="acc-cap tech-cap eq-c3">&ldquo;Rate each claim high / medium / low confidence, with a reason.&rdquo; &rarr; a black box becomes auditable.</p>
+      <p class="acc-cap tech-cap eq-c4">Paste the findings into a different model and ask it to rate them &rarr; an independent check catches what the first was sure of.</p>
     </div>
     <div class="tech-right">
       <img class="tech-img eq-i1" src="images/eq-run1.png" alt="Run A: answer taken at face value">
       <img class="tech-img eq-i2" src="images/eq-run2.png" alt="Run B: model checks against source">
       <img class="tech-img eq-i3" src="images/eq-run3.png" alt="Run C: model rates confidence per claim">
+      <img class="tech-img eq-i4" src="images/eq-run4.png" alt="Run D: a second, different model rates the findings">
     </div>
   </div>
 </section>
