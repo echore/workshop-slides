@@ -80,6 +80,86 @@
   </div>
 </section>
 
+<style>
+  .rag-acr { display: flex; gap: 2.5vw; justify-content: center; align-items: flex-start; }
+  .rag-piece { display: flex; flex-direction: column; align-items: center; gap: 0.7vw; width: 20vw; }
+  .rag-piece .chip { font-size: 1.7vw; }
+  .rag-gloss { font: 400 1.3vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; margin: 0; }
+  .rw-flow { display: flex; align-items: flex-start; justify-content: center; gap: 1vw; }
+  .rw-node { display: flex; flex-direction: column; align-items: center; gap: 0.7vw; width: 16.5vw; }
+  .rw-node .chip { font-size: 1.5vw; white-space: nowrap; }
+  .rw-cap { font: 400 1.2vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; margin: 0; }
+  .rw-micro { font: italic 400 1.05vw "Cormorant Garamond", serif; color: var(--ink-soft); margin: 0; }
+  .rw-arrow { font-size: 1.9vw; color: var(--ink-soft); margin-top: 0.4vw; }
+</style>
+
+<section class="slide" data-label="What is RAG">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 3 &middot; RAG</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 2vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8vw;">
+      <p class="concept-label">What is RAG</p>
+      <h1 class="headline" style="font-size: 2vw; max-width: 78vw;">Before answering, the model looks it up in documents you give it, then answers from them with sources.</h1>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1vw;">
+      <p class="body" style="font-size: 1.3vw; color: var(--ink-soft);">What the name means:</p>
+      <div class="rag-acr">
+        <div class="rag-piece">
+          <span class="chip card--pink">Retrieval</span>
+          <p class="rag-gloss">Find the relevant passages in your documents.</p>
+        </div>
+        <div class="rag-piece">
+          <span class="chip card--lemon">Augmented</span>
+          <p class="rag-gloss">Add them to what the model sees.</p>
+        </div>
+        <div class="rag-piece">
+          <span class="chip card--sage">Generation</span>
+          <p class="rag-gloss">It writes the answer from those passages.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="padding: 1.2vw 2.4vw; max-width: 72vw;">
+      <p class="body" style="font-size: 1.45vw; text-align: center;">It closes the gaps the warm-up exposed: private files it never saw, updates after its cutoff, and claims with no source.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-label="How RAG works">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 3 &middot; RAG</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 2.4vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
+      <p class="concept-label">How RAG works</p>
+      <h1 class="headline" style="font-size: 2vw; max-width: 74vw;">The model searches your documents, then answers from what it finds.</h1>
+    </div>
+    <div class="rw-flow">
+      <div class="rw-node">
+        <span class="chip card--pink">Question</span>
+        <p class="rw-cap">You ask across your 10 papers.</p>
+      </div>
+      <span class="rw-arrow">&rarr;</span>
+      <div class="rw-node">
+        <span class="chip card--lemon">Search</span>
+        <p class="rw-cap">It scans the documents you gave it.</p>
+        <p class="rw-micro">by meaning, not keywords</p>
+      </div>
+      <span class="rw-arrow">&rarr;</span>
+      <div class="rw-node">
+        <span class="chip card--blush">Passages</span>
+        <p class="rw-cap">Pulls the few paragraphs that fit.</p>
+      </div>
+      <span class="rw-arrow">&rarr;</span>
+      <div class="rw-node">
+        <span class="chip card--sage">Cited answer</span>
+        <p class="rw-cap">Answers from those, and shows the source.</p>
+      </div>
+    </div>
+    <div class="card" style="padding: 1.2vw 2.4vw; max-width: 68vw;">
+      <p class="body" style="font-size: 1.45vw; text-align: center;">Those passages drop into the context window from Part 1. The model's training never changes.</p>
+    </div>
+  </div>
+</section>
+
 <section class="slide" data-label="RAG">
   <div class="eyebrow">RAG</div>
   <div class="pagedot"></div>
