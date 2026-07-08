@@ -8,6 +8,11 @@
   #gd-2:checked ~ .acc label[for="gd-2"],
   #gd-3:checked ~ .acc label[for="gd-3"],
   #gd-4:checked ~ .acc label[for="gd-4"] { transform: scale(1.05); outline: 2.5px solid var(--ink); outline-offset: 3px; }
+
+  /* Give Direction: portrait-shaped screenshot slots (taller, narrower) */
+  .gd-shot { width: 26vw; min-height: 34vw; }
+  .gd-shot.ph { height: 34vw; }
+  .gd-shot img { max-height: 34vw; max-width: 26vw; }
 </style>
 
 
@@ -147,19 +152,19 @@
         </div>
         <div class="acc-panel">
           <div class="acc-screen gd-s1">
-            <div class="acc-shot ph">Run 1 screenshot</div>
+            <div class="acc-shot gd-shot"><img src="images/prompt_run1.png" alt="Run 1: vague prompt, unfocused output"></div>
             <p class="acc-cap">&ldquo;Summarize this study.&rdquo; &rarr; a long, unfocused wall of text. No clear lead.</p>
           </div>
           <div class="acc-screen gd-s2">
-            <div class="acc-shot ph">Run 2 screenshot</div>
+            <div class="acc-shot gd-shot"><img src="images/prompt_run2.png" alt="Run 2: added reader, more focused output"></div>
             <p class="acc-cap">Add a persona and a reader &rarr; it starts writing for a decision-maker.</p>
           </div>
           <div class="acc-screen gd-s3">
-            <div class="acc-shot ph">Run 3 screenshot</div>
+            <div class="acc-shot gd-shot"><img src="images/prompt_run3.png" alt="Run 3: added structure, tight brief"></div>
             <p class="acc-cap">Add structure and a length limit &rarr; a tight, decision-ready brief.</p>
           </div>
           <div class="acc-screen gd-s4">
-            <div class="acc-shot ph">Run 4 screenshot</div>
+            <div class="acc-shot gd-shot"><img src="images/prompt_run4.png" alt="Run 4: peer reviewer role, methods-focused"></div>
             <p class="acc-cap">Change only the role to &ldquo;peer reviewer&rdquo; &rarr; same paper, now it leads with methods and bias.</p>
           </div>
         </div>
