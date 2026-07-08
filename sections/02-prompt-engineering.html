@@ -24,6 +24,17 @@
   .se-shot { width: 26vw; min-height: 34vw; }
   .se-shot.ph { height: 34vw; }
   .se-shot img { max-height: 34vw; max-width: 26vw; }
+
+  /* Divide the Work accordion (radio group name="dv") */
+  #dv-1:checked ~ .acc .dv-s1,
+  #dv-2:checked ~ .acc .dv-s2,
+  #dv-3:checked ~ .acc .dv-s3 { display: flex; }
+  #dv-1:checked ~ .acc label[for="dv-1"],
+  #dv-2:checked ~ .acc label[for="dv-2"],
+  #dv-3:checked ~ .acc label[for="dv-3"] { transform: scale(1.05); outline: 2.5px solid var(--ink); outline-offset: 3px; }
+  .dv-shot { width: 26vw; min-height: 34vw; }
+  .dv-shot.ph { height: 34vw; }
+  .dv-shot img { max-height: 34vw; max-width: 26vw; }
 </style>
 
 
@@ -218,6 +229,47 @@
           <div class="acc-screen se-s3">
             <div class="acc-shot se-shot"><img src="images/se-run3.png" alt="Run C: same prompt, second study, identical structure"></div>
             <p class="acc-cap">Same prompt, next study &rarr; identical structure. Set the pattern once, reuse it across a whole review.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="slide" data-label="Divide the Work">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.5vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
+      <p class="concept-label">Divide the Work</p>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 78vw;">Break a big task into steps. The more you separate and check them, the more you can trust the result.</h1>
+    </div>
+    <div class="acc-wrap">
+      <input type="radio" name="dv" id="dv-1" checked>
+      <input type="radio" name="dv" id="dv-2">
+      <input type="radio" name="dv" id="dv-3">
+      <div class="acc">
+        <div>
+          <div class="acc-col">
+            <label for="dv-1" class="chip faded acc-chip">Run A &middot; All at once</label>
+            <label for="dv-2" class="chip card--sage acc-chip">Run B &middot; Steps, one prompt</label>
+            <label for="dv-3" class="chip card--lilac acc-chip">Run C &middot; Separate prompts</label>
+          </div>
+          <p class="acc-hint">click each run</p>
+        </div>
+        <div class="acc-panel">
+          <div class="acc-screen dv-s1">
+            <div class="acc-shot dv-shot ph">Run A screenshot</div>
+            <p class="acc-cap">One prompt does everything at once. Fluent, but the steps blur and it's hard to see what it skipped.</p>
+          </div>
+          <div class="acc-screen dv-s2">
+            <div class="acc-shot dv-shot ph">Run B screenshot</div>
+            <p class="acc-cap">One prompt, but you spell out the steps. The stages become visible and ordered.</p>
+          </div>
+          <div class="acc-screen dv-s3">
+            <div class="acc-shot dv-shot ph">Run C screenshot</div>
+            <p class="acc-cap">Each step its own prompt. You check and fix each output before it feeds the next. When the model chains its own steps, that's an agent.</p>
           </div>
         </div>
       </div>
