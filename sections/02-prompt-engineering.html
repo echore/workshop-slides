@@ -18,13 +18,19 @@
   /* show active caption + image per group */
   #gd-1:checked ~ .tech-left .gd-c1, #gd-2:checked ~ .tech-left .gd-c2, #gd-3:checked ~ .tech-left .gd-c3, #gd-4:checked ~ .tech-left .gd-c4,
   #se-1:checked ~ .tech-left .se-c1, #se-2:checked ~ .tech-left .se-c2, #se-3:checked ~ .tech-left .se-c3,
+  #sf-1:checked ~ .tech-left .sf-c1, #sf-2:checked ~ .tech-left .sf-c2, #sf-3:checked ~ .tech-left .sf-c3,
+  #eq-1:checked ~ .tech-left .eq-c1, #eq-2:checked ~ .tech-left .eq-c2, #eq-3:checked ~ .tech-left .eq-c3,
   #dv-1:checked ~ .tech-left .dv-c1, #dv-2:checked ~ .tech-left .dv-c2, #dv-3:checked ~ .tech-left .dv-c3 { display: block; }
   #gd-1:checked ~ .tech-right .gd-i1, #gd-2:checked ~ .tech-right .gd-i2, #gd-3:checked ~ .tech-right .gd-i3, #gd-4:checked ~ .tech-right .gd-i4,
   #se-1:checked ~ .tech-right .se-i1, #se-2:checked ~ .tech-right .se-i2, #se-3:checked ~ .tech-right .se-i3,
+  #sf-1:checked ~ .tech-right .sf-i1, #sf-2:checked ~ .tech-right .sf-i2, #sf-3:checked ~ .tech-right .sf-i3,
+  #eq-1:checked ~ .tech-right .eq-i1, #eq-2:checked ~ .tech-right .eq-i2, #eq-3:checked ~ .tech-right .eq-i3,
   #dv-1:checked ~ .tech-right .dv-i1, #dv-2:checked ~ .tech-right .dv-i2, #dv-3:checked ~ .tech-right .dv-i3 { display: flex; }
   /* highlight active run button */
   #gd-1:checked ~ .tech-left label[for="gd-1"], #gd-2:checked ~ .tech-left label[for="gd-2"], #gd-3:checked ~ .tech-left label[for="gd-3"], #gd-4:checked ~ .tech-left label[for="gd-4"],
   #se-1:checked ~ .tech-left label[for="se-1"], #se-2:checked ~ .tech-left label[for="se-2"], #se-3:checked ~ .tech-left label[for="se-3"],
+  #sf-1:checked ~ .tech-left label[for="sf-1"], #sf-2:checked ~ .tech-left label[for="sf-2"], #sf-3:checked ~ .tech-left label[for="sf-3"],
+  #eq-1:checked ~ .tech-left label[for="eq-1"], #eq-2:checked ~ .tech-left label[for="eq-2"], #eq-3:checked ~ .tech-left label[for="eq-3"],
   #dv-1:checked ~ .tech-left label[for="dv-1"], #dv-2:checked ~ .tech-left label[for="dv-2"], #dv-3:checked ~ .tech-left label[for="dv-3"] { transform: scale(1.03); outline: 2.5px solid var(--ink); outline-offset: 3px; }
 
   /* Divide the Work · Run C: step tabs under its image */
@@ -250,6 +256,62 @@
           <label for="dvc-3">Step 3</label>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="slide" data-label="Specify Format">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="tech-layout">
+    <input type="radio" name="sf" id="sf-1" checked>
+    <input type="radio" name="sf" id="sf-2">
+    <input type="radio" name="sf" id="sf-3">
+    <div class="tech-left">
+      <p class="concept-label" style="text-align: left;">Specify Format</p>
+      <h1 class="headline tech-head">Say what shape you want the answer in, and you get output you can use as-is.</h1>
+      <div class="acc-col">
+        <label for="sf-1" class="chip faded acc-chip">Run A &middot; No format</label>
+        <label for="sf-2" class="chip card--sage acc-chip">Run B &middot; Ask for a table</label>
+        <label for="sf-3" class="chip card--lilac acc-chip">Run C &middot; Ask for CSV</label>
+      </div>
+      <p class="acc-cap tech-cap sf-c1">&ldquo;Summarize the key results.&rdquo; &rarr; loose prose. You still have to pull the numbers out by hand.</p>
+      <p class="acc-cap tech-cap sf-c2">Ask for a table (Finding, Number, Population) &rarr; a clean grid you can paste straight into a review.</p>
+      <p class="acc-cap tech-cap sf-c3">Ask for CSV instead &rarr; same content, ready to open in Excel. The format is yours to dictate.</p>
+    </div>
+    <div class="tech-right">
+      <img class="tech-img sf-i1" src="images/sf-run1.png" alt="Run A: no format, loose prose">
+      <img class="tech-img sf-i2" src="images/sf-run2.png" alt="Run B: results as a table">
+      <img class="tech-img sf-i3" src="images/sf-run3.png" alt="Run C: results as CSV">
+    </div>
+  </div>
+</section>
+
+
+<section class="slide" data-label="Evaluate Quality">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="tech-layout">
+    <input type="radio" name="eq" id="eq-1" checked>
+    <input type="radio" name="eq" id="eq-2">
+    <input type="radio" name="eq" id="eq-3">
+    <div class="tech-left">
+      <p class="concept-label" style="text-align: left;">Evaluate Quality</p>
+      <h1 class="headline tech-head">Don't take the first answer on faith. Make the model check its own work.</h1>
+      <div class="acc-col">
+        <label for="eq-1" class="chip faded acc-chip">Run A &middot; Take at face value</label>
+        <label for="eq-2" class="chip card--sage acc-chip">Run B &middot; Ask it to check</label>
+        <label for="eq-3" class="chip card--lilac acc-chip">Run C &middot; Rate confidence</label>
+      </div>
+      <p class="acc-cap tech-cap eq-c1">The model gives an answer. It reads well, so it's tempting to trust it as-is.</p>
+      <p class="acc-cap tech-cap eq-c2">&ldquo;Check your answer against the source. Flag anything unsupported.&rdquo; &rarr; it catches its own gaps.</p>
+      <p class="acc-cap tech-cap eq-c3">&ldquo;Rate each claim high / medium / low confidence, with a reason.&rdquo; &rarr; a black box becomes auditable.</p>
+    </div>
+    <div class="tech-right">
+      <img class="tech-img eq-i1" src="images/eq-run1.png" alt="Run A: answer taken at face value">
+      <img class="tech-img eq-i2" src="images/eq-run2.png" alt="Run B: model checks against source">
+      <img class="tech-img eq-i3" src="images/eq-run3.png" alt="Run C: model rates confidence per claim">
     </div>
   </div>
 </section>
