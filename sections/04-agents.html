@@ -1,9 +1,224 @@
-<section class="slide" data-label="Agents">
-  <div class="eyebrow">Agents</div>
+<style>
+  .agent-poll-wrap { display: flex; flex-direction: column; align-items: center; gap: 1.6vw; }
+  .agent-poll-wrap > .agent-poll-toggle { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .agent-poll-row { display: flex; gap: 1.4vw; width: 90vw; align-items: stretch; justify-content: center; }
+  .agent-poll-card { flex: 1; display: flex; flex-direction: column; gap: 0.75vw; border: 1.5px solid var(--rule-soft); border-radius: 1.4vw; padding: 1.25vw; cursor: pointer; text-align: left; transition: border-color .15s ease, transform .15s ease; }
+  .agent-poll-card:hover { transform: translateY(-0.3vw); border-color: var(--ink-soft); }
+  .agent-poll-b1 { background: #E8ECA9; }
+  .agent-poll-b2 { background: #F2E1D7; }
+  .agent-poll-b3 { background: #E1DBEC; }
+  .agent-poll-num { display: inline-flex; align-items: center; justify-content: center; width: 2.1vw; height: 2.1vw; border-radius: 50%; background: rgba(42, 36, 27, 0.12); font: italic 500 1.15vw "Cormorant Garamond", serif; color: var(--ink); }
+  .agent-poll-task { font: 400 1.08vw/1.35 "Work Sans", sans-serif; margin: 0; color: var(--ink); }
+  .agent-poll-reveal { margin-top: auto; }
+  .agent-poll-prompt { display: flex; align-items: center; gap: 0.4vw; font: italic 400 1.05vw "Cormorant Garamond", serif; color: var(--ink-soft); }
+  .agent-poll-answer { display: none; flex-direction: column; gap: 0.5vw; }
+  .agent-poll-answer .chip { align-self: flex-start; font-size: 1.12vw; }
+  .agent-poll-reason { font: 400 0.98vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
+  .agent-poll-punch { opacity: 0; transition: opacity .3s ease; font: 500 1.5vw "Cormorant Garamond", serif; color: var(--ink); margin: 0; }
+  #agentPoll1:checked ~ .agent-poll-row label[for="agentPoll1"] .agent-poll-prompt,
+  #agentPoll2:checked ~ .agent-poll-row label[for="agentPoll2"] .agent-poll-prompt,
+  #agentPoll3:checked ~ .agent-poll-row label[for="agentPoll3"] .agent-poll-prompt { display: none; }
+  #agentPoll1:checked ~ .agent-poll-row label[for="agentPoll1"] .agent-poll-answer,
+  #agentPoll2:checked ~ .agent-poll-row label[for="agentPoll2"] .agent-poll-answer,
+  #agentPoll3:checked ~ .agent-poll-row label[for="agentPoll3"] .agent-poll-answer { display: flex; }
+  #agentPoll1:checked ~ .agent-poll-row label[for="agentPoll1"],
+  #agentPoll2:checked ~ .agent-poll-row label[for="agentPoll2"],
+  #agentPoll3:checked ~ .agent-poll-row label[for="agentPoll3"] { border-color: var(--ink); }
+  #agentPoll1:checked ~ #agentPoll2:checked ~ #agentPoll3:checked ~ .agent-poll-punch { opacity: 1; }
+</style>
+
+<section class="slide" data-label="Agents Intro">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 4 &middot; Agents</div>
   <div class="pagedot"></div>
-  <div class="layout-hero">
-    <p class="kicker">Section placeholder — owner: Y</p>
-    <h1 class="display">Agents</h1>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.4vw;">
+    <p class="kicker" style="font-size: 2vw;">Yachen Li</p>
+    <h1 class="headline" style="font-size: 6vw;">Agents</h1>
+    <p class="subhead" style="color: var(--ink-soft);">AI that can plan, use tools, and take steps toward a goal.</p>
   </div>
-  <div class="footer"><span>Workshop</span><span>Agents</span></div>
+</section>
+
+<section class="slide" data-label="Agents Opening Poll">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 4 &middot; Agents</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 9%; bottom: 6%; gap: 1.7vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.55vw;">
+      <p class="concept-label">Opening poll</p>
+      <h1 class="headline" style="font-size: 2.25vw;">Can a chatbot or RAG do this?</h1>
+      <p class="body" style="font-size: 1.25vw; color: var(--ink-soft);">Guess first, then tap to reveal.</p>
+    </div>
+    <div class="agent-poll-wrap">
+      <input class="agent-poll-toggle" type="checkbox" id="agentPoll1">
+      <input class="agent-poll-toggle" type="checkbox" id="agentPoll2">
+      <input class="agent-poll-toggle" type="checkbox" id="agentPoll3">
+      <div class="agent-poll-row">
+        <label class="agent-poll-card agent-poll-b1" for="agentPoll1">
+          <span class="agent-poll-num">1</span>
+          <p class="agent-poll-task">Explain the difference between isolation and quarantine.</p>
+          <div class="agent-poll-reveal">
+            <span class="agent-poll-prompt">&#9656; tap to reveal</span>
+            <span class="agent-poll-answer">
+              <span class="chip card--sage">Chatbot</span>
+              <p class="agent-poll-reason">It can answer from general knowledge.</p>
+            </span>
+          </div>
+        </label>
+        <label class="agent-poll-card agent-poll-b2" for="agentPoll2">
+          <span class="agent-poll-num">2</span>
+          <p class="agent-poll-task">Answer questions using a folder of current guidance documents, with citations to the source.</p>
+          <div class="agent-poll-reveal">
+            <span class="agent-poll-prompt">&#9656; tap to reveal</span>
+            <span class="agent-poll-answer">
+              <span class="chip card--pink">RAG</span>
+              <p class="agent-poll-reason">It retrieves the relevant passages before answering.</p>
+            </span>
+          </div>
+        </label>
+        <label class="agent-poll-card agent-poll-b3" for="agentPoll3">
+          <span class="agent-poll-num">3</span>
+          <p class="agent-poll-task">Update a public FAQ: compare old and new guidance, identify which answers changed, draft revisions, cite sources, and flag items for review.</p>
+          <div class="agent-poll-reveal">
+            <span class="agent-poll-prompt">&#9656; tap to reveal</span>
+            <span class="agent-poll-answer">
+              <span class="chip card--blush">Something more</span>
+              <p class="agent-poll-reason">It needs a workflow across documents, drafts, decisions, and review points.</p>
+            </span>
+          </div>
+        </label>
+      </div>
+      <p class="agent-poll-punch">That "something more" is where agents enter.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ag-piece-row { display: flex; gap: 1.8vw; justify-content: center; align-items: flex-start; }
+  .ag-piece { display: flex; flex-direction: column; align-items: center; gap: 0.6vw; width: 17vw; }
+  .ag-gloss { font: 400 1.15vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; margin: 0; }
+  .ag-card { background: var(--card-fill); border-radius: 1.2vw; padding: 1vw 2vw; max-width: 64vw; }
+  .ag-card p { font: 400 1.3vw/1.4 "Work Sans", sans-serif; text-align: center; margin: 0; }
+  .ag-ref { position: absolute; left: 4.2%; right: 4.2%; bottom: 3.2%; text-align: center; font: italic 400 1.05vw "Cormorant Garamond", serif; color: var(--ink-soft); margin: 0; }
+  .ag-ref a { color: var(--ink-soft); }
+  .ag-cmp-wrap { display: flex; flex-direction: column; gap: 0.6vw; width: 88vw; }
+  .ag-cmp-head { display: grid; grid-template-columns: 15vw 1fr 1fr; gap: 0.8vw; }
+  .ag-cmp-head span { font: 500 1.2vw "Work Sans", sans-serif; text-align: center; padding: 0.45vw; border-radius: 999px; color: var(--ink); }
+  .ag-cmp-hd-a { background: #D9A98C; }
+  .ag-cmp-hd-b { background: #8FAB78; }
+  .ag-cmp-row { display: grid; grid-template-columns: 15vw 1fr 1fr; gap: 0.8vw; align-items: stretch; }
+  .ag-cmp-label { display: flex; align-items: center; font: 500 1.2vw "Work Sans", sans-serif; color: var(--ink); }
+  .ag-cmp-cell { border-radius: 1vw; padding: 0.8vw 1.1vw; font: 400 1.15vw/1.32 "Work Sans", sans-serif; display: flex; align-items: center; color: var(--ink); }
+  .ag-cmp-a { background: #F8ECE3; }
+  .ag-cmp-b { background: #EBF1E3; }
+  .ag-flow { display: flex; align-items: flex-start; justify-content: center; gap: 0.7vw; }
+  .ag-node { display: flex; flex-direction: column; align-items: center; gap: 0.6vw; width: 13.5vw; }
+  .ag-node .chip { font-size: 1.3vw; white-space: normal; text-align: center; }
+  .ag-ncap { font: 400 1.1vw/1.3 "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; margin: 0; }
+  .ag-arrow { font-size: 1.7vw; color: var(--ink-soft); margin-top: 0.5vw; }
+</style>
+
+<section class="slide" data-label="What is Agent">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 4 &middot; Agents</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 9%; bottom: 10%; gap: 1.9vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
+      <p class="concept-label">What is Agent</p>
+      <h1 class="headline" style="font-size: 2.1vw; max-width: 78vw;">Given a goal, it plans its own steps, uses tools, and keeps adjusting until it's done.</h1>
+    </div>
+    <div class="ag-piece-row">
+      <div class="ag-piece">
+        <span class="chip card--pink">Goal</span>
+        <p class="ag-gloss">You give it a goal, not a single instruction.</p>
+      </div>
+      <div class="ag-piece">
+        <span class="chip card--lemon">Tools</span>
+        <p class="ag-gloss">It can call outside tools, files, and systems to actually act.</p>
+      </div>
+      <div class="ag-piece">
+        <span class="chip card--sage">Loop</span>
+        <p class="ag-gloss">After each step it checks the result and decides what to do next.</p>
+      </div>
+    </div>
+    <div class="ag-card">
+      <p>A fixed set of steps that never changes is automation. An agent checks and adjusts as it goes.</p>
+    </div>
+  </div>
+  <p class="ag-ref">Source: Anthropic, <a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank">&ldquo;Building Effective Agents&rdquo;</a></p>
+</section>
+
+<section class="slide" data-label="Generative AI vs Agentic AI">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 4 &middot; Agents</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 9%; bottom: 8%; gap: 1.7vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.6vw;">
+      <p class="concept-label">Generative AI vs Agentic AI</p>
+      <h1 class="headline" style="font-size: 2.1vw;">Same model, different job.</h1>
+    </div>
+    <div class="ag-cmp-wrap">
+      <div class="ag-cmp-head">
+        <span></span>
+        <span class="ag-cmp-hd-a">Generative AI</span>
+        <span class="ag-cmp-hd-b">Agentic AI</span>
+      </div>
+      <div class="ag-cmp-row">
+        <div class="ag-cmp-label">What it does</div>
+        <div class="ag-cmp-cell ag-cmp-a">Produces content for you to use: text and images.</div>
+        <div class="ag-cmp-cell ag-cmp-b">Carries out actions on its own, without you supervising every step.</div>
+      </div>
+      <div class="ag-cmp-row">
+        <div class="ag-cmp-label">How you interact</div>
+        <div class="ag-cmp-cell ag-cmp-a">You give one specific prompt per task.</div>
+        <div class="ag-cmp-cell ag-cmp-b">You give a goal. It breaks it into steps and keeps going.</div>
+      </div>
+      <div class="ag-cmp-row">
+        <div class="ag-cmp-label">Where the output lands</div>
+        <div class="ag-cmp-cell ag-cmp-a">Stays inside the chat window.</div>
+        <div class="ag-cmp-cell ag-cmp-b">Reaches outside the chat: tools, files, databases, other systems.</div>
+      </div>
+      <div class="ag-cmp-row">
+        <div class="ag-cmp-label">What's underneath</div>
+        <div class="ag-cmp-cell ag-cmp-a">Just the model.</div>
+        <div class="ag-cmp-cell ag-cmp-b">The model, plus tools it can call, and memory of what happened so far.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-label="How agent works">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 4 &middot; Agents</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 9%; bottom: 10%; gap: 1.8vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.6vw;">
+      <p class="concept-label">How agent works</p>
+      <h1 class="headline" style="font-size: 2.1vw;">It repeats this loop until the goal is done.</h1>
+    </div>
+    <div class="ag-flow">
+      <div class="ag-node">
+        <span class="chip card--pink">Perceive</span>
+        <p class="ag-ncap">Takes in information: files, data, tool results.</p>
+      </div>
+      <span class="ag-arrow">&rarr;</span>
+      <div class="ag-node">
+        <span class="chip card--lemon">Reason</span>
+        <p class="ag-ncap">Makes sense of it and figures out what's relevant.</p>
+      </div>
+      <span class="ag-arrow">&rarr;</span>
+      <div class="ag-node">
+        <span class="chip card--blush">Decide</span>
+        <p class="ag-ncap">Picks the best next action among the options.</p>
+      </div>
+      <span class="ag-arrow">&rarr;</span>
+      <div class="ag-node">
+        <span class="chip card--sage">Act</span>
+        <p class="ag-ncap">Carries it out, often by calling a tool.</p>
+      </div>
+      <span class="ag-arrow">&rarr;</span>
+      <div class="ag-node">
+        <span class="chip card--lilac">Check &amp; adjust</span>
+        <p class="ag-ncap">Reviews the result and adjusts, then repeats.</p>
+      </div>
+    </div>
+    <div class="ag-card">
+      <p>The goal is set once, at the start. This loop is what repeats.</p>
+    </div>
+  </div>
+  <p class="ag-ref">Source: IBM, <a href="https://www.ibm.com/think/topics/agentic-ai" target="_blank">&ldquo;How agentic AI works&rdquo;</a></p>
 </section>
