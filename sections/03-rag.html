@@ -1,3 +1,85 @@
+<style>
+  .rq-wrap { display: flex; flex-direction: column; align-items: center; gap: 1.6vw; }
+  .rq-wrap > .rq-t { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .rq-row { display: flex; gap: 2vw; width: 84vw; align-items: stretch; justify-content: center; }
+  .rq-card { flex: 1; display: flex; flex-direction: column; gap: 1vw; border: 1.5px solid var(--rule-soft); border-radius: 1.6vw; padding: 1.7vw 1.6vw; cursor: pointer; text-align: left; transition: border-color .15s ease, transform .15s ease, background .15s ease; }
+  .rq-b1 { background: #E8ECA9; }
+  .rq-b2 { background: #F2E1D7; }
+  .rq-b3 { background: #E1DBEC; }
+  .rq-card:hover { transform: translateY(-0.4vw); border-color: var(--ink-soft); }
+  .rq-num { display: inline-flex; align-items: center; justify-content: center; width: 2.6vw; height: 2.6vw; border-radius: 50%; background: rgba(42, 36, 27, 0.12); font: italic 500 1.5vw "Cormorant Garamond", serif; color: var(--ink); }
+  .rq-q { font: 400 1.5vw/1.42 "Work Sans", sans-serif; margin: 0; }
+  .rq-reveal { margin-top: auto; }
+  .rq-prompt { display: flex; align-items: center; gap: 0.5vw; font: italic 400 1.3vw "Cormorant Garamond", serif; color: var(--ink-soft); }
+  .rq-answer { display: none; flex-direction: column; gap: 0.7vw; }
+  .rq-answer .chip { align-self: flex-start; font-size: 1.5vw; }
+  .rq-reason { font: 400 1.3vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
+  .rq-punch { opacity: 0; transition: opacity .3s ease; font: 500 1.7vw "Cormorant Garamond", serif; color: var(--ink); margin: 0; }
+  #rq1:checked ~ .rq-row label[for="rq1"] .rq-prompt,
+  #rq2:checked ~ .rq-row label[for="rq2"] .rq-prompt,
+  #rq3:checked ~ .rq-row label[for="rq3"] .rq-prompt { display: none; }
+  #rq1:checked ~ .rq-row label[for="rq1"] .rq-answer,
+  #rq2:checked ~ .rq-row label[for="rq2"] .rq-answer,
+  #rq3:checked ~ .rq-row label[for="rq3"] .rq-answer { display: flex; }
+  #rq1:checked ~ .rq-row label[for="rq1"] { border-color: var(--ink); background: #E3E895; }
+  #rq2:checked ~ .rq-row label[for="rq2"] { border-color: var(--ink); background: #EFDACD; }
+  #rq3:checked ~ .rq-row label[for="rq3"] { border-color: var(--ink); background: #DAD2E7; }
+  #rq1:checked ~ #rq2:checked ~ #rq3:checked ~ .rq-punch { opacity: 1; }
+</style>
+
+<section class="slide" data-label="RAG Warm-up">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 3 &middot; RAG</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.9vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
+      <p class="concept-label">Warm-up</p>
+      <h1 class="headline" style="font-size: 2.4vw;">Can it answer from memory?</h1>
+      <p class="body" style="font-size: 1.4vw; color: var(--ink-soft);">Can a chatbot answer from memory, or does it need to read the documents?</p>
+    </div>
+    <div class="rq-wrap">
+      <input class="rq-t" type="checkbox" id="rq1">
+      <input class="rq-t" type="checkbox" id="rq2">
+      <input class="rq-t" type="checkbox" id="rq3">
+      <div class="rq-row">
+        <label class="rq-card rq-b1" for="rq1">
+          <span class="rq-num">1</span>
+          <p class="rq-q">What are the classic symptoms of measles?</p>
+          <div class="rq-reveal">
+            <span class="rq-prompt">&#9656; tap to reveal</span>
+            <span class="rq-answer">
+              <span class="chip card--sage">Memory is fine</span>
+              <p class="rq-reason">Stable, textbook knowledge the model already learned.</p>
+            </span>
+          </div>
+        </label>
+        <label class="rq-card rq-b2" for="rq2">
+          <span class="rq-num">2</span>
+          <p class="rq-q">What does our health unit's 2026 outbreak plan say about school closures?</p>
+          <div class="rq-reveal">
+            <span class="rq-prompt">&#9656; tap to reveal</span>
+            <span class="rq-answer">
+              <span class="chip card--pink">Needs the documents</span>
+              <p class="rq-reason">It's your private file. The model never saw it.</p>
+            </span>
+          </div>
+        </label>
+        <label class="rq-card rq-b3" for="rq3">
+          <span class="rq-num">3</span>
+          <p class="rq-q">What changed in the WHO guidance released last week?</p>
+          <div class="rq-reveal">
+            <span class="rq-prompt">&#9656; tap to reveal</span>
+            <span class="rq-answer">
+              <span class="chip card--pink">Needs the documents</span>
+              <p class="rq-reason">It happened after the model's training cutoff.</p>
+            </span>
+          </div>
+        </label>
+      </div>
+      <p class="rq-punch">Two of three need the AI to look it up first. That's RAG.</p>
+    </div>
+  </div>
+</section>
+
 <section class="slide" data-label="RAG">
   <div class="eyebrow">RAG</div>
   <div class="pagedot"></div>
