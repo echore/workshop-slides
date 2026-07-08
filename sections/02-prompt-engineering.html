@@ -1,47 +1,40 @@
 <style>
-  /* Give Direction accordion (radio group name="gd") */
-  #gd-1:checked ~ .acc .gd-s1,
-  #gd-2:checked ~ .acc .gd-s2,
-  #gd-3:checked ~ .acc .gd-s3,
-  #gd-4:checked ~ .acc .gd-s4 { display: flex; }
-  #gd-1:checked ~ .acc label[for="gd-1"],
-  #gd-2:checked ~ .acc label[for="gd-2"],
-  #gd-3:checked ~ .acc label[for="gd-3"],
-  #gd-4:checked ~ .acc label[for="gd-4"] { transform: scale(1.05); outline: 2.5px solid var(--ink); outline-offset: 3px; }
+  /* ===== Two-column technique slides (Give Direction / Show an Example / Divide the Work) ===== */
+  .tech-layout > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .tech-layout {
+    position: absolute; top: 13%; bottom: 6%; left: 6vw; right: 6vw;
+    display: flex; align-items: center; gap: 3vw;
+  }
+  .tech-left { width: 34vw; display: flex; flex-direction: column; gap: 1.2vw; }
+  .tech-head { font-size: 1.9vw; line-height: 1.25; text-align: left; margin: 0; }
+  .tech-left .acc-col { flex-direction: column; gap: 0.7vw; }
+  .tech-left .acc-chip { width: 16vw; text-align: center; }
+  .tech-cap { font: 400 1.4vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0.4vw 0 0; display: none; }
+  .tech-right {
+    flex: 1; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tech-img { display: none; max-height: 100%; max-width: 100%; border-radius: 12px; box-shadow: 0 8px 28px rgba(42, 36, 27, 0.16); }
+  /* show active caption + image per group */
+  #gd-1:checked ~ .tech-left .gd-c1, #gd-2:checked ~ .tech-left .gd-c2, #gd-3:checked ~ .tech-left .gd-c3, #gd-4:checked ~ .tech-left .gd-c4,
+  #se-1:checked ~ .tech-left .se-c1, #se-2:checked ~ .tech-left .se-c2, #se-3:checked ~ .tech-left .se-c3,
+  #dv-1:checked ~ .tech-left .dv-c1, #dv-2:checked ~ .tech-left .dv-c2, #dv-3:checked ~ .tech-left .dv-c3 { display: block; }
+  #gd-1:checked ~ .tech-right .gd-i1, #gd-2:checked ~ .tech-right .gd-i2, #gd-3:checked ~ .tech-right .gd-i3, #gd-4:checked ~ .tech-right .gd-i4,
+  #se-1:checked ~ .tech-right .se-i1, #se-2:checked ~ .tech-right .se-i2, #se-3:checked ~ .tech-right .se-i3,
+  #dv-1:checked ~ .tech-right .dv-i1, #dv-2:checked ~ .tech-right .dv-i2, #dv-3:checked ~ .tech-right .dv-i3 { display: flex; }
+  /* highlight active run button */
+  #gd-1:checked ~ .tech-left label[for="gd-1"], #gd-2:checked ~ .tech-left label[for="gd-2"], #gd-3:checked ~ .tech-left label[for="gd-3"], #gd-4:checked ~ .tech-left label[for="gd-4"],
+  #se-1:checked ~ .tech-left label[for="se-1"], #se-2:checked ~ .tech-left label[for="se-2"], #se-3:checked ~ .tech-left label[for="se-3"],
+  #dv-1:checked ~ .tech-left label[for="dv-1"], #dv-2:checked ~ .tech-left label[for="dv-2"], #dv-3:checked ~ .tech-left label[for="dv-3"] { transform: scale(1.03); outline: 2.5px solid var(--ink); outline-offset: 3px; }
 
-  /* Give Direction: portrait-shaped screenshot slots (taller, narrower) */
-  .gd-shot { width: 26vw; min-height: 34vw; }
-  .gd-shot.ph { height: 34vw; }
-  .gd-shot img { max-height: 34vw; max-width: 26vw; }
-
-  /* Show an Example accordion (radio group name="se") */
-  #se-1:checked ~ .acc .se-s1,
-  #se-2:checked ~ .acc .se-s2,
-  #se-3:checked ~ .acc .se-s3 { display: flex; }
-  #se-1:checked ~ .acc label[for="se-1"],
-  #se-2:checked ~ .acc label[for="se-2"],
-  #se-3:checked ~ .acc label[for="se-3"] { transform: scale(1.05); outline: 2.5px solid var(--ink); outline-offset: 3px; }
-  .se-shot { width: 26vw; min-height: 34vw; }
-  .se-shot.ph { height: 34vw; }
-  .se-shot img { max-height: 34vw; max-width: 26vw; }
-
-  /* Divide the Work accordion (radio group name="dv") */
-  #dv-1:checked ~ .acc .dv-s1,
-  #dv-2:checked ~ .acc .dv-s2,
-  #dv-3:checked ~ .acc .dv-s3 { display: flex; }
-  #dv-1:checked ~ .acc label[for="dv-1"],
-  #dv-2:checked ~ .acc label[for="dv-2"],
-  #dv-3:checked ~ .acc label[for="dv-3"] { transform: scale(1.05); outline: 2.5px solid var(--ink); outline-offset: 3px; }
-  .dv-shot { width: 20vw; min-height: 25vw; }
-  .dv-shot.ph { height: 25vw; }
-  .dv-shot img { max-height: 25vw; max-width: 20vw; }
-  /* Run C: one step image at a time, switched by tabs below */
-  .dv-s3 > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
-  .dvc-i { display: none; }
+  /* Divide the Work · Run C: step tabs under its image */
+  .dv-i3 { flex-direction: column; align-items: center; gap: 0.7vw; box-shadow: none; }
+  .dvc-i { display: none; max-height: 30vw; border-radius: 12px; box-shadow: 0 8px 28px rgba(42, 36, 27, 0.16); }
   #dvc-1:checked ~ .dvc-imgs .dvc-i1,
   #dvc-2:checked ~ .dvc-imgs .dvc-i2,
   #dvc-3:checked ~ .dvc-imgs .dvc-i3 { display: block; }
-  .dvc-tabs { display: flex; gap: 0.6vw; margin-top: 0.4vw; }
+  .dv-i3 > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .dvc-tabs { display: flex; gap: 0.6vw; }
   .dvc-tabs label { font: 400 1.2vw "Work Sans", sans-serif; padding: 0.3vw 1.1vw; border-radius: 999px; border: 1.5px solid var(--rule-soft); color: var(--ink-soft); cursor: pointer; }
   #dvc-1:checked ~ .dvc-tabs label[for="dvc-1"],
   #dvc-2:checked ~ .dvc-tabs label[for="dvc-2"],
@@ -163,45 +156,30 @@
 <section class="slide" data-label="Give Direction">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.5vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
-      <p class="concept-label">Give Direction</p>
-      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 78vw;">Tell it who to be and what matters. Same paper, same model. Watch the answer sharpen.</h1>
-    </div>
-    <div class="acc-wrap">
-      <input type="radio" name="gd" id="gd-1" checked>
-      <input type="radio" name="gd" id="gd-2">
-      <input type="radio" name="gd" id="gd-3">
-      <input type="radio" name="gd" id="gd-4">
-      <div class="acc">
-        <div>
-          <div class="acc-col">
-            <label for="gd-1" class="chip faded acc-chip">Run 1 &middot; Vague</label>
-            <label for="gd-2" class="chip card--lemon acc-chip">Run 2 &middot; + Reader</label>
-            <label for="gd-3" class="chip card--sage acc-chip">Run 3 &middot; + Structure</label>
-            <label for="gd-4" class="chip card--lilac acc-chip">Run 4 &middot; Swap role</label>
-          </div>
-          <p class="acc-hint">click each run</p>
-        </div>
-        <div class="acc-panel">
-          <div class="acc-screen gd-s1">
-            <div class="acc-shot gd-shot"><img src="images/prompt_run1.png" alt="Run 1: vague prompt, unfocused output"></div>
-            <p class="acc-cap">&ldquo;Summarize this study.&rdquo; &rarr; a long, unfocused wall of text. No clear lead.</p>
-          </div>
-          <div class="acc-screen gd-s2">
-            <div class="acc-shot gd-shot"><img src="images/prompt_run2.png" alt="Run 2: added reader, more focused output"></div>
-            <p class="acc-cap">Add a persona and a reader &rarr; it starts writing for a decision-maker.</p>
-          </div>
-          <div class="acc-screen gd-s3">
-            <div class="acc-shot gd-shot"><img src="images/prompt_run3.png" alt="Run 3: added structure, tight brief"></div>
-            <p class="acc-cap">Add structure and a length limit &rarr; a tight, decision-ready brief.</p>
-          </div>
-          <div class="acc-screen gd-s4">
-            <div class="acc-shot gd-shot"><img src="images/prompt_run4.png" alt="Run 4: peer reviewer role, methods-focused"></div>
-            <p class="acc-cap">Change only the role to &ldquo;peer reviewer&rdquo; &rarr; same paper, now it weighs methods and bias.</p>
-          </div>
-        </div>
+  <div class="tech-layout">
+    <input type="radio" name="gd" id="gd-1" checked>
+    <input type="radio" name="gd" id="gd-2">
+    <input type="radio" name="gd" id="gd-3">
+    <input type="radio" name="gd" id="gd-4">
+    <div class="tech-left">
+      <p class="concept-label" style="text-align: left;">Give Direction</p>
+      <h1 class="headline tech-head">Tell it who to be and what matters. Same paper, same model. Watch the answer sharpen.</h1>
+      <div class="acc-col">
+        <label for="gd-1" class="chip faded acc-chip">Run 1 &middot; Vague</label>
+        <label for="gd-2" class="chip card--lemon acc-chip">Run 2 &middot; + Reader</label>
+        <label for="gd-3" class="chip card--sage acc-chip">Run 3 &middot; + Structure</label>
+        <label for="gd-4" class="chip card--lilac acc-chip">Run 4 &middot; Swap role</label>
       </div>
+      <p class="acc-cap tech-cap gd-c1">&ldquo;Summarize this study.&rdquo; &rarr; a long, unfocused wall of text. No clear lead.</p>
+      <p class="acc-cap tech-cap gd-c2">Add a persona and a reader &rarr; it starts writing for a decision-maker.</p>
+      <p class="acc-cap tech-cap gd-c3">Add structure and a length limit &rarr; a tight, decision-ready brief.</p>
+      <p class="acc-cap tech-cap gd-c4">Change only the role to &ldquo;peer reviewer&rdquo; &rarr; same paper, now it weighs methods and bias.</p>
+    </div>
+    <div class="tech-right">
+      <img class="tech-img gd-i1" src="images/prompt_run1.png" alt="Run 1: vague prompt, unfocused output">
+      <img class="tech-img gd-i2" src="images/prompt_run2.png" alt="Run 2: added reader, more focused output">
+      <img class="tech-img gd-i3" src="images/prompt_run3.png" alt="Run 3: added structure, tight brief">
+      <img class="tech-img gd-i4" src="images/prompt_run4.png" alt="Run 4: peer reviewer role, methods-focused">
     </div>
   </div>
 </section>
@@ -210,39 +188,26 @@
 <section class="slide" data-label="Show an Example">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.5vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
-      <p class="concept-label">Show an Example</p>
-      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 78vw;">Don't describe the format you want. Show one worked case, and the model matches it.</h1>
-    </div>
-    <div class="acc-wrap">
-      <input type="radio" name="se" id="se-1" checked>
-      <input type="radio" name="se" id="se-2">
-      <input type="radio" name="se" id="se-3">
-      <div class="acc">
-        <div>
-          <div class="acc-col">
-            <label for="se-1" class="chip faded acc-chip">Run A &middot; No example</label>
-            <label for="se-2" class="chip card--sage acc-chip">Run B &middot; One example</label>
-            <label for="se-3" class="chip card--lilac acc-chip">Run C &middot; Reuse it</label>
-          </div>
-          <p class="acc-hint">click each run</p>
-        </div>
-        <div class="acc-panel">
-          <div class="acc-screen se-s1">
-            <div class="acc-shot se-shot"><img src="images/se-run1.png" alt="Run A: no example, loose paragraph"></div>
-            <p class="acc-cap">&ldquo;Extract the key details.&rdquo; &rarr; a loose paragraph. Different fields, different shape every time.</p>
-          </div>
-          <div class="acc-screen se-s2">
-            <div class="acc-shot se-shot"><img src="images/se-run2.png" alt="Run B: one worked example, structured extraction"></div>
-            <p class="acc-cap">Give one worked example &rarr; the study comes back in the exact same fields.</p>
-          </div>
-          <div class="acc-screen se-s3">
-            <div class="acc-shot se-shot"><img src="images/se-run3.png" alt="Run C: same prompt, second study, identical structure"></div>
-            <p class="acc-cap">Same prompt, next study &rarr; identical structure. Set the pattern once, reuse it across a whole review.</p>
-          </div>
-        </div>
+  <div class="tech-layout">
+    <input type="radio" name="se" id="se-1" checked>
+    <input type="radio" name="se" id="se-2">
+    <input type="radio" name="se" id="se-3">
+    <div class="tech-left">
+      <p class="concept-label" style="text-align: left;">Show an Example</p>
+      <h1 class="headline tech-head">Don't describe the format you want. Show one worked case, and the model matches it.</h1>
+      <div class="acc-col">
+        <label for="se-1" class="chip faded acc-chip">Run A &middot; No example</label>
+        <label for="se-2" class="chip card--sage acc-chip">Run B &middot; One example</label>
+        <label for="se-3" class="chip card--lilac acc-chip">Run C &middot; Reuse it</label>
       </div>
+      <p class="acc-cap tech-cap se-c1">&ldquo;Extract the key details.&rdquo; &rarr; a loose paragraph. Different fields, different shape every time.</p>
+      <p class="acc-cap tech-cap se-c2">Give one worked example &rarr; the study comes back in the exact same fields.</p>
+      <p class="acc-cap tech-cap se-c3">Same prompt, next study &rarr; identical structure. Set the pattern once, reuse it across a whole review.</p>
+    </div>
+    <div class="tech-right">
+      <img class="tech-img se-i1" src="images/se-run1.png" alt="Run A: no example, loose paragraph">
+      <img class="tech-img se-i2" src="images/se-run2.png" alt="Run B: one worked example, structured extraction">
+      <img class="tech-img se-i3" src="images/se-run3.png" alt="Run C: same prompt, second study, identical structure">
     </div>
   </div>
 </section>
@@ -251,49 +216,38 @@
 <section class="slide" data-label="Divide the Work">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 16%; bottom: 5%; gap: 0.8vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.6vw;">
-      <p class="concept-label">Divide the Work</p>
-      <h1 class="headline" style="font-size: 1.6vw; line-height: 1.2; max-width: 72vw;">Break a big task into steps. The more you separate and check them, the more you can trust the result.</h1>
+  <div class="tech-layout">
+    <input type="radio" name="dv" id="dv-1" checked>
+    <input type="radio" name="dv" id="dv-2">
+    <input type="radio" name="dv" id="dv-3">
+    <div class="tech-left">
+      <p class="concept-label" style="text-align: left;">Divide the Work</p>
+      <h1 class="headline tech-head">Break a big task into steps. The more you separate and check them, the more you can trust the result.</h1>
+      <div class="acc-col">
+        <label for="dv-1" class="chip faded acc-chip">Run A &middot; All at once</label>
+        <label for="dv-2" class="chip card--sage acc-chip">Run B &middot; Steps, one prompt</label>
+        <label for="dv-3" class="chip card--lilac acc-chip">Run C &middot; Separate prompts</label>
+      </div>
+      <p class="acc-cap tech-cap dv-c1">One prompt does everything at once. Fluent, but the steps blur and it's hard to see what it skipped.</p>
+      <p class="acc-cap tech-cap dv-c2">One prompt, but you spell out the steps. The stages become visible and ordered.</p>
+      <p class="acc-cap tech-cap dv-c3">Each step its own prompt. You check and fix each output before it feeds the next. When the model chains its own steps, that's an agent.</p>
     </div>
-    <div class="acc-wrap">
-      <input type="radio" name="dv" id="dv-1" checked>
-      <input type="radio" name="dv" id="dv-2">
-      <input type="radio" name="dv" id="dv-3">
-      <div class="acc">
-        <div>
-          <div class="acc-col">
-            <label for="dv-1" class="chip faded acc-chip">Run A &middot; All at once</label>
-            <label for="dv-2" class="chip card--sage acc-chip">Run B &middot; Steps, one prompt</label>
-            <label for="dv-3" class="chip card--lilac acc-chip">Run C &middot; Separate prompts</label>
-          </div>
-          <p class="acc-hint">click each run</p>
+    <div class="tech-right">
+      <img class="tech-img dv-i1" src="images/dv-run1.png" alt="Run A: all at once, one prompt">
+      <img class="tech-img dv-i2" src="images/dv-run2.png" alt="Run B: steps spelled out in one prompt">
+      <div class="tech-img dv-i3">
+        <input type="radio" name="dvc" id="dvc-1" checked>
+        <input type="radio" name="dvc" id="dvc-2">
+        <input type="radio" name="dvc" id="dvc-3">
+        <div class="dvc-imgs">
+          <img class="dvc-i dvc-i1" src="images/dv-run3-p1.png" alt="Run C step 1: list findings in its own chat">
+          <img class="dvc-i dvc-i2" src="images/dv-run3-p2.png" alt="Run C step 2: mark what matters in its own chat">
+          <img class="dvc-i dvc-i3" src="images/dv-run3-p3.png" alt="Run C step 3: write the brief in its own chat">
         </div>
-        <div class="acc-panel">
-          <div class="acc-screen dv-s1">
-            <div class="acc-shot dv-shot"><img src="images/dv-run1.png" alt="Run A: all at once, one prompt"></div>
-            <p class="acc-cap">One prompt does everything at once. Fluent, but the steps blur and it's hard to see what it skipped.</p>
-          </div>
-          <div class="acc-screen dv-s2">
-            <div class="acc-shot dv-shot"><img src="images/dv-run2.png" alt="Run B: steps spelled out in one prompt"></div>
-            <p class="acc-cap">One prompt, but you spell out the steps. The stages become visible and ordered.</p>
-          </div>
-          <div class="acc-screen dv-s3">
-            <input type="radio" name="dvc" id="dvc-1" checked>
-            <input type="radio" name="dvc" id="dvc-2">
-            <input type="radio" name="dvc" id="dvc-3">
-            <div class="acc-shot dv-shot dvc-imgs">
-              <img class="dvc-i dvc-i1" src="images/dv-run3-p1.png" alt="Run C step 1: list findings in its own chat">
-              <img class="dvc-i dvc-i2" src="images/dv-run3-p2.png" alt="Run C step 2: mark what matters in its own chat">
-              <img class="dvc-i dvc-i3" src="images/dv-run3-p3.png" alt="Run C step 3: write the brief in its own chat">
-            </div>
-            <div class="dvc-tabs">
-              <label for="dvc-1">Step 1</label>
-              <label for="dvc-2">Step 2</label>
-              <label for="dvc-3">Step 3</label>
-            </div>
-            <p class="acc-cap">Each step its own prompt. You check and fix each output before it feeds the next. When the model chains its own steps, that's an agent.</p>
-          </div>
+        <div class="dvc-tabs">
+          <label for="dvc-1">Step 1</label>
+          <label for="dvc-2">Step 2</label>
+          <label for="dvc-3">Step 3</label>
         </div>
       </div>
     </div>
