@@ -169,6 +169,48 @@
 </section>
 
 <style>
+  .nb-fields { display: flex; flex-direction: column; gap: 1vw; align-items: center; }
+  .nb-frow { display: flex; gap: 1vw; justify-content: center; }
+  .nb-fchip { border-radius: 999px; padding: 0.55vw 1.5vw; font-weight: 500; font-size: 1.25vw; color: var(--ink); }
+  .nb-c1 { background: var(--pink); }
+  .nb-c2 { background: var(--lemon); }
+  .nb-c3 { background: var(--blush); }
+  .nb-c4 { background: var(--sage); }
+  .nb-c5 { background: var(--lilac); }
+  .nb-c6 { background: rgba(255, 255, 255, 0.7); border: 1.5px dashed var(--rule-soft); }
+  .nb-link { display: inline-flex; align-items: center; gap: 0.7vw; background: var(--ink); color: var(--paper); border-radius: 999px; padding: 0.75vw 2.2vw; font: 500 1.4vw "Work Sans", sans-serif; text-decoration: none; cursor: pointer; }
+  .nb-link:hover { opacity: 0.85; }
+</style>
+
+<section class="slide" data-label="RAG Example">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 3 &middot; RAG</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 9%; bottom: 8%; gap: 1.9vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.6vw;">
+      <p class="concept-label">Example</p>
+      <h1 class="headline" style="font-size: 2.1vw;">Seven papers, one question, one table.</h1>
+      <p class="body" style="font-size: 1.3vw; color: var(--ink-soft); max-width: 66vw; line-height: 1.45;">Seven studies on screen time, social media, and adolescent mental health, uploaded to NotebookLM. Ask it to extract the same fields from every paper.</p>
+    </div>
+    <div class="nb-fields">
+      <div class="nb-frow">
+        <span class="nb-fchip nb-c1">Study design</span>
+        <span class="nb-fchip nb-c2">Sample size</span>
+        <span class="nb-fchip nb-c3">Population</span>
+      </div>
+      <div class="nb-frow">
+        <span class="nb-fchip nb-c4">Screen time measure</span>
+        <span class="nb-fchip nb-c5">Mental health outcome</span>
+        <span class="nb-fchip nb-c6">Main finding</span>
+      </div>
+    </div>
+    <a class="nb-link" href="https://notebooklm.google.com/notebook/b62036d4-5aab-41dd-91c5-36434d55f4df" target="_blank" rel="noopener">Open the notebook &rarr;</a>
+    <div class="card" style="padding: 1vw 2.4vw; max-width: 66vw;">
+      <p class="body" style="font-size: 1.35vw; text-align: center;">Hours of manual extraction, done in minutes. Check each cell against the source before you rely on it.</p>
+    </div>
+  </div>
+</section>
+
+<style>
   .ttl-wrap { display: flex; flex-direction: column; align-items: center; gap: 1.3vw; }
   .ttl-wrap > .ttl-t { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
   .ttl-list { display: flex; flex-direction: column; gap: 0.9vw; width: 72vw; }
