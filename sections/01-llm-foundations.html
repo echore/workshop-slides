@@ -44,6 +44,138 @@
   </div>
 </section>
 
+<!-- ============================================================
+     SCHEDULE  —  paste directly after the Title </section>
+     and before the "Hook" <section>.
+     Uses existing deck classes + CSS variables only.
+     Rhythm per section: poll -> theory -> exercise.
+     ============================================================ -->
+<style>
+  .sched-list { display: flex; flex-direction: column; gap: 0.6vw; width: 80vw; }
+
+  .sched-sec { display: grid; grid-template-columns: 21vw 1fr; align-items: center;
+               gap: 1.4vw; padding: 0.7vw 1.4vw; border-radius: 1.1vw;
+               border: 1.5px solid var(--rule-soft); border-left-width: 0.6vw; }
+  .sched-sec.s1 { border-left-color: var(--pink);  background: #F6EAF1; }
+  .sched-sec.s2 { border-left-color: var(--lemon); background: #F4F5D6; }
+  .sched-sec.s3 { border-left-color: var(--blush); background: #F8EEE6; }
+  .sched-sec.s4 { border-left-color: var(--sage);  background: #ECF1E2; }
+  .sched-sec.s5 { border-left-color: var(--lilac); background: #EEEAF4; }
+
+  .sched-head { display: flex; flex-direction: column; gap: 0.25vw; }
+  .sched-span { font: italic 500 1.35vw "Cormorant Garamond", serif; color: var(--ink-soft); }
+  .sched-name { font: 500 1.65vw "Work Sans", sans-serif; color: var(--ink); line-height: 1.1; }
+  .sched-name .who { font-weight: 400; font-style: italic; color: var(--ink-soft);
+                     font-family: "Cormorant Garamond", serif; font-size: 1.35vw; }
+
+  .sched-steps { display: flex; align-items: center; gap: 0.7vw; }
+  .step { font: 400 1.3vw "Work Sans", sans-serif; padding: 0.35vw 1.1vw;
+          border-radius: 999px; white-space: nowrap; }
+  .step b { font-weight: 600; }
+  .step-poll   { border: 1.5px dashed var(--rule-soft); color: var(--ink-soft); background: transparent; }
+  .step-theory { background: var(--paper); border: 1.5px solid var(--ink); color: var(--ink); }
+  .step-ex     { background: var(--paper); border: 1.5px solid var(--rule-soft); color: var(--ink); }
+  .arrow { color: var(--ink-soft); font-size: 1.3vw; }
+
+  .sched-break { display: flex; align-items: center; justify-content: center; gap: 1vw;
+                 width: 80vw; padding: 0.45vw 0; }
+  .sched-break .line { flex: 1; height: 1.5px; background: var(--rule-soft); }
+  .sched-break span { font: italic 400 1.4vw "Cormorant Garamond", serif; color: var(--ink-soft);
+                      white-space: nowrap; }
+</style>
+
+<section class="slide" data-label="Schedule">
+  <div class="eyebrow" style="font-size: 1.4vw;">AI4PH &middot; Workshop</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 7%; bottom: 7%; gap: 0.9vw;">
+    <p class="kicker" style="font-size: 1.8vw;">9:00 AM &ndash; 12:00 PM</p>
+    <h1 class="headline" style="font-size: 3vw; margin-bottom: 0.1vw;">This morning</h1>
+    <p class="body" style="font-size: 1.35vw; color: var(--ink-soft); margin-bottom: 0.5vw;">
+      Every section runs the same way: a poll to warm up, a short talk, then you try it.
+    </p>
+
+    <div class="sched-list">
+
+      <div class="sched-sec s1">
+        <div class="sched-head">
+          <span class="sched-span">9:00 &ndash; 9:35</span>
+          <span class="sched-name">LLM Foundations <span class="who">&middot; Yachen</span></span>
+        </div>
+        <div class="sched-steps">
+          <span class="step step-poll">Icebreaker + poll &middot; <b>9:00</b></span>
+          <span class="arrow">&rarr;</span>
+          <span class="step step-theory">Theory &middot; <b>9:10</b></span>
+          <span class="arrow">&rarr;</span>
+          <span class="step step-ex">Exercise &middot; <b>9:25</b></span>
+        </div>
+      </div>
+
+      <div class="sched-sec s2">
+        <div class="sched-head">
+          <span class="sched-span">9:35 &ndash; 10:10</span>
+          <span class="sched-name">Prompt Engineering <span class="who">&middot; Melissa</span></span>
+        </div>
+        <div class="sched-steps">
+          <span class="step step-poll">Poll &middot; <b>9:35</b></span>
+          <span class="arrow">&rarr;</span>
+          <span class="step step-theory">Theory &middot; <b>9:45</b></span>
+          <span class="arrow">&rarr;</span>
+          <span class="step step-ex">Exercise &middot; <b>10:00</b></span>
+        </div>
+      </div>
+
+      <div class="sched-break">
+        <span class="line"></span>
+        <span>&#9749;&nbsp; Coffee break &middot; 10:10 &ndash; 10:30</span>
+        <span class="line"></span>
+      </div>
+
+      <div class="sched-sec s3">
+        <div class="sched-head">
+          <span class="sched-span">10:30 &ndash; 11:00</span>
+          <span class="sched-name">Retrieval-Augmented Generation <span class="who">&middot; Yachen</span></span>
+        </div>
+        <div class="sched-steps">
+          <span class="step step-poll">Poll &middot; <b>10:30</b></span>
+          <span class="arrow">&rarr;</span>
+          <span class="step step-theory">Theory &middot; <b>10:35</b></span>
+          <span class="arrow">&rarr;</span>
+          <span class="step step-ex">Exercise &middot; <b>10:50</b></span>
+        </div>
+      </div>
+
+      <div class="sched-sec s4">
+        <div class="sched-head">
+          <span class="sched-span">11:00 &ndash; 11:30</span>
+          <span class="sched-name">Agents <span class="who">&middot; Yachen</span></span>
+        </div>
+        <div class="sched-steps">
+          <span class="step step-poll">Poll &middot; <b>11:00</b></span>
+          <span class="arrow">&rarr;</span>
+          <span class="step step-theory">Theory &middot; <b>11:05</b></span>
+          <span class="arrow">&rarr;</span>
+          <span class="step step-ex">Exercise &middot; <b>11:20</b></span>
+        </div>
+      </div>
+
+      <div class="sched-sec s5">
+        <div class="sched-head">
+          <span class="sched-span">11:30 &ndash; 12:00</span>
+          <span class="sched-name">Safety and Regulatory considerations <span class="who">&middot; Melissa</span></span>
+        </div>
+        <div class="sched-steps">
+          <span class="step step-poll">Poll &middot; <b>11:30</b></span>
+          <span class="arrow">&rarr;</span>
+          <span class="step step-theory">Theory &middot; <b>11:35</b></span>
+          <span class="arrow">&rarr;</span>
+          <span class="step step-ex">Exercise &middot; <b>11:50</b></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <section class="slide" data-label="Hook">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
   <div class="pagedot"></div>
