@@ -494,3 +494,282 @@
     </div>
   </div>
 </section>
+
+<!-- ============================================================
+     Add to 01-llm-foundations.html, AFTER the "Practice" </section>.
+     Order: Model types -> Different types -> PH examples (reveal)
+            -> Reasoning -> Reasoning test (reveal).
+     Uses existing deck classes + variables. concept-label is already
+     defined in this file's first <style> block.
+     (This supersedes the earlier 2-slide file — paste all of this.)
+     ============================================================ -->
+
+<!-- ===================== MODEL TYPES ===================== -->
+<style>
+  .mt-block { display: flex; flex-direction: column; align-items: center; gap: 0.5vw; }
+  .mt-axis { font: italic 500 1.45vw "Cormorant Garamond", serif; color: var(--ink-soft); }
+  .mt-pair { display: flex; align-items: stretch; justify-content: center; gap: 1.2vw; }
+  .mt-card { width: 33vw; border-radius: 1.2vw; padding: 1vw 1.4vw; }
+  .mt-card .h { font: 500 1.6vw "Work Sans", sans-serif; color: var(--ink); }
+  .mt-card .g { font: 400 1.2vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); margin-top: 0.25vw; }
+</style>
+
+<section class="slide" data-label="Model types">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 9%; bottom: 9%; gap: 1.3vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1vw;">
+      <p class="concept-label">Model types</p>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 78vw;">Not all models are the same. They trade power for speed, cost, and privacy.</h1>
+    </div>
+    <div class="mt-block">
+      <span class="mt-axis">Size</span>
+      <div class="mt-pair">
+        <div class="mt-card card--pink"><div class="h">Large / frontier</div><div class="g">Most capable, but slower, pricier, and runs in the cloud.</div></div>
+        <div class="mt-card card--sage"><div class="h">Small</div><div class="g">Lighter and faster, cheaper, and can run locally and privately.</div></div>
+      </div>
+    </div>
+    <div class="mt-block">
+      <span class="mt-axis">Specialization</span>
+      <div class="mt-pair">
+        <div class="mt-card card--lemon"><div class="h">General-purpose</div><div class="g">Broad. Knows a little about almost everything.</div></div>
+        <div class="mt-card card--lilac"><div class="h">Domain-specific</div><div class="g">Tuned for one field (e.g. a medical model), sharper inside it, narrower outside.</div></div>
+      </div>
+    </div>
+    <div class="card" style="padding: 1.1vw 2.2vw; max-width: 74vw;">
+      <p class="body" style="font-size: 1.5vw; text-align: center;">Match the model to the job: a general chatbot for a quick question; a small local or domain-specific model for sensitive or specialized work.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DIFFERENT TYPES (EXAMPLES) ===================== -->
+<style>
+  .dt-row { display: flex; align-items: stretch; justify-content: center; gap: 1.4vw; width: 84vw; }
+  .dt-card { flex: 1; border-radius: 1.4vw; padding: 1.4vw 1.4vw; display: flex; flex-direction: column; gap: 0.8vw; }
+  .dt-h { font: 500 1.7vw "Work Sans", sans-serif; color: var(--ink); }
+  .dt-ex { display: flex; flex-wrap: wrap; gap: 0.5vw; }
+  .dt-ex span { font: 400 1.25vw "Work Sans", sans-serif; padding: 0.25vw 0.9vw; border-radius: 999px;
+                background: rgba(255,255,255,0.6); border: 1.5px solid var(--rule-soft); color: var(--ink); }
+  .dt-g { font: 400 1.25vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin-top: auto; }
+</style>
+
+<section class="slide" data-label="Model examples">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.6vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1vw;">
+      <p class="concept-label">Examples</p>
+      <h1 class="headline" style="font-size: 2.1vw;">The types you&rsquo;ll actually meet.</h1>
+    </div>
+    <div class="dt-row">
+      <div class="dt-card card--pink">
+        <div class="dt-h">Large &amp; general</div>
+        <div class="dt-ex"><span>ChatGPT</span><span>Claude</span><span>Gemini</span></div>
+        <div class="dt-g">Cloud. The most capable everyday go-to.</div>
+      </div>
+      <div class="dt-card card--sage">
+        <div class="dt-h">Small &amp; open</div>
+        <div class="dt-ex"><span>Llama</span><span>Mistral</span><span>Gemma</span></div>
+        <div class="dt-g">Small enough to run on your own computer, private.</div>
+      </div>
+      <div class="dt-card card--lilac">
+        <div class="dt-h">Medical / domain</div>
+        <div class="dt-ex"><span>MedGemma</span><span>Meditron</span><span>BioMistral</span></div>
+        <div class="dt-g">Tuned on clinical and biomedical text for health tasks.</div>
+      </div>
+    </div>
+    <p class="body-sm" style="font-size: 1.3vw; color: var(--ink-soft);">The names change fast. The categories don&rsquo;t.</p>
+  </div>
+</section>
+
+<!-- ===================== SHARED REVEAL-CARD STYLES ===================== -->
+<style>
+  .rev-wrap > .rev-t { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .rev-row { display: flex; gap: 2vw; width: 84vw; align-items: stretch; justify-content: center; }
+  .rev-card { flex: 1; display: flex; flex-direction: column; gap: 1vw; border: 1.5px solid var(--rule-soft);
+              border-radius: 1.6vw; padding: 1.6vw 1.5vw; cursor: pointer; text-align: left;
+              transition: transform .15s ease, border-color .15s ease; }
+  .rev-card:hover { transform: translateY(-0.4vw); border-color: var(--ink-soft); }
+  .rev-b1 { background: #E8ECA9; } .rev-b2 { background: #F2E1D7; } .rev-b3 { background: #E1DBEC; }
+  .rev-num { display: inline-flex; align-items: center; justify-content: center; width: 2.6vw; height: 2.6vw;
+             border-radius: 50%; background: rgba(42,36,27,0.12); font: italic 500 1.5vw "Cormorant Garamond", serif; color: var(--ink); }
+  .rev-scenario { font: 400 1.45vw/1.4 "Work Sans", sans-serif; margin: 0; }
+  .rev-reveal { margin-top: auto; }
+  .rev-prompt { display: flex; align-items: center; gap: 0.5vw; font: italic 400 1.3vw "Cormorant Garamond", serif; color: var(--ink-soft); }
+  .rev-answer { display: none; flex-direction: column; gap: 0.6vw; }
+  .rev-answer .chip { align-self: flex-start; font-size: 1.5vw; }
+  .rev-reason { font: 400 1.25vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
+  #mtq1:checked ~ .rev-row label[for="mtq1"] .rev-prompt,
+  #mtq2:checked ~ .rev-row label[for="mtq2"] .rev-prompt,
+  #mtq3:checked ~ .rev-row label[for="mtq3"] .rev-prompt,
+  #rzq1:checked ~ .rev-row label[for="rzq1"] .rev-prompt,
+  #rzq2:checked ~ .rev-row label[for="rzq2"] .rev-prompt,
+  #rzq3:checked ~ .rev-row label[for="rzq3"] .rev-prompt { display: none; }
+  #mtq1:checked ~ .rev-row label[for="mtq1"] .rev-answer,
+  #mtq2:checked ~ .rev-row label[for="mtq2"] .rev-answer,
+  #mtq3:checked ~ .rev-row label[for="mtq3"] .rev-answer,
+  #rzq1:checked ~ .rev-row label[for="rzq1"] .rev-answer,
+  #rzq2:checked ~ .rev-row label[for="rzq2"] .rev-answer,
+  #rzq3:checked ~ .rev-row label[for="rzq3"] .rev-answer { display: flex; }
+  #mtq1:checked ~ .rev-row label[for="mtq1"],
+  #mtq2:checked ~ .rev-row label[for="mtq2"],
+  #mtq3:checked ~ .rev-row label[for="mtq3"],
+  #rzq1:checked ~ .rev-row label[for="rzq1"],
+  #rzq2:checked ~ .rev-row label[for="rzq2"],
+  #rzq3:checked ~ .rev-row label[for="rzq3"] { border-color: var(--ink); }
+</style>
+
+<!-- ===================== PH EXAMPLES (REVEAL) ===================== -->
+<section class="slide" data-label="Model match">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.9vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
+      <p class="concept-label">Your turn</p>
+      <h1 class="headline" style="font-size: 2.4vw;">Which model for which public health task?</h1>
+      <p class="body" style="font-size: 1.4vw; color: var(--ink-soft);">Think of a fit for each, then tap to reveal an example.</p>
+    </div>
+    <div class="rev-wrap">
+      <input class="rev-t" type="checkbox" id="mtq1">
+      <input class="rev-t" type="checkbox" id="mtq2">
+      <input class="rev-t" type="checkbox" id="mtq3">
+      <div class="rev-row">
+        <label class="rev-card rev-b1" for="mtq1">
+          <span class="rev-num">1</span>
+          <p class="rev-scenario"><b>Large &amp; general</b><br>What everyday task fits a big cloud chatbot?</p>
+          <div class="rev-reveal">
+            <span class="rev-prompt">&#9656; tap to reveal</span>
+            <span class="rev-answer">
+              <span class="chip card--pink">Example</span>
+              <p class="rev-reason">Draft a plain-language explainer of a new guideline for the public.</p>
+            </span>
+          </div>
+        </label>
+        <label class="rev-card rev-b2" for="mtq2">
+          <span class="rev-num">2</span>
+          <p class="rev-scenario"><b>Small &amp; local</b><br>What fits a model on your own machine?</p>
+          <div class="rev-reveal">
+            <span class="rev-prompt">&#9656; tap to reveal</span>
+            <span class="rev-answer">
+              <span class="chip card--sage">Example</span>
+              <p class="rev-reason">Summarize a line list with patient identifiers, kept private and offline.</p>
+            </span>
+          </div>
+        </label>
+        <label class="rev-card rev-b3" for="mtq3">
+          <span class="rev-num">3</span>
+          <p class="rev-scenario"><b>Medical / domain</b><br>What fits a health-tuned model?</p>
+          <div class="rev-reveal">
+            <span class="rev-prompt">&#9656; tap to reveal</span>
+            <span class="rev-answer">
+              <span class="chip card--lilac">Example</span>
+              <p class="rev-reason">Pull diagnoses and findings out of messy clinical notes.</p>
+            </span>
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== REASONING ===================== -->
+<style>
+  .rz-paths { display: flex; flex-direction: column; gap: 1.3vw; width: 72vw; }
+  .rz-row { display: flex; align-items: center; gap: 1.2vw; }
+  .rz-tag { width: 11vw; font: 500 1.55vw "Work Sans", sans-serif; color: var(--ink); }
+  .rz-flow { flex: 1; display: flex; align-items: center; gap: 0.7vw; font-size: 1.5vw; }
+  .rz-gloss { font: italic 400 1.25vw "Cormorant Garamond", serif; color: var(--ink-soft); white-space: nowrap; }
+</style>
+
+<section class="slide" data-label="Reasoning">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 10%; bottom: 10%; gap: 1.7vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1vw;">
+      <p class="concept-label">Reasoning models</p>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 78vw;">Some models think step by step before they answer.</h1>
+    </div>
+    <div class="rz-paths">
+      <div class="rz-row">
+        <span class="rz-tag">Standard</span>
+        <div class="rz-flow">
+          <span class="chip card--pink">Question</span>
+          <span style="color: var(--ink-soft);">&rarr;</span>
+          <span class="chip card--sage">Answer</span>
+          <span class="rz-gloss" style="margin-left: 0.6vw;">fast, direct</span>
+        </div>
+      </div>
+      <div class="rz-row">
+        <span class="rz-tag">Reasoning</span>
+        <div class="rz-flow">
+          <span class="chip card--pink">Question</span>
+          <span style="color: var(--ink-soft);">&rarr;</span>
+          <div class="window-box" style="align-items: center; gap: 0.5vw; padding: 0.6vw 0.8vw;">
+            <span class="chip card--lemon">step</span>
+            <span class="chip card--blush">step</span>
+            <span class="chip card--lilac">step</span>
+          </div>
+          <span style="color: var(--ink-soft);">&rarr;</span>
+          <span class="chip card--sage">Answer</span>
+          <span class="rz-gloss" style="margin-left: 0.6vw;">slower, better on hard problems</span>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="padding: 1.1vw 2.2vw; max-width: 76vw;">
+      <p class="body" style="font-size: 1.5vw; text-align: center;">Reach for a reasoning model on hard, multi-step problems (an epi calculation, a differential); a standard model is faster for straightforward tasks like a plain-language summary.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== REASONING TEST (REVEAL) ===================== -->
+<section class="slide" data-label="Reasoning test">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.9vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
+      <p class="concept-label">Your turn</p>
+      <h1 class="headline" style="font-size: 2.4vw;">Reasoning model, or standard?</h1>
+      <p class="body" style="font-size: 1.4vw; color: var(--ink-soft);">For each task, which would you reach for? Tap to reveal.</p>
+    </div>
+    <div class="rev-wrap">
+      <input class="rev-t" type="checkbox" id="rzq1">
+      <input class="rev-t" type="checkbox" id="rzq2">
+      <input class="rev-t" type="checkbox" id="rzq3">
+      <div class="rev-row">
+        <label class="rev-card rev-b1" for="rzq1">
+          <span class="rev-num">1</span>
+          <p class="rev-scenario">Estimate the attack rate and doubling time from this outbreak line list.</p>
+          <div class="rev-reveal">
+            <span class="rev-prompt">&#9656; tap to reveal</span>
+            <span class="rev-answer">
+              <span class="chip card--lemon">Reasoning</span>
+              <p class="rev-reason">A multi-step calculation, better with step-by-step thinking.</p>
+            </span>
+          </div>
+        </label>
+        <label class="rev-card rev-b2" for="rzq2">
+          <span class="rev-num">2</span>
+          <p class="rev-scenario">Rewrite this vaccine guidance in plain language for the public.</p>
+          <div class="rev-reveal">
+            <span class="rev-prompt">&#9656; tap to reveal</span>
+            <span class="rev-answer">
+              <span class="chip card--pink">Standard</span>
+              <p class="rev-reason">Straightforward wording task, a standard model is faster.</p>
+            </span>
+          </div>
+        </label>
+        <label class="rev-card rev-b3" for="rzq3">
+          <span class="rev-num">3</span>
+          <p class="rev-scenario">Work through possible causes for a cluster of symptoms, step by step.</p>
+          <div class="rev-reveal">
+            <span class="rev-prompt">&#9656; tap to reveal</span>
+            <span class="rev-answer">
+              <span class="chip card--lilac">Reasoning</span>
+              <p class="rev-reason">Needs structured, multi-step thinking to weigh options.</p>
+            </span>
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+</section>
