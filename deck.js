@@ -4,7 +4,6 @@ const SECTIONS = [
   'sections/03-rag.html',
   'sections/04-agents.html',
   'sections/05-safety.html',
-  'sections/06-regulatory-closing.html',
 ];
 
 // URL hash -> which SECTIONS file it belongs to (by index above)
@@ -14,7 +13,6 @@ const SECTION_ANCHORS = {
   'rag': 2,
   'agents': 3,
   'safety': 4,
-  'regulatory-closing': 5,
 };
 
 const deck = document.getElementById('deck');
