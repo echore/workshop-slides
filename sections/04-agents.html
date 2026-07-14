@@ -150,7 +150,7 @@
   <div class="layout-hero" style="top: 9%; bottom: 8%; gap: 1.7vw;">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.6vw;">
       <p class="concept-label">Generative AI vs Agentic AI</p>
-      <h1 class="headline" style="font-size: 2.1vw;">Same model, different job.</h1>
+      <h1 class="headline" style="font-size: 2.1vw;">Same foundation, different level of autonomy.</h1>
     </div>
     <div class="ag-cmp-wrap">
       <div class="ag-cmp-head">
@@ -160,23 +160,23 @@
       </div>
       <div class="ag-cmp-row">
         <div class="ag-cmp-label">What it does</div>
-        <div class="ag-cmp-cell ag-cmp-a">Produces content for you to use: text and images.</div>
-        <div class="ag-cmp-cell ag-cmp-b">Carries out actions on its own, without you supervising every step.</div>
+        <div class="ag-cmp-cell ag-cmp-a">Mainly generates content, such as text, images, or code.</div>
+        <div class="ag-cmp-cell ag-cmp-b">Uses a generative model to plan, take actions, and adjust based on results.</div>
       </div>
       <div class="ag-cmp-row">
         <div class="ag-cmp-label">How you interact</div>
-        <div class="ag-cmp-cell ag-cmp-a">You give one specific prompt per task.</div>
-        <div class="ag-cmp-cell ag-cmp-b">You give a goal. It breaks it into steps and keeps going.</div>
+        <div class="ag-cmp-cell ag-cmp-a">You ask for a response or an artifact.</div>
+        <div class="ag-cmp-cell ag-cmp-b">You give it a goal. It breaks the work into steps and continues toward that goal.</div>
       </div>
       <div class="ag-cmp-row">
-        <div class="ag-cmp-label">Where the output lands</div>
-        <div class="ag-cmp-cell ag-cmp-a">Stays inside the chat window.</div>
-        <div class="ag-cmp-cell ag-cmp-b">Reaches outside the chat: tools, files, databases, other systems.</div>
+        <div class="ag-cmp-label">How it uses tools</div>
+        <div class="ag-cmp-cell ag-cmp-a">It may use tools in a predefined workflow.</div>
+        <div class="ag-cmp-cell ag-cmp-b">It can dynamically select tools and decide the next step based on results.</div>
       </div>
       <div class="ag-cmp-row">
         <div class="ag-cmp-label">What's underneath</div>
-        <div class="ag-cmp-cell ag-cmp-a">Just the model.</div>
-        <div class="ag-cmp-cell ag-cmp-b">The model, plus tools it can call, and memory of what happened so far.</div>
+        <div class="ag-cmp-cell ag-cmp-a">A generative model.</div>
+        <div class="ag-cmp-cell ag-cmp-b">A generative model plus an action and feedback loop.</div>
       </div>
     </div>
   </div>
@@ -217,7 +217,7 @@
       </div>
     </div>
     <div class="ag-card">
-      <p>The goal is set once, at the start. This loop is what repeats.</p>
+      <p>The initial goal is given at the start. The agent may pause for input or refine its plan as it works.</p>
     </div>
   </div>
   <p class="ag-ref">Source: IBM, <a href="https://www.ibm.com/think/topics/agentic-ai" target="_blank">&ldquo;How agentic AI works&rdquo;</a></p>
@@ -268,8 +268,8 @@
       <h1 class="ax-hl">It did the analyst's job, start to finish.</h1>
     </div>
     <div class="ax-setup">
-      <p class="ax-line"><span class="ax-lab">The data:</span> monthly heart attacks in Sicily, before and after Italy's 2005 public smoking ban.</p>
-      <p class="ax-line"><span class="ax-lab">We asked:</span> &ldquo;Did the ban cut them? Fit a model, check the assumptions, fix any problems, and explain it plainly.&rdquo;</p>
+      <p class="ax-line"><span class="ax-lab">The data:</span> monthly hospital admissions for acute coronary events in Sicily, before and after Italy's 2005 public smoking ban.</p>
+      <p class="ax-line"><span class="ax-lab">We asked:</span> &ldquo;Was the ban associated with fewer admissions? Fit a model, check the assumptions, address any problems, and explain it plainly.&rdquo;</p>
     </div>
     <div class="ax-stp">
       <input type="radio" name="axr" id="axr1" checked>
@@ -280,7 +280,7 @@
       <div class="ax-screens">
         <div class="ax-screen ax-s1">
           <label class="ax-frame" for="axr2"><img src="images/agent-1-plan.png" alt="Agent inspects the data and plans the analysis"></label>
-          <div class="ax-cap"><span class="ax-chip ax-c1">Step 1</span><span class="ax-ctxt">Read the data, picked the right model.</span></div>
+          <div class="ax-cap"><span class="ax-chip ax-c1">Step 1</span><span class="ax-ctxt">Inspected the data and selected an appropriate model.</span></div>
         </div>
         <div class="ax-screen ax-s2">
           <label class="ax-frame" for="axr3"><img src="images/agent-2-fit.png" alt="Agent writes and runs the baseline R model"></label>
@@ -292,11 +292,11 @@
         </div>
         <div class="ax-screen ax-s4">
           <label class="ax-frame" for="axr5"><img src="images/agent-4-corrected.png" alt="Agent corrects for seasonality, refits, and checks robustness"></label>
-          <div class="ax-cap"><span class="ax-chip ax-c4">Step 4</span><span class="ax-ctxt">Fixed it, refit, and re-checked.</span></div>
+          <div class="ax-cap"><span class="ax-chip ax-c4">Step 4</span><span class="ax-ctxt">Adjusted for seasonality, refit, and re-checked.</span></div>
         </div>
         <div class="ax-screen ax-s5">
-          <label class="ax-frame" for="axr1"><img src="images/agent-5-result.png" alt="Final interrupted time series plot showing the drop after the ban"></label>
-          <div class="ax-cap"><span class="ax-chip ax-c5">Result</span><span class="ax-ctxt">~11% drop, about 2,560 fewer heart attacks.</span></div>
+          <label class="ax-frame" for="axr1"><img src="images/agent-5-result.png" alt="Final interrupted time series plot showing the model-estimated decrease following the ban"></label>
+          <div class="ax-cap"><span class="ax-chip ax-c5">Result</span><span class="ax-ctxt" style="font-size: 1.3vw;">Model estimate: ~11.5% lower rate; ~2,560 fewer admissions than the no-ban counterfactual.</span></div>
         </div>
       </div>
       <div class="ax-dots"><label for="axr1">1</label><label for="axr2">2</label><label for="axr3">3</label><label for="axr4">4</label><label for="axr5">5</label></div>

@@ -57,8 +57,8 @@
           <div class="rq-reveal">
             <span class="rq-prompt">&#9656; tap to reveal</span>
             <span class="rq-answer">
-              <span class="chip card--sage">Memory is fine</span>
-              <p class="rq-reason">Stable, textbook knowledge the model already learned.</p>
+              <span class="chip card--sage">Memory may be enough</span>
+              <p class="rq-reason">For a basic answer. Verify official guidance before making real decisions.</p>
             </span>
           </div>
         </label>
@@ -80,12 +80,12 @@
             <span class="rq-prompt">&#9656; tap to reveal</span>
             <span class="rq-answer">
               <span class="chip card--pink">Needs the documents</span>
-              <p class="rq-reason">It happened after the model's training cutoff.</p>
+              <p class="rq-reason">It may be newer than the model's training data, so it needs a current source.</p>
             </span>
           </div>
         </label>
       </div>
-      <p class="rq-punch">Two of three need the AI to look it up first. That's RAG.</p>
+      <p class="rq-punch">For two, current documents are essential. In practice, verify all three.</p>
     </div>
   </div>
 </section>
@@ -95,11 +95,11 @@
   .rag-piece { display: flex; flex-direction: column; align-items: center; gap: 0.7vw; width: 20vw; }
   .rag-piece .chip { font-size: 1.7vw; }
   .rag-gloss { font: 400 1.3vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; margin: 0; }
-  .rw-flow { display: flex; align-items: flex-start; justify-content: center; gap: 1vw; }
-  .rw-node { display: flex; flex-direction: column; align-items: center; gap: 0.7vw; width: 16.5vw; }
-  .rw-node .chip { font-size: 1.5vw; white-space: nowrap; }
-  .rw-cap { font: 400 1.2vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; margin: 0; }
-  .rw-arrow { font-size: 1.9vw; color: var(--ink-soft); margin-top: 0.4vw; }
+  .rw-flow { display: flex; align-items: flex-start; justify-content: center; gap: 0.6vw; }
+  .rw-node { display: flex; flex-direction: column; align-items: center; gap: 0.7vw; width: 13.5vw; }
+  .rw-node .chip { font-size: 1.25vw; white-space: nowrap; }
+  .rw-cap { font: 400 1.05vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; margin: 0; }
+  .rw-arrow { font-size: 1.6vw; color: var(--ink-soft); margin-top: 0.4vw; }
 </style>
 
 <section class="slide" data-label="What is RAG">
@@ -108,7 +108,7 @@
   <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 2vw;">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8vw;">
       <p class="concept-label">What is RAG</p>
-      <h1 class="headline" style="font-size: 2vw; max-width: 78vw;">Before answering, the model looks it up in documents you give it, then answers from them with sources.</h1>
+      <h1 class="headline" style="font-size: 2vw; max-width: 78vw;">Before answering, a RAG system retrieves relevant passages and adds them to the model's input. It can also show citations.</h1>
     </div>
     <div style="display: flex; flex-direction: column; align-items: center; gap: 1vw;">
       <p class="body" style="font-size: 1.3vw; color: var(--ink-soft);">What the name means:</p>
@@ -119,16 +119,16 @@
         </div>
         <div class="rag-piece">
           <span class="chip card--lemon">Augmented</span>
-          <p class="rag-gloss">Add them to what the model sees.</p>
+          <p class="rag-gloss">Add those passages to the model's input.</p>
         </div>
         <div class="rag-piece">
           <span class="chip card--sage">Generation</span>
-          <p class="rag-gloss">It writes the answer from those passages.</p>
+          <p class="rag-gloss">Use the question and passages to write the answer.</p>
         </div>
       </div>
     </div>
     <div class="card" style="padding: 1.2vw 2.4vw; max-width: 72vw;">
-      <p class="body" style="font-size: 1.45vw; text-align: center;">It closes the gaps the warm-up exposed: private files it never saw, updates after its cutoff, and claims with no source.</p>
+      <p class="body" style="font-size: 1.45vw; text-align: center;">It helps address the gaps from the warm-up: private files, newer information, and answers that need supporting sources.</p>
     </div>
   </div>
 </section>
@@ -139,7 +139,7 @@
   <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 2.4vw;">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
       <p class="concept-label">How RAG works</p>
-      <h1 class="headline" style="font-size: 2vw; max-width: 74vw;">The model searches your documents, then answers from what it finds.</h1>
+      <h1 class="headline" style="font-size: 2vw; max-width: 74vw;">A retriever finds relevant passages, adds them to the model's context, and the model writes an answer.</h1>
     </div>
     <div class="rw-flow">
       <div class="rw-node">
@@ -149,7 +149,7 @@
       <span class="rw-arrow">&rarr;</span>
       <div class="rw-node">
         <span class="chip card--lemon">Search</span>
-        <p class="rw-cap">It searches your documents by meaning, not keywords.</p>
+        <p class="rw-cap">It searches by keywords, meaning, or both.</p>
       </div>
       <span class="rw-arrow">&rarr;</span>
       <div class="rw-node">
@@ -158,12 +158,17 @@
       </div>
       <span class="rw-arrow">&rarr;</span>
       <div class="rw-node">
-        <span class="chip card--sage">Cited answer</span>
-        <p class="rw-cap">Answers from those, and shows the source.</p>
+        <span class="chip card--lilac">Add to context</span>
+        <p class="rw-cap">Places those passages beside your question.</p>
+      </div>
+      <span class="rw-arrow">&rarr;</span>
+      <div class="rw-node">
+        <span class="chip card--sage">Grounded answer</span>
+        <p class="rw-cap">Uses them to answer and can show sources.</p>
       </div>
     </div>
     <div class="card" style="padding: 1.2vw 2.4vw; max-width: 68vw;">
-      <p class="body" style="font-size: 1.45vw; text-align: center;">Those passages drop into the context window from Part 1. The model's training never changes.</p>
+      <p class="body" style="font-size: 1.45vw; text-align: center;">Those passages enter the context window from Part 1. During normal RAG use, retrieval does not update the model's weights.</p>
     </div>
   </div>
 </section>
@@ -205,7 +210,7 @@
     </div>
     <a class="nb-link" href="https://notebooklm.google.com/notebook/b62036d4-5aab-41dd-91c5-36434d55f4df" target="_blank" rel="noopener">Open the notebook &rarr;</a>
     <div class="card" style="padding: 1vw 2.4vw; max-width: 66vw;">
-      <p class="body" style="font-size: 1.35vw; text-align: center;">Hours of manual extraction, done in minutes. Check each cell against the source before you rely on it.</p>
+      <p class="body" style="font-size: 1.35vw; text-align: center;">It can turn hours of manual extraction into a first draft in minutes. Check each cell against the source before you rely on it.</p>
     </div>
   </div>
 </section>
@@ -254,7 +259,7 @@
         </label>
         <label class="ttl-row ttl-r2" for="ttlReveal">
           <span class="ttl-badge">B</span>
-          <p class="ttl-stmt">RAG reduces hallucinations by giving the model real source text to work from.</p>
+          <p class="ttl-stmt">RAG can reduce hallucinations by giving the model relevant source text to work from.</p>
           <span class="ttl-tag ttl-true">True</span>
         </label>
         <label class="ttl-row ttl-r3 ttl-lie" for="ttlReveal">
@@ -265,7 +270,7 @@
       </div>
       <label class="ttl-cta" for="ttlReveal">&#9656; tap any line to reveal</label>
       <div class="ttl-explain">
-        <p class="ttl-reason">The documents are looked up fresh each question. The model's training never changes.</p>
+        <p class="ttl-reason">The documents are retrieved when needed. Retrieval does not permanently update the model's weights.</p>
       </div>
     </div>
   </div>
