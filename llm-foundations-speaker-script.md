@@ -76,7 +76,7 @@ For important work, repeat the key context and check that the model is still usi
 
 There are several ways to use an AI model.
 
-A chatbot is good for direct conversation. A desktop app adds an interface on your computer. A command-line tool can work with files and run commands, but only through the access and permissions it receives. An API lets software send many repeatable requests. A local model runs on your own hardware.
+A chatbot is good for direct conversation. A desktop app adds an interface on your computer. A command-line tool can work with files and run commands, but only through the access and permissions it receives. An API lets software send prompts to an AI model and receive responses automatically. It is useful when the same task needs to be repeated many times. A local model runs on your own hardware.
 
 Many chatbots, desktop apps, command-line tools, and APIs connect to cloud-hosted models. However, they do not always use the same model. They may also use different instructions, tools, and data settings.
 
