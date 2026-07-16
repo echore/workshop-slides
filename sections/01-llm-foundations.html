@@ -163,6 +163,110 @@
   </div>
 </section>
 
+<!-- ===================== HOOK FOLLOW-UP (5 reveal cards) ===================== -->
+<style>
+  .hb-wrap > .hb-t { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .hb-row { display: flex; gap: 1.1vw; width: 88vw; align-items: stretch; justify-content: center; }
+  .hb-card { flex: 1; display: flex; flex-direction: column; gap: 0.7vw; border: 1.5px solid var(--rule-soft);
+             border-radius: 1.2vw; padding: 1.2vw 1.1vw; cursor: pointer; text-align: left;
+             transition: transform .15s ease, border-color .15s ease; }
+  .hb-card:hover { transform: translateY(-0.4vw); border-color: var(--ink-soft); }
+  .hb-1 { background: #F6EAF1; } .hb-2 { background: #F4F5D6; } .hb-3 { background: #F8EEE6; }
+  .hb-4 { background: #ECF1E2; } .hb-5 { background: #EEEAF4; }
+  .hb-q { font: 500 1.35vw/1.32 "Work Sans", sans-serif; color: var(--ink); margin: 0; }
+  .hb-reveal { margin-top: auto; }
+  .hb-prompt { font: italic 400 1.15vw "Cormorant Garamond", serif; color: var(--ink-soft); }
+  .hb-answer { display: none; flex-direction: column; gap: 0.35vw; }
+  .hb-lesson { font: 600 1.15vw "Work Sans", sans-serif; color: var(--ink); }
+  .hb-reason { font: 400 1.1vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
+  #hb1:checked ~ .hb-row label[for="hb1"] .hb-prompt,
+  #hb2:checked ~ .hb-row label[for="hb2"] .hb-prompt,
+  #hb3:checked ~ .hb-row label[for="hb3"] .hb-prompt,
+  #hb4:checked ~ .hb-row label[for="hb4"] .hb-prompt,
+  #hb5:checked ~ .hb-row label[for="hb5"] .hb-prompt { display: none; }
+  #hb1:checked ~ .hb-row label[for="hb1"] .hb-answer,
+  #hb2:checked ~ .hb-row label[for="hb2"] .hb-answer,
+  #hb3:checked ~ .hb-row label[for="hb3"] .hb-answer,
+  #hb4:checked ~ .hb-row label[for="hb4"] .hb-answer,
+  #hb5:checked ~ .hb-row label[for="hb5"] .hb-answer { display: flex; }
+  #hb1:checked ~ .hb-row label[for="hb1"],
+  #hb2:checked ~ .hb-row label[for="hb2"],
+  #hb3:checked ~ .hb-row label[for="hb3"],
+  #hb4:checked ~ .hb-row label[for="hb4"],
+  #hb5:checked ~ .hb-row label[for="hb5"] { border-color: var(--ink); }
+</style>
+
+<section class="slide" data-label="Hook debrief">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 10%; bottom: 10%; gap: 1.5vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.6vw;">
+      <p class="concept-label">Let&rsquo;s compare</p>
+      <h1 class="headline" style="font-size: 2.3vw;">What did your chatbot say about you?</h1>
+      <p class="body" style="font-size: 1.35vw; color: var(--ink-soft);">Hands up for each. Tap a card for what it reveals.</p>
+    </div>
+    <div class="hb-wrap">
+      <input class="hb-t" type="checkbox" id="hb1">
+      <input class="hb-t" type="checkbox" id="hb2">
+      <input class="hb-t" type="checkbox" id="hb3">
+      <input class="hb-t" type="checkbox" id="hb4">
+      <input class="hb-t" type="checkbox" id="hb5">
+      <div class="hb-row">
+        <label class="hb-card hb-1" for="hb1">
+          <p class="hb-q">Who got something confidently wrong: right tone, wrong facts?</p>
+          <div class="hb-reveal">
+            <span class="hb-prompt">&#9656; tap to reveal</span>
+            <span class="hb-answer">
+              <span class="hb-lesson">Hallucination</span>
+              <p class="hb-reason">It fills gaps with plausible text, not truth.</p>
+            </span>
+          </div>
+        </label>
+        <label class="hb-card hb-2" for="hb2">
+          <p class="hb-q">Anyone try two chatbots and get two different answers?</p>
+          <div class="hb-reveal">
+            <span class="hb-prompt">&#9656; tap to reveal</span>
+            <span class="hb-answer">
+              <span class="hb-lesson">It&rsquo;s generated</span>
+              <p class="hb-reason">Not a lookup. Same question, different model, different &ldquo;facts.&rdquo;</p>
+            </span>
+          </div>
+        </label>
+        <label class="hb-card hb-3" for="hb3">
+          <p class="hb-q">Who got mixed up with a different person sharing your name?</p>
+          <div class="hb-reveal">
+            <span class="hb-prompt">&#9656; tap to reveal</span>
+            <span class="hb-answer">
+              <span class="hb-lesson">Pattern, not identity</span>
+              <p class="hb-reason">It blends whoever is most common in the data.</p>
+            </span>
+          </div>
+        </label>
+        <label class="hb-card hb-4" for="hb4">
+          <p class="hb-q">Who got &ldquo;I don&rsquo;t have information on that&rdquo; or a refusal?</p>
+          <div class="hb-reveal">
+            <span class="hb-prompt">&#9656; tap to reveal</span>
+            <span class="hb-answer">
+              <span class="hb-lesson">Coverage gaps</span>
+              <p class="hb-reason">Little online, a newer or common name: nothing to draw on.</p>
+            </span>
+          </div>
+        </label>
+        <label class="hb-card hb-5" for="hb5">
+          <p class="hb-q">It sounded just as sure when right or wrong. How would you know, for a patient or a stat?</p>
+          <div class="hb-reveal">
+            <span class="hb-prompt">&#9656; tap to reveal</span>
+            <span class="hb-answer">
+              <span class="hb-lesson">Confidence &ne; accuracy</span>
+              <p class="hb-reason">Why the rest of today matters: context, retrieval, verification.</p>
+            </span>
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="slide" data-label="LLM Foundations">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
   <div class="pagedot"></div>
