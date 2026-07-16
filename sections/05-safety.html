@@ -147,12 +147,8 @@
 <!-- ========================= IPC ONTARIO GUIDELINES (PDF) ========================= -->
 <style>
   .ipc-wrap { display: flex; align-items: center; justify-content: center; gap: 3vw; width: 82vw; }
-  .ipc-doc { width: 20vw; height: 26vw; border-radius: 0.8vw; background: var(--paper);
-             border: 1.5px solid var(--rule-soft); box-shadow: 0 1vw 2.6vw rgba(42,36,27,0.14);
-             display: flex; flex-direction: column; justify-content: flex-end; padding: 1.6vw; }
-  .ipc-doc .band { height: 0.5vw; width: 60%; background: var(--pink); border-radius: 999px; margin-bottom: auto; }
-  .ipc-doc .dt { font: 500 1.7vw/1.2 "Cormorant Garamond", serif; color: var(--ink); }
-  .ipc-doc .dm { font: italic 400 1.2vw "Cormorant Garamond", serif; color: var(--ink-soft); margin-top: 0.4vw; }
+  .ipc-cover { width: 22vw; max-height: 30vw; object-fit: contain; border-radius: 0.6vw;
+               box-shadow: 0 1vw 2.6vw rgba(42,36,27,0.18); }
   .ipc-side { display: flex; flex-direction: column; gap: 0.9vw; width: 46vw; }
   .ipc-li { display: flex; gap: 0.9vw; align-items: baseline; font: 400 1.4vw/1.4 "Work Sans", sans-serif; color: var(--ink); }
   .ipc-li b { font-weight: 600; }
@@ -171,11 +167,7 @@
     </div>
 
     <div class="ipc-wrap">
-      <div class="ipc-doc">
-        <span class="band"></span>
-        <div class="dt">De-Identification Guidelines for Structured Data</div>
-        <div class="dm">IPC Ontario &middot; updated Oct 2025 &middot; 104 pp.</div>
-      </div>
+      <img class="ipc-cover" src="images/ipc-deidentification-cover.png" alt="Cover: De-Identification Guidelines for Structured Data, IPC Ontario, October 2025">
       <div class="ipc-side">
         <div class="ipc-li"><span class="ipc-dot">&#8226;</span><span>Separates <b>direct</b> identifiers (names, IDs) from <b>indirect</b> ones (ZIP, age, sex) that enable linkage.</span></div>
         <div class="ipc-li"><span class="ipc-dot">&#8226;</span><span>Frames risk around an <b>adversary</b> trying to re-identify, and a <b>threshold</b> of acceptable risk.</span></div>
