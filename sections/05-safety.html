@@ -349,3 +349,70 @@
     </div>
   </div>
 </section>
+
+<!-- ========================= ACKNOWLEDGMENTS & REFERENCES ========================= -->
+<style>
+  .ref-cols { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 2.4vw; width: 84vw; align-items: start; }
+  .ref-col-h { font: italic 500 1.55vw "Cormorant Garamond", serif; color: var(--ink-soft);
+               margin-bottom: 0.7vw; }
+  .ref-stack { display: flex; flex-direction: column; gap: 0.9vw; }
+  .ref-item { display: flex; align-items: center; gap: 1vw; }
+  .ref-item img { width: 13vw; border-radius: 0.5vw; border: 1.5px solid var(--rule-soft);
+                  box-shadow: 0 0.5vw 1.6vw rgba(42,36,27,0.12); object-fit: cover; }
+  .ref-cap { font: 400 1.25vw/1.35 "Work Sans", sans-serif; color: var(--ink); }
+  .ref-cap small { display: block; font: italic 400 1.1vw "Cormorant Garamond", serif; color: var(--ink-soft); margin-top: 0.15vw; }
+  .ref-books { display: flex; gap: 1.2vw; }
+  .ref-book { display: flex; flex-direction: column; gap: 0.5vw; width: 50%; align-items: center; text-align: center; }
+  .ref-book img { width: 9vw; border-radius: 0.4vw; box-shadow: 0 0.6vw 1.8vw rgba(42,36,27,0.18); }
+  .ref-book .bc { font: 400 1.12vw/1.3 "Work Sans", sans-serif; color: var(--ink); }
+  .ref-book .bc small { display: block; font: italic 400 1vw "Cormorant Garamond", serif; color: var(--ink-soft); }
+</style>
+
+<section class="slide sfy-frame" data-label="Acknowledgments &amp; references">
+  <div class="eyebrow">AI4PH &middot; Workshop</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 8%; bottom: 8%; gap: 1.4vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5vw;">
+      <p class="concept-label">Thank you</p>
+      <h1 class="headline" style="font-size: 2.1vw;">Acknowledgments &amp; useful references</h1>
+    </div>
+
+    <div class="ref-cols">
+      <div>
+        <p class="ref-col-h">Talks &amp; programs that shaped this</p>
+        <div class="ref-stack">
+          <div class="ref-item">
+            <img src="images/ref-talk-yanxun-xu.png" alt="Talk: Enhancing Statistical Research with Task-Specific LLMs and Structured Agents">
+            <p class="ref-cap">Enhancing Statistical Research with Task-Specific LLMs &amp; Structured Agents<small>Yanxun Xu &middot; Johns Hopkins University</small></p>
+          </div>
+          <div class="ref-item">
+            <img src="images/ref-ivado.png" alt="IVADO Thematic Semester 2026: Statistical Foundations of AI">
+            <p class="ref-cap">Statistical Insights into Modern AI Systems<small>IVADO Thematic Semester 2026 &middot; Montr&eacute;al</small></p>
+          </div>
+          <div class="ref-item">
+            <img src="images/ref-trail.png" alt="TRAIL: Responsible AI for Professionals and Leaders">
+            <p class="ref-cap">TRAIL: Responsible AI for Professionals &amp; Leaders<small>Responsible-AI learning journey</small></p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="ref-col-h">Go deeper</p>
+        <div class="ref-books">
+          <div class="ref-book">
+            <img src="images/ref-book-hands-on-llms.png" alt="Book: Hands-On Large Language Models">
+            <p class="bc">Hands-On Large Language Models<small>Alammar &amp; Grootendorst &middot; O&rsquo;Reilly</small></p>
+          </div>
+          <div class="ref-book">
+            <img src="images/ref-book-prompt-engineering.png" alt="Book: Prompt Engineering for Generative AI">
+            <p class="bc">Prompt Engineering for Generative AI<small>Phoenix &amp; Taylor &middot; O&rsquo;Reilly</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="body-sm" style="font-size: 1.25vw; color: var(--ink-soft); text-align: center; max-width: 78vw;">
+      With thanks to the AI4PH team and everyone who joined today.
+    </p>
+  </div>
+</section>
