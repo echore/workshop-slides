@@ -1,36 +1,5 @@
 <style>
-  .acc-wrap > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
-  .acc { display: flex; align-items: center; justify-content: center; gap: 3vw; }
-  .acc-col { display: flex; flex-direction: column; gap: 0.9vw; }
-  .acc-chip { display: block; width: 15vw; text-align: center; font-size: 1.6vw; cursor: pointer; transition: transform .12s ease; }
-  .acc-hint { font: italic 400 1.1vw "Cormorant Garamond", serif; color: var(--ink-soft); text-align: center; margin-top: 0.4vw; }
-  .acc-panel { width: 44vw; display: flex; align-items: center; justify-content: center; }
-  .acc-screen { display: none; flex-direction: column; align-items: center; gap: 1.1vw; width: 100%; }
-  .acc-shot { width: 100%; min-height: 21vw; display: flex; align-items: center; justify-content: center; }
-  .acc-shot.ph { height: 21vw; border: 1.5px dashed var(--rule-soft); border-radius: var(--radius); background: var(--card-fill); color: var(--ink-soft); font-size: 1.4vw; }
-  .acc-shot img, .acc-shot video, .cb-i { max-width: 100%; max-height: 21vw; border-radius: 12px; box-shadow: 0 8px 28px rgba(42, 36, 27, 0.16); }
-  .acc-cap { font: 400 1.4vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; margin: 0; }
   .concept-label { font: 500 3vw "Cormorant Garamond", serif; color: var(--ink); margin: 0; }
-  .acc-s1 > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
-  .cb-i { display: none; }
-  #cb-1:checked ~ .cb-imgs .cb-i1,
-  #cb-2:checked ~ .cb-imgs .cb-i2,
-  #cb-3:checked ~ .cb-imgs .cb-i3 { display: block; }
-  .cb-tabs { display: flex; gap: 0.6vw; }
-  .cb-tabs label { font: 400 1.2vw "Work Sans", sans-serif; padding: 0.3vw 1.1vw; border-radius: 999px; border: 1.5px solid var(--rule-soft); color: var(--ink-soft); cursor: pointer; }
-  #cb-1:checked ~ .cb-tabs label[for="cb-1"],
-  #cb-2:checked ~ .cb-tabs label[for="cb-2"],
-  #cb-3:checked ~ .cb-tabs label[for="cb-3"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  #acc-1:checked ~ .acc .acc-s1,
-  #acc-2:checked ~ .acc .acc-s2,
-  #acc-3:checked ~ .acc .acc-s3,
-  #acc-4:checked ~ .acc .acc-s4,
-  #acc-5:checked ~ .acc .acc-s5 { display: flex; }
-  #acc-1:checked ~ .acc label[for="acc-1"],
-  #acc-2:checked ~ .acc label[for="acc-2"],
-  #acc-3:checked ~ .acc label[for="acc-3"],
-  #acc-4:checked ~ .acc label[for="acc-4"],
-  #acc-5:checked ~ .acc label[for="acc-5"] { transform: scale(1.05); outline: 2.5px solid var(--ink); outline-offset: 3px; }
 </style>
 
 <section class="slide" data-label="Title">
@@ -354,65 +323,65 @@
   </div>
 </section>
 
+<!-- ===================== HOW YOU REACH AI (comparison table) ===================== -->
+<style>
+  .cmp-table { display: grid; grid-template-columns: 15vw repeat(3, 1fr);
+               gap: 0.5vw; width: 82vw; }
+  .cmp-h { display: flex; flex-direction: column; align-items: center; justify-content: center;
+           gap: 0.15vw; text-align: center; padding: 0.85vw 0.8vw; border-radius: 0.9vw;
+           font: 500 1.55vw "Work Sans", sans-serif; color: var(--ink); }
+  .cmp-h small { font: italic 400 1.1vw "Cormorant Garamond", serif; opacity: 0.72; }
+  .cmp-rl { display: flex; align-items: center; padding: 0.6vw 1vw; border-radius: 0.9vw;
+            font: 600 1.4vw "Work Sans", sans-serif; color: var(--ink); background: var(--card-fill); }
+  .cmp-c { display: flex; align-items: center; justify-content: center; text-align: center;
+           padding: 0.6vw 1vw; border-radius: 0.9vw; border: 1.5px solid var(--rule-soft);
+           background: var(--paper); font: 400 1.3vw/1.3 "Work Sans", sans-serif; color: var(--ink-soft); }
+</style>
+
 <section class="slide" data-label="Access">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.5vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
+  <div class="layout-hero" style="top: 10%; bottom: 10%; gap: 1.5vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1vw;">
       <p class="concept-label">How you reach AI</p>
-      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 78vw;">Many ways to reach AI connect to cloud-hosted models.</h1>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 78vw;">Three doorways to the same cloud models &mdash; each with its own trade-offs.</h1>
     </div>
-    <div class="acc-wrap">
-      <input type="radio" name="acc" id="acc-1" checked>
-      <input type="radio" name="acc" id="acc-2">
-      <input type="radio" name="acc" id="acc-3">
-      <input type="radio" name="acc" id="acc-4">
-      <input type="radio" name="acc" id="acc-5">
-      <div class="acc">
-        <div>
-          <div class="acc-col">
-            <label for="acc-1" class="chip card--pink acc-chip">Chatbot</label>
-            <label for="acc-2" class="chip card--lemon acc-chip">Desktop app</label>
-            <label for="acc-3" class="chip card--blush acc-chip">CLI</label>
-            <label for="acc-4" class="chip card--sage acc-chip">API</label>
-            <label for="acc-5" class="chip chip--blank acc-chip">Local</label>
-          </div>
-        </div>
-        <div class="acc-panel">
-          <div class="acc-screen acc-s1">
-            <input type="radio" name="cb" id="cb-1" checked>
-            <input type="radio" name="cb" id="cb-2">
-            <input type="radio" name="cb" id="cb-3">
-            <div class="acc-shot cb-imgs">
-              <img class="cb-i cb-i1" src="images/chatbot-claude.png" alt="Chatbot: Claude">
-              <img class="cb-i cb-i2" src="images/chatbot-gemini.png" alt="Chatbot: Gemini">
-              <img class="cb-i cb-i3" src="images/chatbot-chatgpt.png" alt="Chatbot: ChatGPT">
-            </div>
-            <div class="cb-tabs">
-              <label for="cb-1">Claude</label>
-              <label for="cb-2">Gemini</label>
-              <label for="cb-3">ChatGPT</label>
-            </div>
-            <p class="acc-cap">The same question, different chatbots.</p>
-          </div>
-          <div class="acc-screen acc-s2">
-            <div class="acc-shot"><img src="images/desktop.png" alt="Desktop app: Claude Code"></div>
-            <p class="acc-cap">A cloud-hosted model, inside a desktop app.</p>
-          </div>
-          <div class="acc-screen acc-s3">
-            <div class="acc-shot"><img src="images/cli-claude-code.png" alt="CLI: Claude Code running in a terminal"></div>
-            <p class="acc-cap">It reaches your real files, not just chat.</p>
-          </div>
-          <div class="acc-screen acc-s4">
-            <div class="acc-shot"><video src="images/api-notion.mp4" autoplay loop muted playsinline></video></div>
-            <p class="acc-cap">Built into apps you already use. Notion's agent can build, edit, and take action.</p>
-          </div>
-          <div class="acc-screen acc-s5">
-            <div class="acc-shot"><img src="images/local-lm-studio.webp" alt="Local app: LM Studio running an OpenAI model"></div>
-            <p class="acc-cap">Runs on your own computer. Offline, private, weaker.</p>
-          </div>
-        </div>
-      </div>
+
+    <div class="cmp-table">
+      <!-- header row -->
+      <div></div>
+      <div class="cmp-h" style="background: var(--pink);">Web interface<small>chatbot in a browser</small></div>
+      <div class="cmp-h" style="background: var(--blush);">Cloud API<small>wired into your code</small></div>
+      <div class="cmp-h" style="background: var(--lilac);">Local model<small>on your own machine</small></div>
+
+      <div class="cmp-rl">Setup</div>
+      <div class="cmp-c">None &mdash; just log in</div>
+      <div class="cmp-c">An API key</div>
+      <div class="cmp-c">High: hardware + drivers</div>
+
+      <div class="cmp-rl">Privacy</div>
+      <div class="cmp-c">Low (public tier)</div>
+      <div class="cmp-c">Medium (enterprise)</div>
+      <div class="cmp-c">High (air-gapped)</div>
+
+      <div class="cmp-rl">Scale</div>
+      <div class="cmp-c">One at a time, by hand</div>
+      <div class="cmp-c">High, automated</div>
+      <div class="cmp-c">Limited by your hardware</div>
+
+      <div class="cmp-rl">Cost</div>
+      <div class="cmp-c">Flat subscription</div>
+      <div class="cmp-c">Per-token</div>
+      <div class="cmp-c">Upfront hardware</div>
+
+      <div class="cmp-rl">Best for</div>
+      <div class="cmp-c">Quick one-offs</div>
+      <div class="cmp-c">Systematic analysis</div>
+      <div class="cmp-c">PHI / sensitive work</div>
+    </div>
+
+    <div class="card" style="padding: 1.1vw 2.2vw; max-width: 76vw;">
+      <p class="body" style="font-size: 1.5vw; text-align: center;">Same models underneath &mdash; pick the doorway by how much privacy, scale, and setup the task needs.</p>
     </div>
   </div>
 </section>
