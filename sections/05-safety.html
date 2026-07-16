@@ -5,31 +5,8 @@
 
   .sfy-arrow { color: var(--ink-soft); font-size: 1.6vw; line-height: 1; }
 
-  /* chat mock (hallucination) */
-  .sfy-chat { display: flex; flex-direction: column; gap: 0.7vw; width: 60vw; }
-  .sfy-bub { border-radius: 1.1vw; padding: 0.85vw 1.3vw; font: 400 1.4vw/1.4 "Work Sans", sans-serif; }
-  .sfy-bub.user { align-self: flex-end; background: var(--card-fill); }
-  .sfy-bub.ai { align-self: flex-start; background: rgba(255,255,255,0.7); border: 1.5px solid var(--rule-soft); max-width: 46vw; }
-  .sfy-flag { align-self: flex-start; display: flex; align-items: center; gap: 0.5vw;
-              font: italic 500 1.4vw "Cormorant Garamond", serif; color: var(--warn); }
-
-  /* two-path privacy */
-  .sfy-paths { display: flex; gap: 5vw; align-items: stretch; justify-content: center; }
-  .sfy-path { display: flex; flex-direction: column; align-items: center; gap: 0.8vw; width: 30vw; }
-  .sfy-head { font: 500 1.7vw "Work Sans", sans-serif; }
-  .sfy-box { width: 100%; text-align: center; padding: 1.4vw 1.2vw; border-radius: 1.2vw;
-             font: 500 1.6vw "Work Sans", sans-serif; }
-  .sfy-box small { display: block; font-weight: 400; font-size: 1.2vw; color: var(--ink-soft); margin-top: 0.3vw; }
-  .sfy-tag { font: 500 1.4vw "Work Sans", sans-serif; }
   .warn { color: var(--warn); }
   .ok { color: var(--ok); }
-
-  /* linkage story */
-  .sfy-link { display: flex; align-items: center; justify-content: center; gap: 1.4vw; }
-  .sfy-lcard { width: 22vw; padding: 1.3vw 1.4vw; border-radius: 1.2vw; }
-  .sfy-lcard .t { font: 500 1.5vw "Work Sans", sans-serif; margin-bottom: 0.4vw; }
-  .sfy-lcard .f { font: 400 1.3vw/1.45 "Work Sans", sans-serif; color: var(--ink-soft); }
-  .sfy-op { font: 500 2.4vw "Cormorant Garamond", serif; color: var(--ink-soft); }
 </style>
 
 <!-- ========================= SECTION OPENER ========================= -->
@@ -60,152 +37,160 @@
   </div>
 </section>
 
-<!-- ========================= HALLUCINATION ========================= -->
-<section class="slide sfy-frame" data-label="Hallucination">
+<!-- ========================= OVERVIEW OF LLM ISSUES ========================= -->
+<style>
+  .ov-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1vw; width: 80vw; }
+  .ov-card { display: flex; flex-direction: column; gap: 0.5vw; border-radius: 1.2vw; padding: 1.1vw 1.4vw;
+             border: 1.5px solid var(--rule-soft); border-left-width: 0.55vw; }
+  .ov-card.c1 { border-left-color: var(--pink);  background: #F6EAF1; }
+  .ov-card.c2 { border-left-color: var(--lemon); background: #F4F5D6; }
+  .ov-card.c3 { border-left-color: var(--blush); background: #F8EEE6; }
+  .ov-card.c4 { border-left-color: var(--sage);  background: #ECF1E2; }
+  .ov-h { font: 500 1.55vw "Work Sans", sans-serif; color: var(--ink); }
+  .ov-line { display: grid; grid-template-columns: 4.5vw 1fr; gap: 0.7vw; align-items: baseline; }
+  .ov-lbl { font: 600 1.1vw "Work Sans", sans-serif; text-transform: uppercase; letter-spacing: 0.04em; }
+  .ov-lbl.issue { color: var(--warn); }
+  .ov-lbl.fix { color: var(--ok); }
+  .ov-txt { font: 400 1.22vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); }
+</style>
+
+<section class="slide sfy-frame" data-label="Overview of risks">
   <div class="eyebrow">Part 5 &middot; Safety &amp; Regulatory</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 9%; bottom: 9%; gap: 1.4vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1vw;">
-      <p class="concept-label">Hallucination</p>
-      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 78vw;">
-        It predicts the next plausible word, but it does not check whether that word is true.
-      </h1>
-    </div>
-
-    <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.9vw; font-size: 1.5vw;">
-      <span class="chip card--pink">predicts what sounds right</span>
-      <span class="sfy-arrow">&rarr;</span>
-      <span class="chip card--lemon">never verifies</span>
-      <span class="sfy-arrow">&rarr;</span>
-      <span class="chip card--blush">can be confidently wrong</span>
-    </div>
-
-    <div class="sfy-chat">
-      <div class="sfy-bub user">&ldquo;Give me a reference on vaccine hesitancy in rural Canada.&rdquo;</div>
-      <div class="sfy-bub ai">Roy, D. &amp; Chen, M. (2019). <em>Determinants of vaccine hesitancy in rural Canadian communities.</em> Canadian Journal of Public Health, 110(4), 512&ndash;521.</div>
-      <div class="sfy-flag">&#9888; Looks real, but no such paper exists.</div>
-    </div>
-
-    <div class="card" style="padding: 1.2vw 2.4vw; max-width: 70vw;">
-      <p class="body" style="font-size: 1.55vw; text-align: center;">
-        A hallucination is a fluent answer that is inaccurate or invented. Fluency is not evidence of truth, so verify every fact and source.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ========================= BIAS ========================= -->
-<section class="slide sfy-frame" data-label="Bias">
-  <div class="eyebrow">Part 5 &middot; Safety &amp; Regulatory</div>
-  <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 10%; bottom: 10%; gap: 1.6vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1vw;">
-      <p class="concept-label">Bias</p>
+  <div class="layout-hero" style="top: 8%; bottom: 8%; gap: 1.3vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.6vw;">
+      <p class="concept-label">Where LLMs fall short</p>
       <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 80vw;">
-        It learns from human text, so it reflects whose knowledge is well represented, and whose is missing.
+        Four failure modes, and what to do about each.
       </h1>
     </div>
 
-    <div class="window-box" style="flex-direction: column; gap: 1.1vw; padding: 1.6vw 1.8vw; width: 60vw;">
-      <div class="bar-row" style="margin-bottom: 0;">
-        <span class="bar-label" style="width: 15vw; font-size: 1.4vw; text-align: right;">Everyday US culture</span>
-        <div class="bar-track" style="height: 1.6vw;"><div class="bar-fill" style="width: 79%; background: var(--sage);"></div></div>
-        <span style="width: 4vw; font-size: 1.5vw; text-align: right; color: var(--ink-soft);">79%</span>
+    <div class="ov-grid">
+      <div class="ov-card c1">
+        <div class="ov-h">Hallucination</div>
+        <div class="ov-line"><span class="ov-lbl issue">Issue</span><span class="ov-txt">Invents fluent, confident answers, fake citations, wrong facts.</span></div>
+        <div class="ov-line"><span class="ov-lbl fix">Fix</span><span class="ov-txt">Verify every fact and source before you use it.</span></div>
       </div>
-      <div class="bar-row" style="margin-bottom: 0;">
-        <span class="bar-label" style="width: 15vw; font-size: 1.4vw; text-align: right;">Everyday Ethiopian culture</span>
-        <div class="bar-track" style="height: 1.6vw;"><div class="bar-fill" style="width: 12%; background: var(--pink);"></div></div>
-        <span style="width: 4vw; font-size: 1.5vw; text-align: right; color: var(--ink-soft);">12%</span>
+      <div class="ov-card c2">
+        <div class="ov-h">Bias</div>
+        <div class="ov-line"><span class="ov-lbl issue">Issue</span><span class="ov-txt">Quality can be systematically worse for under-represented populations.</span></div>
+        <div class="ov-line"><span class="ov-lbl fix">Fix</span><span class="ov-txt">Check outputs across groups; don&rsquo;t assume even coverage.</span></div>
       </div>
-      <p class="body-sm" style="font-size: 1.15vw; color: var(--ink-soft); text-align: center; margin-top: 0.4vw;">
-        LLM accuracy on everyday-knowledge questions &middot; BLEND benchmark
-      </p>
+      <div class="ov-card c3">
+        <div class="ov-h">No accountability</div>
+        <div class="ov-line"><span class="ov-lbl issue">Issue</span><span class="ov-txt">The model can&rsquo;t be responsible for an error, you are.</span></div>
+        <div class="ov-line"><span class="ov-lbl fix">Fix</span><span class="ov-txt">Keep a human in the loop to own and sign off the output.</span></div>
+      </div>
+      <div class="ov-card c4">
+        <div class="ov-h">Privacy</div>
+        <div class="ov-line"><span class="ov-lbl issue">Issue</span><span class="ov-txt">Text pasted into a cloud tool leaves your machine and may be stored.</span></div>
+        <div class="ov-line"><span class="ov-lbl fix">Fix</span><span class="ov-txt">Never paste PHI. Use a local model, or protect the data first &rarr;</span></div>
+      </div>
     </div>
 
-    <div class="card" style="padding: 1.2vw 2.4vw; max-width: 72vw;">
-      <p class="body" style="font-size: 1.55vw; text-align: center;">
-        A biased answer is an <em>unreliable</em> answer: quality can be systematically worse for some populations than others.
+    <div class="card" style="padding: 1.1vw 2.4vw; max-width: 74vw;">
+      <p class="body" style="font-size: 1.5vw; text-align: center;">
+        Today we focus on the one that&rsquo;s hardest to undo: <em>data privacy</em>.
       </p>
     </div>
   </div>
 </section>
 
-<!-- ========================= PRIVACY A - OPERATIONAL ========================= -->
-<section class="slide sfy-frame" data-label="Data privacy">
+<!-- ========================= DATA PRIVACY: THREE APPROACHES ========================= -->
+<style>
+  .dp-row { display: flex; gap: 1.4vw; width: 84vw; align-items: stretch; justify-content: center; }
+  .dp-card { flex: 1; display: flex; flex-direction: column; gap: 0.6vw; border-radius: 1.4vw;
+             padding: 1.4vw 1.5vw; }
+  .dp-card.a { background: #F8EEE6; } .dp-card.b { background: #EEEAF4; } .dp-card.c { background: #ECF1E2; }
+  .dp-h { font: 500 1.65vw "Work Sans", sans-serif; color: var(--ink); }
+  .dp-def { font: 400 1.3vw/1.4 "Work Sans", sans-serif; color: var(--ink); }
+  .dp-risk { font: italic 400 1.25vw/1.4 "Cormorant Garamond", serif; margin-top: auto; padding-top: 0.5vw; }
+</style>
+
+<section class="slide sfy-frame" data-label="De-identify vs anonymize vs synthetic">
   <div class="eyebrow">Part 5 &middot; Safety &amp; Regulatory</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 9%; bottom: 9%; gap: 1.6vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1vw;">
-      <p class="concept-label">Data privacy</p>
-      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 80vw;">
-        When you paste into a cloud tool, your text leaves your computer, and may be stored.
+  <div class="layout-hero" style="top: 9%; bottom: 9%; gap: 1.5vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
+      <p class="concept-label">Protecting the data</p>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 82vw;">
+        Three ways to reduce risk, and they are not equally safe.
       </h1>
     </div>
 
-    <div class="sfy-paths">
-      <div class="sfy-path">
-        <div class="sfy-head">Chatbot &middot; API</div>
-        <span class="sfy-arrow">&darr;</span>
-        <div class="sfy-box card--blush">A company&rsquo;s servers<small>your text can be kept and reused</small></div>
-        <div class="sfy-tag warn">&#9888; data leaves your machine</div>
+    <div class="dp-row">
+      <div class="dp-card a">
+        <div class="dp-h">De-identification</div>
+        <div class="dp-def">Remove or mask direct identifiers (names, health numbers). Indirect ones, ZIP, age, sex, may remain.</div>
+        <div class="dp-risk warn">&#9888; Re-identification still possible by linkage.</div>
       </div>
-      <div class="sfy-path">
-        <div class="sfy-head">Local model</div>
-        <span class="sfy-arrow">&darr;</span>
-        <div class="sfy-box card--sage">Your own computer<small>runs offline, nothing sent</small></div>
-        <div class="sfy-tag ok">&#10003; data stays with you</div>
+      <div class="dp-card b">
+        <div class="dp-h">Anonymization</div>
+        <div class="dp-def">Alter the data so re-identification risk is <em>very low</em>, even combined with other sources. A higher bar.</div>
+        <div class="dp-risk ok">&#10003; Much lower risk, harder to achieve well.</div>
+      </div>
+      <div class="dp-card c">
+        <div class="dp-h">Synthetic data</div>
+        <div class="dp-def">Artificial records that mimic the statistics of the real data, but describe no real person.</div>
+        <div class="dp-risk ok">&#10003; No real individuals, if generated carefully.</div>
       </div>
     </div>
 
-    <div class="card" style="padding: 1.2vw 2.4vw; max-width: 74vw;">
-      <p class="body" style="font-size: 1.55vw; text-align: center;">
-        Never put patient data (PHI) into a public chatbot. For anything sensitive, use a local model.
+    <div class="card" style="padding: 1.1vw 2.4vw; max-width: 76vw;">
+      <p class="body" style="font-size: 1.5vw; text-align: center;">
+        &ldquo;De-identified&rdquo; is not anonymous. A few common fields, ZIP + sex + birth date, can re-identify people.
       </p>
     </div>
   </div>
 </section>
 
-<!-- ========================= PRIVACY B - RE-IDENTIFICATION ========================= -->
-<section class="slide sfy-frame" data-label="Re-identification">
+<!-- ========================= IPC ONTARIO GUIDELINES (PDF) ========================= -->
+<style>
+  .ipc-wrap { display: flex; align-items: center; justify-content: center; gap: 3vw; width: 82vw; }
+  .ipc-doc { width: 20vw; height: 26vw; border-radius: 0.8vw; background: var(--paper);
+             border: 1.5px solid var(--rule-soft); box-shadow: 0 1vw 2.6vw rgba(42,36,27,0.14);
+             display: flex; flex-direction: column; justify-content: flex-end; padding: 1.6vw; }
+  .ipc-doc .band { height: 0.5vw; width: 60%; background: var(--pink); border-radius: 999px; margin-bottom: auto; }
+  .ipc-doc .dt { font: 500 1.7vw/1.2 "Cormorant Garamond", serif; color: var(--ink); }
+  .ipc-doc .dm { font: italic 400 1.2vw "Cormorant Garamond", serif; color: var(--ink-soft); margin-top: 0.4vw; }
+  .ipc-side { display: flex; flex-direction: column; gap: 0.9vw; width: 46vw; }
+  .ipc-li { display: flex; gap: 0.9vw; align-items: baseline; font: 400 1.4vw/1.4 "Work Sans", sans-serif; color: var(--ink); }
+  .ipc-li b { font-weight: 600; }
+  .ipc-dot { color: var(--ink-soft); }
+</style>
+
+<section class="slide sfy-frame" data-label="IPC de-identification guidelines">
   <div class="eyebrow">Part 5 &middot; Safety &amp; Regulatory</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 10%; bottom: 10%; gap: 1.6vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1vw;">
-      <p class="concept-label">Re-identification</p>
-      <h1 class="headline" style="font-size: 2.2vw; line-height: 1.2;">
-        &ldquo;De-identified&rdquo; is not the same as anonymous.
+  <div class="layout-hero" style="top: 9%; bottom: 9%; gap: 1.5vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
+      <p class="concept-label">A practical playbook</p>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 82vw;">
+        Ontario&rsquo;s privacy regulator gives a step-by-step method for structured data.
       </h1>
     </div>
 
-    <div class="sfy-link">
-      <div class="sfy-lcard card--blush">
-        <div class="t">Health record, name removed</div>
-        <div class="f">ZIP &middot; sex &middot; date of birth &middot; diagnosis</div>
+    <div class="ipc-wrap">
+      <div class="ipc-doc">
+        <span class="band"></span>
+        <div class="dt">De-Identification Guidelines for Structured Data</div>
+        <div class="dm">IPC Ontario &middot; updated Oct 2025 &middot; 104 pp.</div>
       </div>
-      <span class="sfy-op">+</span>
-      <div class="sfy-lcard card--lemon">
-        <div class="t">Public voter list</div>
-        <div class="f">name &middot; ZIP &middot; sex &middot; date of birth</div>
-      </div>
-      <span class="sfy-op">&rarr;</span>
-      <div class="sfy-lcard card--pink">
-        <div class="t">One person</div>
-        <div class="f">re-identified by name</div>
+      <div class="ipc-side">
+        <div class="ipc-li"><span class="ipc-dot">&#8226;</span><span>Separates <b>direct</b> identifiers (names, IDs) from <b>indirect</b> ones (ZIP, age, sex) that enable linkage.</span></div>
+        <div class="ipc-li"><span class="ipc-dot">&#8226;</span><span>Frames risk around an <b>adversary</b> trying to re-identify, and a <b>threshold</b> of acceptable risk.</span></div>
+        <div class="ipc-li"><span class="ipc-dot">&#8226;</span><span>Lays out a <b>process</b>: classify variables, set a release model, measure risk, apply controls.</span></div>
+        <div class="ipc-li"><span class="ipc-dot">&#8226;</span><span>Key caution: <b>data linkage increases vulnerability</b>, de-identification is a risk level, not a switch.</span></div>
       </div>
     </div>
 
-    <p class="body-sm" style="font-size: 1.3vw; color: var(--ink-soft); max-width: 72vw; text-align: center;">
-      Latanya Sweeney linked &ldquo;anonymous&rdquo; hospital records to voter rolls on ZIP + sex + birth date, and re-identified the state governor&rsquo;s own medical file.
-    </p>
-
-    <div class="card" style="padding: 1.2vw 2.4vw; max-width: 74vw;">
-      <p class="body" style="font-size: 1.55vw; text-align: center;">
-        Removing names isn&rsquo;t enough. A few common fields can re-identify people, so treat &ldquo;de-identified&rdquo; data as still sensitive.
+    <div class="card" style="padding: 1.1vw 2.4vw; max-width: 76vw;">
+      <p class="body" style="font-size: 1.5vw; text-align: center;">
+        When you must share health data, follow a recognized method like this, don&rsquo;t eyeball it.
       </p>
     </div>
   </div>
 </section>
-
 <!-- ========================= CANADIAN FRAMEWORKS (FASTER) ========================= -->
 <style>
   .fst-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9vw; width: 82vw; }
