@@ -577,6 +577,121 @@
      (This supersedes the earlier 2-slide file — paste all of this.)
      ============================================================ -->
 
+<!-- ===================== HOW-TO: API & LOCAL ===================== -->
+<style>
+  .ht-grid { display: grid; grid-template-columns: 4vw 1fr; row-gap: 1vw; column-gap: 1.3vw;
+             width: 72vw; align-items: start; }
+  .ht-n { display: flex; align-items: center; justify-content: center; width: 3vw; height: 3vw;
+          border-radius: 50%; font: italic 500 1.55vw "Cormorant Garamond", serif; color: var(--ink); }
+  .ht-body { display: flex; flex-direction: column; gap: 0.5vw; padding-top: 0.2vw; }
+  .ht-step { font: 400 1.55vw/1.35 "Work Sans", sans-serif; color: var(--ink); margin: 0; }
+  .ht-step b { font-weight: 600; }
+  .ht-sub { display: flex; flex-wrap: wrap; gap: 0.5vw; }
+  .ht-term { font: 400 1.25vw "Work Sans", sans-serif; padding: 0.25vw 0.9vw; border-radius: 0.7vw;
+             color: var(--ink); border: 1.5px solid var(--rule-soft); }
+  .ht-term b { font-weight: 600; }
+  .ht-code { font: 400 1.25vw "IBM Plex Mono", "Work Sans", monospace; padding: 0.1vw 0.5vw;
+             border-radius: 0.4vw; background: var(--card-fill); color: var(--ink); }
+  .ht-tools { display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+              gap: 0.6vw 0.9vw; width: 74vw; }
+  .ht-tools .lbl { font: italic 400 1.2vw "Cormorant Garamond", serif; color: var(--ink-soft); }
+  .ht-tool { font: 400 1.25vw "Work Sans", sans-serif; padding: 0.3vw 1vw; border-radius: 999px;
+             color: var(--ink); }
+  .ht-tool small { color: var(--ink-soft); font-style: italic;
+                   font-family: "Cormorant Garamond", serif; font-size: 1.1vw; }
+</style>
+
+<section class="slide" data-label="How-to API">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 7%; bottom: 7%; gap: 1.05vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
+      <p class="concept-label">In practice</p>
+      <h1 class="headline" style="font-size: 2.2vw;">Using a cloud API</h1>
+      <p class="body" style="font-size: 1.35vw; color: var(--ink-soft);">The path when you want to run a model from your own code.</p>
+    </div>
+    <div class="ht-grid">
+      <div class="ht-n card--pink">1</div>
+      <div class="ht-body">
+        <p class="ht-step">Get an <b>API key</b>.</p>
+        <p class="body-sm" style="font-size: 1.2vw; color: var(--ink-soft); margin: 0;">Sign in &rarr; Dashboard &rarr; API keys &rarr; create a new secret key.</p>
+      </div>
+
+      <div class="ht-n card--lemon">2</div>
+      <div class="ht-body">
+        <p class="ht-step">Install the provider&rsquo;s <b>package</b> and create a client.</p>
+        <p class="body-sm" style="font-size: 1.2vw; color: var(--ink-soft); margin: 0;">e.g. <span class="ht-code">pip install openai</span>, then point it at your key.</p>
+      </div>
+
+      <div class="ht-n card--blush">3</div>
+      <div class="ht-body">
+        <p class="ht-step">Set the four things that shape every call.</p>
+        <div class="ht-sub">
+          <span class="ht-term"><b>System prompt</b> &middot; the AI&rsquo;s role &amp; rules</span>
+          <span class="ht-term"><b>Query</b> &middot; the task or question</span>
+          <span class="ht-term"><b>Model</b> &middot; which LLM version</span>
+          <span class="ht-term"><b>Temperature</b> &middot; 0 precise &rarr; 1+ creative</span>
+        </div>
+      </div>
+    </div>
+    <div class="ht-tools">
+      <span class="lbl">Tools you&rsquo;ll see:</span>
+      <span class="ht-tool card--pink">OpenAI <small>provider</small></span>
+      <span class="ht-tool card--pink">Gemini <small>provider</small></span>
+      <span class="ht-tool card--lemon">LangChain <small>one interface for many providers</small></span>
+    </div>
+    <div class="card" style="padding: 1vw 2.2vw; max-width: 72vw;">
+      <p class="body" style="font-size: 1.4vw; text-align: center;">Same request every time, so it&rsquo;s repeatable and scriptable across thousands of items.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-label="How-to Local">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 7%; bottom: 7%; gap: 1.05vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
+      <p class="concept-label">In practice</p>
+      <h1 class="headline" style="font-size: 2.2vw;">Running a model locally</h1>
+      <p class="body" style="font-size: 1.35vw; color: var(--ink-soft);">The path when the data can&rsquo;t leave your machine.</p>
+    </div>
+    <div class="ht-grid">
+      <div class="ht-n card--pink">1</div>
+      <div class="ht-body">
+        <p class="ht-step">Get access to the model.</p>
+        <p class="body-sm" style="font-size: 1.2vw; color: var(--ink-soft); margin: 0;">e.g. a Hugging Face account and token for gated models.</p>
+      </div>
+
+      <div class="ht-n card--lemon">2</div>
+      <div class="ht-body">
+        <p class="ht-step">Install the <b>library</b> that loads it.</p>
+        <p class="body-sm" style="font-size: 1.2vw; color: var(--ink-soft); margin: 0;">e.g. <span class="ht-code">pip install transformers</span>, or an app like LM Studio / Ollama.</p>
+      </div>
+
+      <div class="ht-n card--blush">3</div>
+      <div class="ht-body">
+        <p class="ht-step">Build a <b>pipeline</b> and give it the same inputs as the API.</p>
+        <p class="body-sm" style="font-size: 1.2vw; color: var(--ink-soft); margin: 0;">System prompt, query, model, temperature: same knobs, running on your hardware.</p>
+      </div>
+
+      <div class="ht-n card--sage">4</div>
+      <div class="ht-body">
+        <p class="ht-step">Generate the answer from the pipeline.</p>
+      </div>
+    </div>
+    <div class="ht-tools">
+      <span class="lbl">Tools you&rsquo;ll see:</span>
+      <span class="ht-tool card--pink">Hugging Face <small>where models live</small></span>
+      <span class="ht-tool card--lemon">Ollama <small>local runner</small></span>
+      <span class="ht-tool card--blush">LM Studio <small>no-code app</small></span>
+      <span class="ht-tool card--sage">vLLM <small>high-throughput server</small></span>
+    </div>
+    <div class="card" style="padding: 1vw 2.2vw; max-width: 72vw;">
+      <p class="body" style="font-size: 1.4vw; text-align: center;">Nothing leaves your computer, so it works offline and keeps sensitive data private.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ===================== MODEL TYPES ===================== -->
 <style>
   .mt-block { display: flex; flex-direction: column; align-items: center; gap: 0.5vw; }
