@@ -12,12 +12,11 @@ workshop-slides/
   style.css                      # shared design system — see "Editing style.css" below
   deck.js                        # loads sections, handles keyboard navigation
   sections/
-    01-llm-foundations.html      # Y
+    01-llm-foundations.html      # Y+M
     02-prompt-engineering.html   # M
     03-rag.html                  # Y
     04-agents.html               # Y
-    05-safety.html               # M
-    06-regulatory-closing.html   # M
+    05-safety-regulatory.html    # M
   README.md
 ```
 
