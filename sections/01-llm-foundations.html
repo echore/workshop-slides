@@ -613,8 +613,8 @@
         </div>
         <div class="ht2-tools">
           <span class="ht2-tool">OpenAI <small>provider</small></span>
+          <span class="ht2-tool">Claude <small>provider</small></span>
           <span class="ht2-tool">Gemini <small>provider</small></span>
-          <span class="ht2-tool">LangChain <small>many providers, one interface</small></span>
         </div>
         <p class="ht2-take">Repeatable and scriptable across thousands of items.</p>
       </div>
@@ -636,7 +636,6 @@
           <span class="ht2-tool">Hugging Face <small>where models live</small></span>
           <span class="ht2-tool">Ollama <small>local runner</small></span>
           <span class="ht2-tool">LM Studio <small>no-code app</small></span>
-          <span class="ht2-tool">vLLM <small>high-throughput server</small></span>
         </div>
         <p class="ht2-take">Works offline and keeps sensitive data private.</p>
       </div>
@@ -644,81 +643,64 @@
   </div>
 </section>
 
-<!-- ===================== MODEL TYPES ===================== -->
+<!-- ===================== MODEL FAMILIES (combined) ===================== -->
 <style>
-  .mt-block { display: flex; flex-direction: column; align-items: center; gap: 0.5vw; }
-  .mt-axis { font: italic 500 1.45vw "Cormorant Garamond", serif; color: var(--ink-soft); }
-  .mt-pair { display: flex; align-items: stretch; justify-content: center; gap: 1.2vw; }
-  .mt-card { width: 33vw; border-radius: 1.2vw; padding: 1vw 1.4vw; }
-  .mt-card .h { font: 500 1.6vw "Work Sans", sans-serif; color: var(--ink); }
-  .mt-card .g { font: 400 1.2vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); margin-top: 0.25vw; }
+  .mf-list { display: flex; flex-direction: column; gap: 1vw; width: 80vw; }
+  .mf-row { display: grid; grid-template-columns: 20vw 1fr; align-items: center; gap: 1.6vw;
+            border-radius: 1.3vw; padding: 1.2vw 1.7vw;
+            border: 1.5px solid var(--rule-soft); border-left-width: 0.55vw; }
+  .mf-row.g { border-left-color: var(--pink);  background: #F6EAF1; }
+  .mf-row.b { border-left-color: var(--lilac); background: #EEEAF4; }
+  .mf-row.s { border-left-color: var(--sage);  background: #ECF1E2; }
+  .mf-head { display: flex; flex-direction: column; gap: 0.3vw; }
+  .mf-name { font: 500 1.7vw "Work Sans", sans-serif; color: var(--ink); line-height: 1.1; }
+  .mf-str { font: italic 400 1.3vw "Cormorant Garamond", serif; color: var(--ink-soft); }
+  .mf-ex { display: flex; flex-wrap: wrap; gap: 0.6vw; }
+  .mf-ex span { font: 400 1.4vw "Work Sans", sans-serif; padding: 0.35vw 1.1vw; border-radius: 999px;
+                background: var(--paper); border: 1.5px solid var(--rule-soft); color: var(--ink); }
+  .mf-ex span small { color: var(--ink-soft); font-style: italic;
+                      font-family: "Cormorant Garamond", serif; font-size: 1.05vw; margin-left: 0.25vw; }
 </style>
 
-<section class="slide" data-label="Model types">
+<section class="slide" data-label="Model families">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 9%; bottom: 9%; gap: 1.3vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1vw;">
+  <div class="layout-hero" style="top: 10%; bottom: 10%; gap: 1.4vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
       <p class="concept-label">Model types</p>
-      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 78vw;">Not all models are the same. They trade power for speed, cost, and privacy.</h1>
+      <h1 class="headline" style="font-size: 2.1vw;">Three families you&rsquo;ll actually meet</h1>
+      <p class="body" style="font-size: 1.35vw; color: var(--ink-soft);">Match the family to the job. The names change fast; the categories don&rsquo;t.</p>
     </div>
-    <div class="mt-block">
-      <span class="mt-axis">Size</span>
-      <div class="mt-pair">
-        <div class="mt-card card--pink"><div class="h">Large / frontier</div><div class="g">Most capable, but slower, pricier, and runs in the cloud.</div></div>
-        <div class="mt-card card--sage"><div class="h">Small</div><div class="g">Lighter and faster, cheaper, and can run locally and privately.</div></div>
-      </div>
-    </div>
-    <div class="mt-block">
-      <span class="mt-axis">Specialization</span>
-      <div class="mt-pair">
-        <div class="mt-card card--lemon"><div class="h">General-purpose</div><div class="g">Broad. Knows a little about almost everything.</div></div>
-        <div class="mt-card card--lilac"><div class="h">Domain-specific</div><div class="g">Tuned for one field (e.g. a medical model), sharper inside it, narrower outside.</div></div>
-      </div>
-    </div>
-    <div class="card" style="padding: 1.1vw 2.2vw; max-width: 74vw;">
-      <p class="body" style="font-size: 1.5vw; text-align: center;">Match the model to the job: a general chatbot for a quick question; a small local or domain-specific model for sensitive or specialized work.</p>
-    </div>
-  </div>
-</section>
 
-<!-- ===================== DIFFERENT TYPES (EXAMPLES) ===================== -->
-<style>
-  .dt-row { display: flex; align-items: stretch; justify-content: center; gap: 1.4vw; width: 84vw; }
-  .dt-card { flex: 1; border-radius: 1.4vw; padding: 1.4vw 1.4vw; display: flex; flex-direction: column; gap: 0.8vw; }
-  .dt-h { font: 500 1.7vw "Work Sans", sans-serif; color: var(--ink); }
-  .dt-ex { display: flex; flex-wrap: wrap; gap: 0.5vw; }
-  .dt-ex span { font: 400 1.25vw "Work Sans", sans-serif; padding: 0.25vw 0.9vw; border-radius: 999px;
-                background: rgba(255,255,255,0.6); border: 1.5px solid var(--rule-soft); color: var(--ink); }
-  .dt-g { font: 400 1.25vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin-top: auto; }
-</style>
+    <div class="mf-list">
+      <div class="mf-row g">
+        <div class="mf-head">
+          <span class="mf-name">General-purpose powerhouses</span>
+          <span class="mf-str">Strength: reasoning, works out of the box</span>
+        </div>
+        <div class="mf-ex"><span>GPT <small>undisclosed</small></span><span>Claude <small>undisclosed</small></span><span>Gemini <small>undisclosed</small></span></div>
+      </div>
 
-<section class="slide" data-label="Model examples">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
-  <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.6vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1vw;">
-      <p class="concept-label">Examples</p>
-      <h1 class="headline" style="font-size: 2.1vw;">The types you&rsquo;ll actually meet.</h1>
-    </div>
-    <div class="dt-row">
-      <div class="dt-card card--pink">
-        <div class="dt-h">Large &amp; general</div>
-        <div class="dt-ex"><span>ChatGPT</span><span>Claude</span><span>Gemini</span></div>
-        <div class="dt-g">Cloud. The most capable everyday go-to.</div>
+      <div class="mf-row b">
+        <div class="mf-head">
+          <span class="mf-name">Biomedical / domain models</span>
+          <span class="mf-str">Strength: clinical vocabulary, medical focus</span>
+        </div>
+        <div class="mf-ex"><span>BioGPT <small>1.5B</small></span><span>Med-PaLM <small>540B</small></span><span>Meditron <small>7&ndash;70B</small></span></div>
       </div>
-      <div class="dt-card card--sage">
-        <div class="dt-h">Small &amp; open</div>
-        <div class="dt-ex"><span>Llama</span><span>Mistral</span><span>Gemma</span></div>
-        <div class="dt-g">Small enough to run on your own computer, private.</div>
-      </div>
-      <div class="dt-card card--lilac">
-        <div class="dt-h">Medical / domain</div>
-        <div class="dt-ex"><span>MedGemma</span><span>Meditron</span><span>BioMistral</span></div>
-        <div class="dt-g">Tuned on clinical and biomedical text for health tasks.</div>
+
+      <div class="mf-row s">
+        <div class="mf-head">
+          <span class="mf-name">Small language models</span>
+          <span class="mf-str">Strength: efficient, runs on your own hardware</span>
+        </div>
+        <div class="mf-ex"><span>Mistral <small>7B</small></span><span>Llama 3 <small>8B</small></span><span>Gemma <small>2&ndash;27B</small></span></div>
       </div>
     </div>
-    <p class="body-sm" style="font-size: 1.3vw; color: var(--ink-soft);">The names change fast. The categories don&rsquo;t.</p>
+
+    <div class="card" style="padding: 1vw 2.2vw; max-width: 74vw;">
+      <p class="body" style="font-size: 1.4vw; text-align: center;">A big cloud model for a quick question; a small local or medical model for sensitive or specialized work.</p>
+    </div>
   </div>
 </section>
 
