@@ -20,34 +20,29 @@
      Rhythm per section: poll -> theory -> exercise.
      ============================================================ -->
 <style>
-  .sched-list { display: flex; flex-direction: column; gap: 0.6vw; width: 80vw; }
+  .sched-legend { display: flex; align-items: center; gap: 0.7vw; margin-bottom: 0.4vw;
+                  font: 400 1.3vw "Work Sans", sans-serif; color: var(--ink-soft); }
+  .sched-legend .lg { padding: 0.25vw 0.9vw; border-radius: 999px; border: 1.5px solid var(--rule-soft); }
+  .sched-legend .ar { font-size: 1.1vw; }
 
-  .sched-sec { display: grid; grid-template-columns: 21vw 1fr; align-items: center;
-               gap: 1.4vw; padding: 0.7vw 1.4vw; border-radius: 1.1vw;
-               border: 1.5px solid var(--rule-soft); border-left-width: 0.6vw; }
+  .sched-list { display: flex; flex-direction: column; gap: 0.75vw; width: 78vw; }
+
+  .sched-sec { display: grid; grid-template-columns: 12vw 1fr auto; align-items: center;
+               gap: 1.6vw; padding: 1.05vw 1.6vw; border-radius: 1.1vw;
+               border: 1.5px solid var(--rule-soft); border-left-width: 0.55vw; }
   .sched-sec.s1 { border-left-color: var(--pink);  background: #F6EAF1; }
   .sched-sec.s2 { border-left-color: var(--lemon); background: #F4F5D6; }
   .sched-sec.s3 { border-left-color: var(--blush); background: #F8EEE6; }
   .sched-sec.s4 { border-left-color: var(--sage);  background: #ECF1E2; }
   .sched-sec.s5 { border-left-color: var(--lilac); background: #EEEAF4; }
 
-  .sched-head { display: flex; flex-direction: column; gap: 0.25vw; }
   .sched-span { font: italic 500 1.35vw "Cormorant Garamond", serif; color: var(--ink-soft); }
-  .sched-name { font: 500 1.65vw "Work Sans", sans-serif; color: var(--ink); line-height: 1.1; }
-  .sched-name .who { font-weight: 400; font-style: italic; color: var(--ink-soft);
-                     font-family: "Cormorant Garamond", serif; font-size: 1.35vw; }
-
-  .sched-steps { display: flex; align-items: center; gap: 0.7vw; }
-  .step { font: 400 1.3vw "Work Sans", sans-serif; padding: 0.35vw 1.1vw;
-          border-radius: 999px; white-space: nowrap; }
-  .step b { font-weight: 600; }
-  .step-poll   { border: 1.5px dashed var(--rule-soft); color: var(--ink-soft); background: transparent; }
-  .step-theory { background: var(--paper); border: 1.5px solid var(--ink); color: var(--ink); }
-  .step-ex     { background: var(--paper); border: 1.5px solid var(--rule-soft); color: var(--ink); }
-  .arrow { color: var(--ink-soft); font-size: 1.3vw; }
+  .sched-name { font: 500 1.75vw "Work Sans", sans-serif; color: var(--ink); line-height: 1.1; }
+  .sched-who { font: italic 400 1.35vw "Cormorant Garamond", serif; color: var(--ink-soft);
+               white-space: nowrap; }
 
   .sched-break { display: flex; align-items: center; justify-content: center; gap: 1vw;
-                 width: 80vw; padding: 0.45vw 0; }
+                 width: 78vw; padding: 0.35vw 0; }
   .sched-break .line { flex: 1; height: 1.5px; background: var(--rule-soft); }
   .sched-break span { font: italic 400 1.4vw "Cormorant Garamond", serif; color: var(--ink-soft);
                       white-space: nowrap; }
@@ -59,38 +54,29 @@
   <div class="layout-hero" style="top: 7%; bottom: 7%; gap: 0.9vw;">
     <p class="kicker" style="font-size: 1.8vw;">9:00 AM &ndash; 12:00 PM</p>
     <h1 class="headline" style="font-size: 3vw; margin-bottom: 0.1vw;">This morning</h1>
-    <p class="body" style="font-size: 1.35vw; color: var(--ink-soft); margin-bottom: 0.5vw;">
-      Every section runs the same way: a poll to warm up, a short talk, then you try it.
+    <p class="body" style="font-size: 1.35vw; color: var(--ink-soft); margin-bottom: 0.3vw;">
+      Every section runs the same way:
     </p>
+    <div class="sched-legend">
+      <span class="lg">Poll</span>
+      <span class="ar">&rarr;</span>
+      <span class="lg">Short talk</span>
+      <span class="ar">&rarr;</span>
+      <span class="lg">You try it</span>
+    </div>
 
     <div class="sched-list">
 
       <div class="sched-sec s1">
-        <div class="sched-head">
-          <span class="sched-span">9:00 &ndash; 9:35</span>
-          <span class="sched-name">LLM Foundations <span class="who">&middot; Yachen</span></span>
-        </div>
-        <div class="sched-steps">
-          <span class="step step-poll">Icebreaker + poll &middot; <b>9:00</b></span>
-          <span class="arrow">&rarr;</span>
-          <span class="step step-theory">Theory &middot; <b>9:10</b></span>
-          <span class="arrow">&rarr;</span>
-          <span class="step step-ex">Exercise &middot; <b>9:25</b></span>
-        </div>
+        <span class="sched-span">9:00 &ndash; 9:35</span>
+        <span class="sched-name">LLM Foundations</span>
+        <span class="sched-who">Yachen</span>
       </div>
 
       <div class="sched-sec s2">
-        <div class="sched-head">
-          <span class="sched-span">9:35 &ndash; 10:10</span>
-          <span class="sched-name">Prompt Engineering <span class="who">&middot; Melissa</span></span>
-        </div>
-        <div class="sched-steps">
-          <span class="step step-poll">Poll &middot; <b>9:35</b></span>
-          <span class="arrow">&rarr;</span>
-          <span class="step step-theory">Theory &middot; <b>9:45</b></span>
-          <span class="arrow">&rarr;</span>
-          <span class="step step-ex">Exercise &middot; <b>10:00</b></span>
-        </div>
+        <span class="sched-span">9:35 &ndash; 10:10</span>
+        <span class="sched-name">Prompt Engineering</span>
+        <span class="sched-who">Melissa</span>
       </div>
 
       <div class="sched-break">
@@ -100,45 +86,21 @@
       </div>
 
       <div class="sched-sec s3">
-        <div class="sched-head">
-          <span class="sched-span">10:30 &ndash; 11:00</span>
-          <span class="sched-name">Retrieval-Augmented Generation <span class="who">&middot; Yachen</span></span>
-        </div>
-        <div class="sched-steps">
-          <span class="step step-poll">Poll &middot; <b>10:30</b></span>
-          <span class="arrow">&rarr;</span>
-          <span class="step step-theory">Theory &middot; <b>10:35</b></span>
-          <span class="arrow">&rarr;</span>
-          <span class="step step-ex">Exercise &middot; <b>10:50</b></span>
-        </div>
+        <span class="sched-span">10:30 &ndash; 11:00</span>
+        <span class="sched-name">Retrieval-Augmented Generation</span>
+        <span class="sched-who">Yachen</span>
       </div>
 
       <div class="sched-sec s4">
-        <div class="sched-head">
-          <span class="sched-span">11:00 &ndash; 11:30</span>
-          <span class="sched-name">Agents <span class="who">&middot; Yachen</span></span>
-        </div>
-        <div class="sched-steps">
-          <span class="step step-poll">Poll &middot; <b>11:00</b></span>
-          <span class="arrow">&rarr;</span>
-          <span class="step step-theory">Theory &middot; <b>11:05</b></span>
-          <span class="arrow">&rarr;</span>
-          <span class="step step-ex">Exercise &middot; <b>11:20</b></span>
-        </div>
+        <span class="sched-span">11:00 &ndash; 11:30</span>
+        <span class="sched-name">Agents</span>
+        <span class="sched-who">Yachen</span>
       </div>
 
       <div class="sched-sec s5">
-        <div class="sched-head">
-          <span class="sched-span">11:30 &ndash; 12:00</span>
-          <span class="sched-name">Safety and Regulatory considerations <span class="who">&middot; Melissa</span></span>
-        </div>
-        <div class="sched-steps">
-          <span class="step step-poll">Poll &middot; <b>11:30</b></span>
-          <span class="arrow">&rarr;</span>
-          <span class="step step-theory">Theory &middot; <b>11:35</b></span>
-          <span class="arrow">&rarr;</span>
-          <span class="step step-ex">Exercise &middot; <b>11:50</b></span>
-        </div>
+        <span class="sched-span">11:30 &ndash; 12:00</span>
+        <span class="sched-name">Safety &amp; Regulatory considerations</span>
+        <span class="sched-who">Melissa</span>
       </div>
 
     </div>
@@ -579,115 +541,105 @@
 
 <!-- ===================== HOW-TO: API & LOCAL ===================== -->
 <style>
-  .ht-grid { display: grid; grid-template-columns: 4vw 1fr; row-gap: 1vw; column-gap: 1.3vw;
-             width: 72vw; align-items: start; }
+  .ht-grid { display: grid; grid-template-columns: 3.4vw 1fr; row-gap: 1.1vw; column-gap: 1.1vw;
+             width: 60vw; align-items: start; text-align: left; }
   .ht-n { display: flex; align-items: center; justify-content: center; width: 3vw; height: 3vw;
-          border-radius: 50%; font: italic 500 1.55vw "Cormorant Garamond", serif; color: var(--ink); }
-  .ht-body { display: flex; flex-direction: column; gap: 0.5vw; padding-top: 0.2vw; }
-  .ht-step { font: 400 1.55vw/1.35 "Work Sans", sans-serif; color: var(--ink); margin: 0; }
+          border-radius: 50%; font: 600 1.4vw "Work Sans", sans-serif; color: var(--ink); }
+  .ht-body { display: flex; flex-direction: column; gap: 0.35vw; padding-top: 0.35vw; }
+  .ht-step { font: 400 1.55vw/1.3 "Work Sans", sans-serif; color: var(--ink); margin: 0; }
   .ht-step b { font-weight: 600; }
-  .ht-sub { display: flex; flex-wrap: wrap; gap: 0.5vw; }
-  .ht-term { font: 400 1.25vw "Work Sans", sans-serif; padding: 0.25vw 0.9vw; border-radius: 0.7vw;
+  .ht-note { font: 400 1.2vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
+  .ht-sub { display: flex; flex-wrap: wrap; gap: 0.5vw; margin-top: 0.15vw; }
+  .ht-term { font: 400 1.2vw "Work Sans", sans-serif; padding: 0.25vw 0.9vw; border-radius: 0.7vw;
              color: var(--ink); border: 1.5px solid var(--rule-soft); }
   .ht-term b { font-weight: 600; }
-  .ht-code { font: 400 1.25vw "IBM Plex Mono", "Work Sans", monospace; padding: 0.1vw 0.5vw;
+  .ht-code { font: 400 1.2vw "IBM Plex Mono", "Work Sans", monospace; padding: 0.1vw 0.5vw;
              border-radius: 0.4vw; background: var(--card-fill); color: var(--ink); }
   .ht-tools { display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
-              gap: 0.6vw 0.9vw; width: 74vw; }
+              gap: 0.6vw 0.8vw; width: 74vw; }
   .ht-tools .lbl { font: italic 400 1.2vw "Cormorant Garamond", serif; color: var(--ink-soft); }
   .ht-tool { font: 400 1.25vw "Work Sans", sans-serif; padding: 0.3vw 1vw; border-radius: 999px;
              color: var(--ink); }
   .ht-tool small { color: var(--ink-soft); font-style: italic;
-                   font-family: "Cormorant Garamond", serif; font-size: 1.1vw; }
+                   font-family: "Cormorant Garamond", serif; font-size: 1.05vw; }
+
+  /* combined two-column layout */
+  .ht2-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; width: 84vw; align-items: stretch; }
+  .ht2-col { display: flex; flex-direction: column; gap: 0.7vw; padding: 1.4vw 1.6vw;
+             border-radius: 1.4vw; border: 1.5px solid var(--rule-soft); }
+  .ht2-col.api { background: #F6EAF1; }
+  .ht2-col.local { background: #ECF1E2; }
+  .ht2-title { font: 500 1.85vw "Work Sans", sans-serif; color: var(--ink); margin: 0; }
+  .ht2-sub { font: italic 400 1.3vw "Cormorant Garamond", serif; color: var(--ink-soft); margin: 0 0 0.3vw; }
+  .ht2-grid { display: grid; grid-template-columns: 2.2vw 1fr; row-gap: 0.7vw; column-gap: 0.8vw;
+              align-items: start; text-align: left; }
+  .ht2-n { display: flex; align-items: center; justify-content: center; width: 2vw; height: 2vw;
+           border-radius: 50%; background: var(--paper); font: 600 1.1vw "Work Sans", sans-serif; color: var(--ink); }
+  .ht2-step { font: 400 1.35vw/1.28 "Work Sans", sans-serif; color: var(--ink); margin: 0; padding-top: 0.15vw; }
+  .ht2-step b { font-weight: 600; }
+  .ht2-step small { display: block; font-size: 1.1vw; color: var(--ink-soft); font-style: italic;
+                    font-family: "Cormorant Garamond", serif; }
+  .ht2-code { font: 400 1.1vw "IBM Plex Mono", "Work Sans", monospace; padding: 0.05vw 0.4vw;
+              border-radius: 0.4vw; background: var(--paper); color: var(--ink); }
+  .ht2-tools { display: flex; flex-wrap: wrap; gap: 0.45vw; margin-top: auto; padding-top: 0.6vw; }
+  .ht2-tool { font: 400 1.1vw "Work Sans", sans-serif; padding: 0.2vw 0.75vw; border-radius: 999px;
+              background: var(--paper); color: var(--ink); border: 1.5px solid var(--rule-soft); }
+  .ht2-tool small { color: var(--ink-soft); font-style: italic;
+                    font-family: "Cormorant Garamond", serif; font-size: 0.95vw; }
+  .ht2-take { font: 400 1.2vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0.4vw 0 0; }
 </style>
 
-<section class="slide" data-label="How-to API">
+<section class="slide" data-label="How-to API &amp; Local">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 7%; bottom: 7%; gap: 1.05vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
+  <div class="layout-hero" style="top: 8%; bottom: 8%; gap: 1.2vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5vw;">
       <p class="concept-label">In practice</p>
-      <h1 class="headline" style="font-size: 2.2vw;">Using a cloud API</h1>
-      <p class="body" style="font-size: 1.35vw; color: var(--ink-soft);">The path when you want to run a model from your own code.</p>
+      <h1 class="headline" style="font-size: 2.1vw;">Two ways to run a model yourself</h1>
+      <p class="body" style="font-size: 1.3vw; color: var(--ink-soft);">Same four inputs underneath, either in the cloud or on your machine.</p>
     </div>
-    <div class="ht-grid">
-      <div class="ht-n card--pink">1</div>
-      <div class="ht-body">
-        <p class="ht-step">Get an <b>API key</b>.</p>
-        <p class="body-sm" style="font-size: 1.2vw; color: var(--ink-soft); margin: 0;">Sign in &rarr; Dashboard &rarr; API keys &rarr; create a new secret key.</p>
-      </div>
 
-      <div class="ht-n card--lemon">2</div>
-      <div class="ht-body">
-        <p class="ht-step">Install the provider&rsquo;s <b>package</b> and create a client.</p>
-        <p class="body-sm" style="font-size: 1.2vw; color: var(--ink-soft); margin: 0;">e.g. <span class="ht-code">pip install openai</span>, then point it at your key.</p>
-      </div>
-
-      <div class="ht-n card--blush">3</div>
-      <div class="ht-body">
-        <p class="ht-step">Set the four things that shape every call.</p>
-        <div class="ht-sub">
-          <span class="ht-term"><b>System prompt</b> &middot; the AI&rsquo;s role &amp; rules</span>
-          <span class="ht-term"><b>Query</b> &middot; the task or question</span>
-          <span class="ht-term"><b>Model</b> &middot; which LLM version</span>
-          <span class="ht-term"><b>Temperature</b> &middot; 0 precise &rarr; 1+ creative</span>
+    <div class="ht2-cols">
+      <div class="ht2-col api">
+        <p class="ht2-title">Using a cloud API</p>
+        <p class="ht2-sub">when you want to run it from your own code</p>
+        <div class="ht2-grid">
+          <div class="ht2-n">1</div>
+          <p class="ht2-step">Get an <b>API key</b>. <small>Sign in &rarr; Dashboard &rarr; API keys.</small></p>
+          <div class="ht2-n">2</div>
+          <p class="ht2-step">Install the <b>package</b> &amp; make a client. <small>e.g. <span class="ht2-code">pip install openai</span></small></p>
+          <div class="ht2-n">3</div>
+          <p class="ht2-step">Set the <b>four inputs</b>, then send. <small>system prompt &middot; query &middot; model &middot; temperature</small></p>
         </div>
-      </div>
-    </div>
-    <div class="ht-tools">
-      <span class="lbl">Tools you&rsquo;ll see:</span>
-      <span class="ht-tool card--pink">OpenAI <small>provider</small></span>
-      <span class="ht-tool card--pink">Gemini <small>provider</small></span>
-      <span class="ht-tool card--lemon">LangChain <small>one interface for many providers</small></span>
-    </div>
-    <div class="card" style="padding: 1vw 2.2vw; max-width: 72vw;">
-      <p class="body" style="font-size: 1.4vw; text-align: center;">Same request every time, so it&rsquo;s repeatable and scriptable across thousands of items.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide" data-label="How-to Local">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
-  <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 7%; bottom: 7%; gap: 1.05vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
-      <p class="concept-label">In practice</p>
-      <h1 class="headline" style="font-size: 2.2vw;">Running a model locally</h1>
-      <p class="body" style="font-size: 1.35vw; color: var(--ink-soft);">The path when the data can&rsquo;t leave your machine.</p>
-    </div>
-    <div class="ht-grid">
-      <div class="ht-n card--pink">1</div>
-      <div class="ht-body">
-        <p class="ht-step">Get access to the model.</p>
-        <p class="body-sm" style="font-size: 1.2vw; color: var(--ink-soft); margin: 0;">e.g. a Hugging Face account and token for gated models.</p>
+        <div class="ht2-tools">
+          <span class="ht2-tool">OpenAI <small>provider</small></span>
+          <span class="ht2-tool">Gemini <small>provider</small></span>
+          <span class="ht2-tool">LangChain <small>many providers, one interface</small></span>
+        </div>
+        <p class="ht2-take">Repeatable and scriptable across thousands of items.</p>
       </div>
 
-      <div class="ht-n card--lemon">2</div>
-      <div class="ht-body">
-        <p class="ht-step">Install the <b>library</b> that loads it.</p>
-        <p class="body-sm" style="font-size: 1.2vw; color: var(--ink-soft); margin: 0;">e.g. <span class="ht-code">pip install transformers</span>, or an app like LM Studio / Ollama.</p>
+      <div class="ht2-col local">
+        <p class="ht2-title">Running a model locally</p>
+        <p class="ht2-sub">when the data can&rsquo;t leave your machine</p>
+        <div class="ht2-grid">
+          <div class="ht2-n">1</div>
+          <p class="ht2-step">Get access to the model. <small>e.g. a Hugging Face token for gated models.</small></p>
+          <div class="ht2-n">2</div>
+          <p class="ht2-step">Install the <b>library</b> that loads it. <small>e.g. <span class="ht2-code">pip install transformers</span>, or a no-code app.</small></p>
+          <div class="ht2-n">3</div>
+          <p class="ht2-step">Build a <b>pipeline</b> with the same inputs. <small>same four knobs, on your hardware.</small></p>
+          <div class="ht2-n">4</div>
+          <p class="ht2-step">Generate the answer.</p>
+        </div>
+        <div class="ht2-tools">
+          <span class="ht2-tool">Hugging Face <small>where models live</small></span>
+          <span class="ht2-tool">Ollama <small>local runner</small></span>
+          <span class="ht2-tool">LM Studio <small>no-code app</small></span>
+          <span class="ht2-tool">vLLM <small>high-throughput server</small></span>
+        </div>
+        <p class="ht2-take">Works offline and keeps sensitive data private.</p>
       </div>
-
-      <div class="ht-n card--blush">3</div>
-      <div class="ht-body">
-        <p class="ht-step">Build a <b>pipeline</b> and give it the same inputs as the API.</p>
-        <p class="body-sm" style="font-size: 1.2vw; color: var(--ink-soft); margin: 0;">System prompt, query, model, temperature: same knobs, running on your hardware.</p>
-      </div>
-
-      <div class="ht-n card--sage">4</div>
-      <div class="ht-body">
-        <p class="ht-step">Generate the answer from the pipeline.</p>
-      </div>
-    </div>
-    <div class="ht-tools">
-      <span class="lbl">Tools you&rsquo;ll see:</span>
-      <span class="ht-tool card--pink">Hugging Face <small>where models live</small></span>
-      <span class="ht-tool card--lemon">Ollama <small>local runner</small></span>
-      <span class="ht-tool card--blush">LM Studio <small>no-code app</small></span>
-      <span class="ht-tool card--sage">vLLM <small>high-throughput server</small></span>
-    </div>
-    <div class="card" style="padding: 1vw 2.2vw; max-width: 72vw;">
-      <p class="body" style="font-size: 1.4vw; text-align: center;">Nothing leaves your computer, so it works offline and keeps sensitive data private.</p>
     </div>
   </div>
 </section>
