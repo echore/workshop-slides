@@ -222,7 +222,7 @@
       <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
         <p class="gd-lbl">What you get</p>
         <p class="gd-txt gd-soft">Tight, decision-focused. Leads with the number, then policy takeaways. <span class="gd-peek">&#9662; hover for the real output</span></p>
-        <span class="gd-full"><em class="gd-em">By March 2023, approximately 76% of Canadians had developed infection-acquired SARS-CoV-2 antibodies.</em> While vaccination provided widespread protection, it was insufficient to prevent the rapid, unprecedented spread of the Omicron variant, which drastically increased infection-induced seroprevalence across all regions and age groups. <em class="gd-em">Key takeaways for policy:</em> Hybrid immunity &mdash; most of the population now possesses hybrid immunity from both vaccination and infection. Local tailoring &mdash; because seropositivity varies significantly by age and geography, future clinical decisions and public health measures must be tailored to local population immunity patterns.</span>
+        <span class="gd-full"><em class="gd-em">By March 2023, approximately 76% of Canadians had developed infection-acquired SARS-CoV-2 antibodies.</em> While vaccination provided widespread protection, it was insufficient to prevent the rapid, unprecedented spread of the Omicron variant, which drastically increased infection-induced seroprevalence across all regions and age groups. <em class="gd-em">Key takeaways for policy:</em> Hybrid immunity. Most of the population now possesses hybrid immunity from both vaccination and infection. Local tailoring. Because seropositivity varies significantly by age and geography, future clinical decisions and public health measures must be tailored to local population immunity patterns.</span>
       </div>
 
       <div class="gd-cell">
@@ -244,27 +244,43 @@
 <section class="slide" data-label="Show an Example">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="tech-layout">
-    <input type="radio" name="se" id="se-1" checked>
-    <input type="radio" name="se" id="se-2">
-    <input type="radio" name="se" id="se-3">
-    <div class="tech-left">
-      <p class="concept-label" style="text-align: left;">Show an Example</p>
-      <h1 class="headline tech-head">Don't describe the format you want. Show one worked case, and the model matches it.</h1>
-      <div class="acc-col">
-        <label for="se-1" class="chip faded acc-chip">Run A &middot; No example</label>
-        <label for="se-2" class="chip card--sage acc-chip">Run B &middot; One example</label>
-        <label for="se-3" class="chip card--lilac acc-chip">Run C &middot; Reuse it</label>
+  <div class="gd-wrap">
+    <p class="concept-label" style="text-align: left;">Show an Example</p>
+    <h1 class="headline gd-title">Don't describe the format you want. Show one worked case, and the model matches it.</h1>
+    <div class="gd-grid">
+
+      <div class="gd-cell">
+        <p class="gd-lbl">No example</p>
+        <p class="gd-txt">&ldquo;Extract the key details from this study in a few sentences.&rdquo;</p>
       </div>
-      <p class="acc-cap tech-cap se-c1">&ldquo;Extract the key details.&rdquo; &rarr; a loose paragraph. Different fields, different shape every time.</p>
-      <p class="acc-cap tech-cap se-c2">Give one worked example &rarr; the study comes back in the exact same fields.</p>
-      <p class="acc-cap tech-cap se-c3">Same prompt, next study &rarr; identical structure. Set the pattern once, reuse it across a whole review.</p>
+      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">A loose paragraph. Readable, but every study comes back a different shape: nothing to line up or compare. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <span class="gd-full">This study utilized a time-series analysis of over 900,000 samples to track the evolution of SARS-CoV-2 seroprevalence in Canada from 2020 to 2023. While infection-induced immunity remained low during the initial pandemic waves and vaccine roll-out, it increased rapidly following the arrival of the Omicron variant, reaching approximately 76% of the population by March 2023. The findings highlight that most Canadians achieved &ldquo;hybrid immunity&rdquo; through a combination of vaccination and infection, though the study emphasizes that public health policies must remain tailored to local immunity patterns.</span>
+      </div>
+
+      <div class="gd-cell">
+        <p class="gd-lbl">+ One example</p>
+        <p class="gd-txt">&ldquo;Extract study details in <span class="pe-hl">exactly this format. Here is a worked example: STUDY / Population / Exposure / Outcome / Effect &hellip;</span> Now extract the attached study the same way.&rdquo;</p>
+      </div>
+      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">The same study, snapped into your five fields. Nothing invented. It just fills the template. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <span class="gd-full"><em class="gd-em">STUDY:</em> The evolution of SARS-CoV-2 seroprevalence in Canada, 2020&ndash;2023<br><em class="gd-em">Population:</em> General population of Canada (all ages)<br><em class="gd-em">Exposure:</em> Natural infection and vaccination (pre-vaccination, roll-out, and Omicron waves)<br><em class="gd-em">Outcome:</em> Seroprevalence (anti-N and anti-S antibody levels)<br><em class="gd-em">Effect:</em> Infection-acquired seroprevalence rose to 76% (95% CrI 74%&ndash;79%) by March 15, 2023</span>
+      </div>
+
+      <div class="gd-cell">
+        <p class="gd-lbl">Reuse it &middot; new study</p>
+        <p class="gd-txt">Same prompt, <span class="pe-hl">a completely different paper</span> (address-data accuracy in disease surveillance).</p>
+      </div>
+      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Identical structure, unrelated topic. Set the pattern once, reuse it across a whole review. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <span class="gd-full"><em class="gd-em">STUDY:</em> Accuracy of address data in reportable campylobacteriosis notifications<br><em class="gd-em">Population:</em> Reported cases of campylobacteriosis in Montreal<br><em class="gd-em">Exposure:</em> Review and correction of residential address data in surveillance notifications<br><em class="gd-em">Outcome:</em> Impact on case geolocation (distance of change)<br><em class="gd-em">Effect:</em> Median change in case geolocation of 1.1 km</span>
+      </div>
+
     </div>
-    <div class="tech-right">
-      <img class="tech-img se-i1" src="images/se-run1.png" alt="Run A: no example, loose paragraph">
-      <img class="tech-img se-i2" src="images/se-run2.png" alt="Run B: one worked example, structured extraction">
-      <img class="tech-img se-i3" src="images/se-run3.png" alt="Run C: same prompt, second study, identical structure">
-    </div>
+    <p class="gd-take"><b>The takeaway:</b> one worked example does what a paragraph of instructions can't: it <em>shows</em> the shape. Define it once, and every study after that lands in the same fields, ready to compare.</p>
   </div>
 </section>
 
