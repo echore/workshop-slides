@@ -554,9 +554,6 @@
   .ht2-tool small { color: var(--ink-soft); font-style: italic;
                     font-family: "Cormorant Garamond", serif; font-size: 0.95vw; }
   .ht2-take { font: 400 1.2vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0.4vw 0 0; }
-  .ht2-cell { display: flex; flex-direction: column; gap: 0.9vw; }
-  .ht2-below { font: italic 400 1.2vw/1.4 "Cormorant Garamond", serif; color: var(--ink-soft);
-               text-align: center; padding: 0 1vw; margin: 0; }
 </style>
 
 <section class="slide" data-label="How-to API &amp; Local">
@@ -570,7 +567,6 @@
     </div>
 
     <div class="ht2-cols">
-      <div class="ht2-cell">
       <div class="ht2-col api">
         <p class="ht2-title">Using a cloud API</p>
         <p class="ht2-sub">when you want to run it from your own code</p>
@@ -587,12 +583,9 @@
           <span class="ht2-tool">Claude <small>provider</small></span>
           <span class="ht2-tool">Gemini <small>provider</small></span>
         </div>
-        <p class="ht2-take">Repeatable and scriptable across thousands of items.</p>
-      </div>
-      <p class="ht2-below">Processing a dataset costs roughly 1&ndash;5 cents per record (a paragraph in, short answer out), so ~$10&ndash;50 per 10,000 records, cheaper in batch mode.</p>
+        <p class="ht2-take">Processing a dataset costs roughly 1&ndash;5 cents per record (a paragraph in, short answer out), so ~$10&ndash;50 per 10,000 records, cheaper in batch mode.</p>
       </div>
 
-      <div class="ht2-cell">
       <div class="ht2-col local">
         <p class="ht2-title">Running a model locally</p>
         <p class="ht2-sub">when the data can&rsquo;t leave your machine</p>
@@ -611,9 +604,7 @@
           <span class="ht2-tool">Ollama <small>local runner</small></span>
           <span class="ht2-tool">LM Studio <small>no-code app</small></span>
         </div>
-        <p class="ht2-take">Works offline and keeps sensitive data private.</p>
-      </div>
-      <p class="ht2-below">A local model needs about 2 GB of VRAM (your graphics card&rsquo;s memory) for every billion parameters, less if it&rsquo;s a compressed version.</p>
+        <p class="ht2-take">A local model needs about 2 GB of VRAM (your graphics card&rsquo;s memory) for every billion parameters, less if it&rsquo;s a compressed version.</p>
       </div>
     </div>
   </div>
