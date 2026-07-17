@@ -22,6 +22,21 @@
   .gd-txt.gd-soft { color: var(--ink-soft); }
   .gd-take { margin-top: auto; padding-top: 0.8vw; border-top: 1.5px solid var(--rule-soft); font: 400 1.15vw/1.5 "Work Sans", sans-serif; color: var(--ink-soft); }
   .gd-take b { color: #2f4318; font-weight: 600; }
+
+  /* hover/tap reveal of the real model output */
+  .gd-out { position: relative; }
+  .gd-out .gd-full {
+    display: block; max-height: 0; overflow: hidden; opacity: 0;
+    margin-top: 0; transition: max-height 0.28s ease, opacity 0.22s ease, margin-top 0.28s ease;
+    font: 400 0.98vw/1.5 "Work Sans", sans-serif; color: var(--ink);
+    border-top: 1px solid var(--rule-soft); padding-top: 0;
+  }
+  .gd-out:hover .gd-full, .gd-out:focus-within .gd-full, .gd-out.gd-open .gd-full {
+    max-height: 30vw; opacity: 1; margin-top: 0.55vw; padding-top: 0.55vw;
+  }
+  .gd-out .gd-peek { font: 400 0.75vw "Work Sans", sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: #b6b0a0; margin-top: 0.35vw; }
+  .gd-out:hover .gd-peek, .gd-out:focus-within .gd-peek, .gd-out.gd-open .gd-peek { display: none; }
+  .gd-out { cursor: pointer; }
   .tech-right {
     flex: 1; height: 100%;
     display: flex; align-items: center; justify-content: center;
@@ -181,38 +196,42 @@
 
       <div class="gd-cell">
         <p class="gd-lbl">Prompt</p>
-        <p class="gd-txt">&ldquo;Summarize this study.&rdquo;</p>
+        <p class="gd-txt">&ldquo;Summarize this study in a few sentences.&rdquo;</p>
       </div>
-      <div class="gd-cell">
+      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
         <p class="gd-lbl">What you get</p>
-        <p class="gd-txt gd-soft">Generic recap. Wanders. Ends by asking <em>you</em> a question.</p>
+        <p class="gd-txt gd-soft">Generic recap. Broad strokes, no audience. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <span class="gd-full">This study used a time-series analysis of over 900,000 samples to track the evolution of SARS-CoV-2 population immunity in Canada between 2020 and 2023. While infection-acquired seroprevalence remained low during the pre-vaccination and vaccine roll-out phases, it rose rapidly following the arrival of the Omicron variant, reaching approximately 76% by March 2023. The findings highlight that most Canadians achieved hybrid immunity through a combination of vaccination and natural infection, though public health strategies must remain adaptable due to regional and age-based variations in immunity.</span>
       </div>
 
       <div class="gd-cell">
         <p class="gd-lbl">+ Role</p>
-        <p class="gd-txt">&ldquo;<span class="pe-hl">You are an epidemiologist briefing a provincial health officer.</span> Summarize this study.&rdquo;</p>
+        <p class="gd-txt">&ldquo;<span class="pe-hl">You are an epidemiologist briefing a provincial health officer.</span> Summarize this study in a few sentences.&rdquo;</p>
       </div>
-      <div class="gd-cell">
+      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
         <p class="gd-lbl">What you get</p>
-        <p class="gd-txt gd-soft">Technical + audience-aware. Adds credible intervals, the 900k sample size.</p>
+        <p class="gd-txt gd-soft">Technical + audience-aware. Adds the age and regional patterns, ties them to policy. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <span class="gd-full">This study used a time-series analysis of over 900,000 samples to track SARS-CoV-2 seroprevalence in Canada from 2020 to 2023. While infection-acquired immunity remained low during the initial pandemic and vaccine roll-out phases, it increased rapidly following the arrival of the Omicron variant, reaching 76% by March 2023. This rapid rise was most pronounced in younger populations and Western provinces. The findings highlight that while high vaccine coverage provided protection against severe illness, it was insufficient to prevent widespread Omicron transmission, resulting in a population now characterized by widespread &ldquo;hybrid immunity&rdquo;. Given variations in seropositivity across geography and age, as well as the potential for waning antibodies and immune-evading variants, future public health and clinical decisions should be tailored to local population immunity patterns.</span>
       </div>
 
       <div class="gd-cell">
         <p class="gd-lbl">+ Focus</p>
-        <p class="gd-txt">&ldquo;&hellip;briefing a provincial health officer. Summarize <span class="pe-hl">in under 120 words, focusing on what they most need to know.</span>&rdquo;</p>
+        <p class="gd-txt">&ldquo;&hellip;briefing a provincial health officer. Summarize <span class="pe-hl">in under 100 words, focusing on what they most need to know.</span>&rdquo;</p>
       </div>
-      <div class="gd-cell">
+      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
         <p class="gd-lbl">What you get</p>
-        <p class="gd-txt gd-soft">Tight, decision-focused. No filler, no closing question.</p>
+        <p class="gd-txt gd-soft">Tight, decision-focused. Leads with the number, then policy takeaways. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <span class="gd-full">By March 2023, approximately 76% of Canadians had developed infection-acquired SARS-CoV-2 antibodies. While vaccination provided widespread protection, it was insufficient to prevent the rapid, unprecedented spread of the Omicron variant, which drastically increased infection-induced seroprevalence across all regions and age groups. <b>Key takeaways for policy:</b> Hybrid immunity &mdash; most of the population now possesses hybrid immunity from both vaccination and infection. Local tailoring &mdash; because seropositivity varies significantly by age and geography, future clinical decisions and public health measures must be tailored to local population immunity patterns.</span>
       </div>
 
       <div class="gd-cell">
         <p class="gd-lbl">Swap the role</p>
-        <p class="gd-txt">&ldquo;<span class="pe-hl">You are a peer reviewer evaluating this for publication.</span> Summarize in under 120 words&hellip;&rdquo;</p>
+        <p class="gd-txt">&ldquo;<span class="pe-hl">You are a peer reviewer evaluating this for publication.</span> Summarize it in under 100 words, focusing on what you most need to assess.&rdquo;</p>
       </div>
-      <div class="gd-cell">
+      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
         <p class="gd-lbl">What you get</p>
-        <p class="gd-txt gd-soft">Different <em>content</em>: the Bayesian model, sampling bias, blood-donor vs. general population, assay changes.</p>
+        <p class="gd-txt gd-soft">Different <em>content</em>: shifts from findings to whether they can be trusted &mdash; the model, the data sources, assay bias. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <span class="gd-full">This study utilizes a Bayesian time-series analysis of over 900,000 samples from seven collaborative studies to estimate SARS-CoV-2 seroprevalence in Canada from 2020 to 2023. It distinguishes between infection-acquired and vaccine-induced humoral immunity. Key findings show a rapid rise in infection-acquired seropositivity during the Omicron era, reaching 76% by March 2023, with variations across age and geography. As a reviewer, I must assess the robustness of the hierarchical modeling, the validity of combining diverse data sources (e.g., blood donors, research cohorts), and the handling of assay-specific bias.</span>
       </div>
 
     </div>
