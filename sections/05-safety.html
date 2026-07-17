@@ -298,9 +298,12 @@
                    border: 1.5px solid var(--ink); color: var(--ink); background: var(--paper); cursor: pointer;
                    transition: all .15s ease; }
   .xt-reveal-btn:hover { background: var(--ink); color: var(--paper); }
+  .xt-reveal-btn .lbl-hide { display: none; }
   .xt-answer { display: none; flex-direction: column; align-items: center; gap: 0.7vw; }
   .xt-frame input[type="checkbox"]:checked ~ .xt-answer { display: flex; }
-  .xt-frame input[type="checkbox"]:checked ~ .xt-reveal-btn { display: none; }
+  .xt-frame input[type="checkbox"]:checked ~ .xt-reveal-btn { background: var(--ink); color: var(--paper); }
+  .xt-frame input[type="checkbox"]:checked ~ .xt-reveal-btn .lbl-show { display: none; }
+  .xt-frame input[type="checkbox"]:checked ~ .xt-reveal-btn .lbl-hide { display: inline; }
   .xt-arrow { font: 500 1.6vw "Cormorant Garamond", serif; color: var(--ink-soft); }
 </style>
 
@@ -333,7 +336,7 @@
     </div>
 
     <input type="checkbox" id="di-ans">
-    <label class="xt-reveal-btn" for="di-ans">&#9656; Reveal one safer version</label>
+    <label class="xt-reveal-btn" for="di-ans"><span class="lbl-show">&#9656; Reveal one safer version</span><span class="lbl-hide">&#9662; Hide the answer</span></label>
     <div class="xt-answer">
       <span class="xt-arrow">&darr; de-identified</span>
       <table class="xt-tbl">
@@ -383,7 +386,7 @@
     </div>
 
     <input type="checkbox" id="an-ans">
-    <label class="xt-reveal-btn" for="an-ans">&#9656; Reveal one safer version</label>
+    <label class="xt-reveal-btn" for="an-ans"><span class="lbl-show">&#9656; Reveal one safer version</span><span class="lbl-hide">&#9662; Hide the answer</span></label>
     <div class="xt-answer">
       <span class="xt-arrow">&darr; anonymized</span>
       <table class="xt-tbl">
@@ -433,7 +436,7 @@
     </div>
 
     <input type="checkbox" id="sy-ans">
-    <label class="xt-reveal-btn" for="sy-ans">&#9656; Reveal a synthetic version</label>
+    <label class="xt-reveal-btn" for="sy-ans"><span class="lbl-show">&#9656; Reveal a synthetic version</span><span class="lbl-hide">&#9662; Hide the answer</span></label>
     <div class="xt-answer">
       <span class="xt-arrow">&darr; synthetic (generated)</span>
       <table class="xt-tbl">
