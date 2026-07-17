@@ -53,6 +53,24 @@
   .conn-node.cn-hl { border: 2.5px solid #8faa6b; background: #eef3e6; }
   .conn-node.cn-hl .cn-tag { color: #4a5d33; font-weight: 600; }
   .conn-auth { font: 400 0.95vw "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; margin-top: 0.3vw; }
+
+  /* ===== Divide the Work · two-condition comparison ===== */
+  .dw-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1vw; }
+  .dw-card { background: #faf8f0; border: 1.5px solid var(--rule-soft); border-radius: 14px; padding: 1vw 1.3vw; display: flex; flex-direction: column; gap: 0.5vw; }
+  .dw-card.dw-win { border: 2.5px solid #8faa6b; background: #eef3e6; }
+  .dw-clbl { font: 600 1.3vw "Work Sans", sans-serif; color: var(--ink); margin: 0; }
+  .dw-prompt { font: 400 1.05vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
+  .dw-prompt .dw-q { display: block; margin: 0.15vw 0; }
+  .dw-scorewrap { display: flex; align-items: baseline; gap: 0.5vw; margin-top: auto; padding-top: 0.6vw; }
+  .dw-score { font: 700 2.6vw "Work Sans", sans-serif; line-height: 1; color: #b06a4f; }
+  .dw-win .dw-score { color: #4a5d33; }
+  .dw-scoresub { font: 400 1vw "Work Sans", sans-serif; color: var(--ink-soft); }
+  .dw-why { background: #f3ede2; border-radius: 12px; padding: 0.85vw 1.3vw; margin-top: 0.3vw; }
+  .dw-why-h { font: 600 1.05vw "Work Sans", sans-serif; color: var(--ink); margin: 0 0 0.35vw; }
+  .dw-why-h .dw-hl { background: #e6c9bd; color: #7a3f2a; border-radius: 3px; padding: 0 0.25em; }
+  .dw-traps { display: grid; grid-template-columns: 1fr 1fr; gap: 1vw; }
+  .dw-trap { font: 400 0.98vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
+  .dw-trap b { color: var(--ink); font-weight: 600; }
   .tech-right {
     flex: 1; height: 100%;
     display: flex; align-items: center; justify-content: center;
@@ -363,41 +381,42 @@
 <section class="slide" data-label="Divide the Work">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="tech-layout">
-    <input type="radio" name="dv" id="dv-1" checked>
-    <input type="radio" name="dv" id="dv-2">
-    <input type="radio" name="dv" id="dv-3">
-    <div class="tech-left">
-      <p class="concept-label" style="text-align: left;">Divide the Work</p>
-      <h1 class="headline tech-head">Break a big task into steps. The more you separate and check them, the more you can trust the result.</h1>
-      <div class="acc-col">
-        <label for="dv-1" class="chip faded acc-chip">Run A &middot; All at once</label>
-        <label for="dv-2" class="chip card--sage acc-chip">Run B &middot; Steps, one prompt</label>
-        <label for="dv-3" class="chip card--lilac acc-chip">Run C &middot; Separate prompts</label>
-      </div>
-      <p class="acc-cap tech-cap dv-c1">One prompt does everything at once. Fluent, but the steps blur and it's hard to see what it skipped.</p>
-      <p class="acc-cap tech-cap dv-c2">One prompt, but you spell out the steps. The stages become visible and ordered.</p>
-      <p class="acc-cap tech-cap dv-c3">Each step its own prompt. You check and fix each output before it feeds the next. When the model chains its own steps, that's an agent.</p>
-    </div>
-    <div class="tech-right">
-      <img class="tech-img dv-i1" src="images/dv-run1.png" alt="Run A: all at once, one prompt">
-      <img class="tech-img dv-i2" src="images/dv-run2.png" alt="Run B: steps spelled out in one prompt">
-      <div class="tech-img dv-i3">
-        <input type="radio" name="dvc" id="dvc-1" checked>
-        <input type="radio" name="dvc" id="dvc-2">
-        <input type="radio" name="dvc" id="dvc-3">
-        <div class="dvc-imgs">
-          <img class="dvc-i dvc-i1" src="images/dv-run3-p1.png" alt="Run C step 1: list findings in its own chat">
-          <img class="dvc-i dvc-i2" src="images/dv-run3-p2.png" alt="Run C step 2: mark what matters in its own chat">
-          <img class="dvc-i dvc-i3" src="images/dv-run3-p3.png" alt="Run C step 3: write the brief in its own chat">
+  <div class="gd-wrap">
+    <p class="concept-label" style="text-align: left;">Divide the Work</p>
+    <h1 class="headline gd-title">Four jobs in one prompt, or one job per prompt? Same 12 trials, one measured difference.</h1>
+
+    <div class="dw-cols">
+      <div class="dw-card">
+        <p class="dw-clbl">One overloaded prompt</p>
+        <p class="dw-prompt">&ldquo;For each of these 12 trials, give: study type, a plain-language title, a one-line summary, and two reviewer questions.&rdquo;</p>
+        <div class="dw-scorewrap">
+          <span class="dw-score">10&#8202;/&#8202;12</span>
+          <span class="dw-scoresub">classified correctly</span>
         </div>
-        <div class="dvc-tabs">
-          <label for="dvc-1">Step 1</label>
-          <label for="dvc-2">Step 2</label>
-          <label for="dvc-3">Step 3</label>
+      </div>
+      <div class="dw-card dw-win">
+        <p class="dw-clbl">One task per prompt</p>
+        <p class="dw-prompt">
+          <span class="dw-q">1. &ldquo;Classify each: interventional or observational. One word each.&rdquo;</span>
+          <span class="dw-q">2. &ldquo;Write a plain-language title for each.&rdquo;</span>
+          <span class="dw-q">3. &ldquo;Summarize each in one line.&rdquo;</span>
+        </p>
+        <div class="dw-scorewrap">
+          <span class="dw-score">12&#8202;/&#8202;12</span>
+          <span class="dw-scoresub">classified correctly</span>
         </div>
       </div>
     </div>
+
+    <div class="dw-why">
+      <p class="dw-why-h">Both misses were <span class="dw-hl">traps</span>: observational trials that name a drug or device.</p>
+      <div class="dw-traps">
+        <p class="dw-trap"><b>NCT02677077</b>: observational MRI study of patients already on natalizumab. Bundled, the model saw the drug name and called it interventional.</p>
+        <p class="dw-trap"><b>NCT03993275</b>: observational balance study that lists a device (MindMotion GO). Same slip: the device cue overrode the design.</p>
+      </div>
+    </div>
+
+    <p class="gd-take"><b>The takeaway:</b> juggling four jobs at once, the model grabs a surface cue and mislabels. Give each task its own prompt and the irrelevant details fall away. Independent tasks don't belong in one prompt. <span style="color: var(--ink-soft);">(Shi et al., &ldquo;Large language models can be easily distracted by irrelevant context.&rdquo;)</span></p>
   </div>
 </section>
 
