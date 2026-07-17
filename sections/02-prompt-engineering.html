@@ -72,18 +72,18 @@
   .eq-author .eq-albl { font: 400 0.82vw "Work Sans", sans-serif; letter-spacing: 0.05em; text-transform: uppercase; color: #a49e8d; margin: 0 0 0.3vw; }
   .eq-author .eq-atxt { font: 400 1.02vw/1.4 "Work Sans", sans-serif; color: var(--ink); margin: 0; }
   .eq-author .eq-atxt b { font-weight: 600; }
-  .eq-tiers { display: flex; flex-direction: column; gap: 0.6vw; }
-  .eq-tier { display: flex; gap: 0.9vw; align-items: flex-start; border: 1.5px solid var(--rule-soft); border-radius: 12px; padding: 0.7vw 1vw; background: #faf8f0; }
-  .eq-tier .eq-num { flex: 0 0 auto; width: 1.9vw; height: 1.9vw; border-radius: 50%; display: flex; align-items: center; justify-content: center; font: 700 1.05vw "Work Sans", sans-serif; }
-  .eq-tier .eq-tlbl { font: 600 1.1vw "Work Sans", sans-serif; color: var(--ink); margin: 0; }
-  .eq-tier .eq-ttxt { font: 400 0.98vw/1.42 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0.15vw 0 0; }
-  .eq-tier .eq-ttxt b { color: var(--ink); font-weight: 600; }
-  .eq-tier.t1 { background: #f7efe9; border-color: #e0cdbf; }
-  .eq-tier.t1 .eq-num { background: #e6c9bd; color: #7a3f2a; }
-  .eq-tier.t2 .eq-num { background: #e4dcc9; color: #6b675c; }
-  .eq-tier.t3 { background: #eef3e6; border-color: #8faa6b; }
-  .eq-tier.t3 .eq-num { background: #8faa6b; color: #fff; }
-  .eq-tier.t3 .eq-ttxt b { color: #4a5d33; }
+  .eq-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1vw; }
+  .eq-card { background: #faf8f0; border: 1.5px solid var(--rule-soft); border-radius: 12px; padding: 0.75vw 1.1vw; }
+  .eq-card .eq-h { font: 600 1.15vw "Work Sans", sans-serif; color: var(--ink); margin: 0 0 0.1vw; }
+  .eq-card .eq-sub { font: 400 0.85vw "Work Sans", sans-serif; color: var(--ink-soft); margin: 0 0 0.45vw; }
+  .eq-list { margin: 0; padding: 0; list-style: none; }
+  .eq-list li { font: 400 0.98vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0 0 0.3vw; padding-left: 1.1vw; position: relative; }
+  .eq-list li::before { content: "\25B8"; position: absolute; left: 0; color: #b9b3a2; }
+  .eq-list li b { color: var(--ink); font-weight: 600; }
+  .eq-claude { background: #eef3e6; border: 1.5px solid #8faa6b; border-radius: 12px; padding: 0.75vw 1.1vw; margin-top: 0.7vw; }
+  .eq-claude .eq-h { font: 600 1.15vw "Work Sans", sans-serif; color: var(--ink); margin: 0 0 0.1vw; }
+  .eq-claude .eq-ctxt { font: 400 0.98vw/1.42 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
+  .eq-claude .eq-ctxt b { color: #4a5d33; font-weight: 600; }
 </style>
 
 
@@ -477,38 +477,42 @@ Ublituximab (NCT07220252),Phase 2/3 RCT active+placebo multi-part,Children 10-17
   <div class="pagedot"></div>
   <div class="gd-wrap">
     <p class="concept-label" style="text-align: left;">Evaluate Quality</p>
-    <h1 class="headline gd-title">Independence has layers. A model checking itself is the weakest check of all.</h1>
+    <h1 class="headline gd-title">Don't trust the first answer. Independent checks catch what the author can't see.</h1>
 
     <div class="eq-author">
       <p class="eq-albl">The extraction under review (the ublituximab trial, from Show an Example)</p>
       <p class="eq-atxt"><b>Design:</b> Ph2/3 RCT, active + placebo, multi-part &nbsp;&middot;&nbsp; <b>Population:</b> Children 10&ndash;17, RMS, EDSS 0&ndash;5.5, n&approx;240 &nbsp;&middot;&nbsp; <b>Intervention:</b> Ublituximab vs fingolimod / placebo &nbsp;&middot;&nbsp; <b>Primary outcome:</b> PK/PD and B-cell counts (A); ARR (B) &nbsp;&middot;&nbsp; <b>Status:</b> Recruiting</p>
     </div>
 
-    <div class="eq-tiers">
-      <div class="eq-tier t1">
-        <div class="eq-num">1</div>
-        <div>
-          <p class="eq-tlbl">Claude reviews itself, from memory</p>
-          <p class="eq-ttxt"><b>Ratifies.</b> &ldquo;Looks complete and accurate,&rdquo; offers only wording tweaks. Misses every structural gap it created, because a model can't see the blind spots that produced its own answer.</p>
-        </div>
+    <div class="eq-cols">
+      <div class="eq-card">
+        <p class="eq-h">ChatGPT</p>
+        <p class="eq-sub">Independent, different vendor. Flags:</p>
+        <ul class="eq-list">
+          <li>Design omits Part C; comparator structure differs by part.</li>
+          <li><b>&ldquo;RCT&rdquo; over-claims randomization</b>: only Part B's comparison is verified.</li>
+          <li><b>Part B is a non-inferiority design</b>; misses the week-96 and week-168 horizons.</li>
+          <li>Deeper on exclusions: prior anti-CD20, S1P modulators, recent steroids.</li>
+        </ul>
       </div>
-      <div class="eq-tier t2">
-        <div class="eq-num">2</div>
-        <div>
-          <p class="eq-tlbl">Two different vendors, handed the same record</p>
-          <p class="eq-ttxt">Gemini and GPT both catch the real gaps: <b>missing Part C, part-specific comparators, the dropped weight criteria.</b> GPT adds the non-inferiority design and the week-96 / 168 horizons. But both trust the record they were handed.</p>
-        </div>
-      </div>
-      <div class="eq-tier t3">
-        <div class="eq-num">3</div>
-        <div>
-          <p class="eq-tlbl">A model checking independent sources, off the connector</p>
-          <p class="eq-ttxt"><b>Challenges the record itself.</b> Finds the status may be &ldquo;not yet recruiting,&rdquo; that n&approx;240 scopes only part of a layered enrollment, and that the headline <b>Part C endpoint can't be confirmed from any independent source.</b></p>
-        </div>
+      <div class="eq-card">
+        <p class="eq-h">Gemini</p>
+        <p class="eq-sub">Independent, different vendor. Flags:</p>
+        <ul class="eq-list">
+          <li>Design omits the three-part structure; Part C missing entirely.</li>
+          <li><b>Population drops the Part A weight limit (25&ndash;40 kg)</b> and the 30-day stability rule.</li>
+          <li>Comparators are part-specific: fingolimod in Part B only.</li>
+          <li>Primary outcome omits the named PK endpoints (AUC, Cmax).</li>
+        </ul>
       </div>
     </div>
 
-    <p class="gd-take"><b>The takeaway:</b> a model checking itself just ratifies. Give it the source and it finds gaps, but every reviewer sharing one source inherits that source's errors. Real independence means varying the <em>source</em>, not just the model, and verifying against the primary record.</p>
+    <div class="eq-claude">
+      <p class="eq-h">And Claude, in a fresh chat</p>
+      <p class="eq-ctxt">Asked to check its own extraction, a new Claude chat caught the big gaps too (the missing Part C, the dropped weight criteria) <b>plus two the others underplayed:</b> &ldquo;n&approx;240&rdquo; is falsely approximate (240 is a precise target), and &ldquo;RCT&rdquo; is an unverified field, not a confirmed one. Self-review isn't worthless, but only when it actually checks the record instead of ratifying.</p>
+    </div>
+
+    <p class="gd-take"><b>The takeaway:</b> the author can't see its own blind spots. A different vendor catches them, and two vendors catch different things. Even a fresh same-vendor pass helps, as long as it verifies against the primary record rather than trusting the first answer.</p>
   </div>
 </section>
 
