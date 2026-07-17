@@ -278,11 +278,7 @@
              border-radius: 1vw; background: var(--card-fill); }
   .xt-task .clock { font: 500 1.5vw "Cormorant Garamond", serif; color: var(--ink); white-space: nowrap; }
   .xt-task .goal { font: 400 1.3vw/1.35 "Work Sans", sans-serif; color: var(--ink); }
-  .xt-tabs { display: flex; gap: 0.7vw; }
-  .xt-tabs > label { font: 500 1.3vw "Work Sans", sans-serif; padding: 0.4vw 1.4vw; border-radius: 999px;
-                     border: 1.5px solid var(--rule-soft); color: var(--ink-soft); cursor: pointer; transition: all .15s ease; }
-  .xt-frame input[type="radio"] { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
-  .xt-panel { display: none; flex-direction: column; align-items: center; gap: 0.8vw; }
+  .xt-panel { display: flex; flex-direction: column; align-items: center; gap: 0.8vw; }
   table.xt-tbl { border-collapse: collapse; font: 400 1.18vw "Work Sans", sans-serif; width: 84vw; }
   table.xt-tbl th { font-weight: 600; color: var(--ink); text-align: left; padding: 0.42vw 0.8vw;
                     border-bottom: 2px solid var(--rule-soft); white-space: nowrap; }
@@ -296,15 +292,16 @@
   .xt-note { font: italic 400 1.25vw/1.4 "Cormorant Garamond", serif; text-align: center; max-width: 80vw; }
   .xt-fake { font: 400 1.02vw "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; }
 
-  /* De-identify toggle */
-  #di-raw:checked ~ .xt-tabs label[for="di-raw"], #di-ans:checked ~ .xt-tabs label[for="di-ans"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  #di-raw:checked ~ .xt-p-raw, #di-ans:checked ~ .xt-p-ans { display: flex; }
-  /* Anonymize toggle */
-  #an-raw:checked ~ .xt-tabs label[for="an-raw"], #an-ans:checked ~ .xt-tabs label[for="an-ans"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  #an-raw:checked ~ .xt-p-raw, #an-ans:checked ~ .xt-p-ans { display: flex; }
-  /* Synthesize toggle */
-  #sy-raw:checked ~ .xt-tabs label[for="sy-raw"], #sy-ans:checked ~ .xt-tabs label[for="sy-ans"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  #sy-raw:checked ~ .xt-p-raw, #sy-ans:checked ~ .xt-p-ans { display: flex; }
+  /* reveal button + answer */
+  .xt-frame input[type="checkbox"] { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .xt-reveal-btn { font: 500 1.35vw "Work Sans", sans-serif; padding: 0.5vw 1.8vw; border-radius: 999px;
+                   border: 1.5px solid var(--ink); color: var(--ink); background: var(--paper); cursor: pointer;
+                   transition: all .15s ease; }
+  .xt-reveal-btn:hover { background: var(--ink); color: var(--paper); }
+  .xt-answer { display: none; flex-direction: column; align-items: center; gap: 0.7vw; }
+  .xt-frame input[type="checkbox"]:checked ~ .xt-answer { display: flex; }
+  .xt-frame input[type="checkbox"]:checked ~ .xt-reveal-btn { display: none; }
+  .xt-arrow { font: 500 1.6vw "Cormorant Garamond", serif; color: var(--ink-soft); }
 </style>
 
 <!-- ===== Exercise 1: De-identify ===== -->
@@ -312,8 +309,6 @@
   <div class="eyebrow">Part 5 &middot; Safety &amp; Regulatory</div>
   <div class="pagedot"></div>
   <div class="layout-hero" style="top: 5%; bottom: 5%; gap: 1vw;">
-    <input type="radio" name="di" id="di-raw" checked>
-    <input type="radio" name="di" id="di-ans">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
       <p class="concept-label">Exercise 1 &middot; De-identify</p>
       <h1 class="headline" style="font-size: 1.9vw;">Remove or mask the direct identifiers.</h1>
@@ -322,12 +317,8 @@
       <span class="clock">&#9201; 10 min &middot; in teams</span>
       <span class="goal">This line list is going to an analyst on your team. Strip what directly names a person, keep what&rsquo;s needed for analysis. Which columns go, which get masked, which stay?</span>
     </div>
-    <div class="xt-tabs">
-      <label for="di-raw">Raw data</label>
-      <label for="di-ans">One safer version</label>
-    </div>
 
-    <div class="xt-panel xt-p-raw">
+    <div class="xt-panel">
       <table class="xt-tbl">
         <tr><th>Full name</th><th>Health card #</th><th>Date of birth</th><th>Phone</th><th>Postal code</th><th>Sex</th><th>Diagnosis</th><th>Onset date</th></tr>
         <tr><td>Maria Tremblay</td><td>4821-337-114</td><td>1990-03-12</td><td>514-555-0182</td><td>H2X 1Y4</td><td>F</td><td>Influenza A</td><td>2026-01-05</td></tr>
@@ -341,7 +332,10 @@
       </table>
     </div>
 
-    <div class="xt-panel xt-p-ans">
+    <input type="checkbox" id="di-ans">
+    <label class="xt-reveal-btn" for="di-ans">&#9656; Reveal one safer version</label>
+    <div class="xt-answer">
+      <span class="xt-arrow">&darr; de-identified</span>
       <table class="xt-tbl">
         <tr><th>ID</th><th>Date of birth</th><th>Postal code</th><th>Sex</th><th>Diagnosis</th><th>Onset date</th></tr>
         <tr><td class="new">P-001</td><td>1990-03-12</td><td>H2X 1Y4</td><td>F</td><td>Influenza A</td><td>2026-01-05</td></tr>
@@ -365,8 +359,6 @@
   <div class="eyebrow">Part 5 &middot; Safety &amp; Regulatory</div>
   <div class="pagedot"></div>
   <div class="layout-hero" style="top: 5%; bottom: 5%; gap: 1vw;">
-    <input type="radio" name="an" id="an-raw" checked>
-    <input type="radio" name="an" id="an-ans">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
       <p class="concept-label">Exercise 2 &middot; Anonymize</p>
       <h1 class="headline" style="font-size: 1.9vw;">Generalize until no row points to one person.</h1>
@@ -375,12 +367,8 @@
       <span class="clock">&#9201; 10 min &middot; in teams</span>
       <span class="goal">Names are already gone, but these indirect fields still single people out. Generalize each column so many people share every row. What would you widen, round, or bucket?</span>
     </div>
-    <div class="xt-tabs">
-      <label for="an-raw">Raw data</label>
-      <label for="an-ans">One safer version</label>
-    </div>
 
-    <div class="xt-panel xt-p-raw">
+    <div class="xt-panel">
       <table class="xt-tbl">
         <tr><th>ID</th><th>Date of birth</th><th>Postal code</th><th>Sex</th><th>Occupation</th><th>Diagnosis</th><th>Onset date</th></tr>
         <tr><td>P-001</td><td>1990-03-12</td><td>H2X 1Y4</td><td>F</td><td>Nurse</td><td>Influenza A</td><td>2026-01-05</td></tr>
@@ -394,7 +382,10 @@
       </table>
     </div>
 
-    <div class="xt-panel xt-p-ans">
+    <input type="checkbox" id="an-ans">
+    <label class="xt-reveal-btn" for="an-ans">&#9656; Reveal one safer version</label>
+    <div class="xt-answer">
+      <span class="xt-arrow">&darr; anonymized</span>
       <table class="xt-tbl">
         <tr><th>ID</th><th>Age band</th><th>Region (FSA)</th><th>Sex</th><th>Sector</th><th>Diagnosis</th><th>Onset week</th></tr>
         <tr><td>P-001</td><td class="new">30&ndash;39</td><td class="new">H2X</td><td>F</td><td class="new">Healthcare</td><td>Influenza A</td><td class="new">2026-W01</td></tr>
@@ -418,8 +409,6 @@
   <div class="eyebrow">Part 5 &middot; Safety &amp; Regulatory</div>
   <div class="pagedot"></div>
   <div class="layout-hero" style="top: 5%; bottom: 5%; gap: 1vw;">
-    <input type="radio" name="sy" id="sy-raw" checked>
-    <input type="radio" name="sy" id="sy-ans">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
       <p class="concept-label">Exercise 3 &middot; Synthesize</p>
       <h1 class="headline" style="font-size: 1.9vw;">Invent records that keep the patterns, not the people.</h1>
@@ -428,12 +417,8 @@
       <span class="clock">&#9201; 10 min &middot; in teams</span>
       <span class="goal">You want to share a demo dataset that behaves like the real one. As a team, list the patterns worth preserving (diagnosis mix, age spread, weekly counts), then sketch fake rows that match them without copying any real person.</span>
     </div>
-    <div class="xt-tabs">
-      <label for="sy-raw">Real data</label>
-      <label for="sy-ans">A synthetic version</label>
-    </div>
 
-    <div class="xt-panel xt-p-raw">
+    <div class="xt-panel">
       <table class="xt-tbl">
         <tr><th>ID</th><th>Age</th><th>Postal code</th><th>Sex</th><th>Diagnosis</th><th>Onset date</th><th>Outcome</th></tr>
         <tr><td>P-001</td><td>34</td><td>H2X 1Y4</td><td>F</td><td>Influenza A</td><td>2026-01-05</td><td>Recovered</td></tr>
@@ -447,7 +432,10 @@
       </table>
     </div>
 
-    <div class="xt-panel xt-p-ans">
+    <input type="checkbox" id="sy-ans">
+    <label class="xt-reveal-btn" for="sy-ans">&#9656; Reveal a synthetic version</label>
+    <div class="xt-answer">
+      <span class="xt-arrow">&darr; synthetic (generated)</span>
       <table class="xt-tbl">
         <tr><th>ID</th><th>Age</th><th>Postal code</th><th>Sex</th><th>Diagnosis</th><th>Onset date</th><th>Outcome</th></tr>
         <tr><td class="new">S-001</td><td class="new">41</td><td class="new">H3B 2K1</td><td>F</td><td>Influenza A</td><td class="new">2026-01-04</td><td>Recovered</td></tr>
