@@ -11,6 +11,17 @@
   .tech-left .acc-chip { width: 22vw; text-align: center; }
   .tech-cap { font: 400 1.4vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0.4vw 0 0; display: none; }
   .pe-hl { background: #bcd1a6; color: #2f4318; padding: 0.02em 0.28em; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+
+  /* ===== Give Direction · all-visible grid ===== */
+  .gd-wrap { position: absolute; top: 8%; bottom: 4%; left: 5vw; right: 5vw; display: flex; flex-direction: column; gap: 1vw; }
+  .gd-title { font-size: 1.7vw; line-height: 1.25; text-align: left; margin: 0.2vw 0 0.4vw; }
+  .gd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8vw; }
+  .gd-cell { background: #faf8f0; border-radius: 12px; padding: 0.85vw 1.1vw; }
+  .gd-lbl { font: 400 0.85vw "Work Sans", sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: #a49e8d; margin: 0 0 0.35vw; }
+  .gd-txt { font: 400 1.15vw/1.45 "Work Sans", sans-serif; color: var(--ink); margin: 0; }
+  .gd-txt.gd-soft { color: var(--ink-soft); }
+  .gd-take { margin-top: auto; padding-top: 0.8vw; border-top: 1.5px solid var(--rule-soft); font: 400 1.15vw/1.5 "Work Sans", sans-serif; color: var(--ink-soft); }
+  .gd-take b { color: #2f4318; font-weight: 600; }
   .tech-right {
     flex: 1; height: 100%;
     display: flex; align-items: center; justify-content: center;
@@ -163,31 +174,49 @@
 <section class="slide" data-label="Give Direction">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="tech-layout">
-    <input type="radio" name="gd" id="gd-1" checked>
-    <input type="radio" name="gd" id="gd-2">
-    <input type="radio" name="gd" id="gd-3">
-    <input type="radio" name="gd" id="gd-4">
-    <div class="tech-left">
-      <p class="concept-label" style="text-align: left;">Give Direction</p>
-      <h1 class="headline tech-head">Tell it who to be and what matters. Same paper, same model. Watch the answer sharpen.</h1>
-      <div class="acc-col">
-        <label for="gd-1" class="chip faded acc-chip">Run 1 &middot; Vague</label>
-        <label for="gd-2" class="chip card--lemon acc-chip">Run 2 &middot; + Reader</label>
-        <label for="gd-3" class="chip card--sage acc-chip">Run 3 &middot; + Focus</label>
-        <label for="gd-4" class="chip card--lilac acc-chip">Run 4 &middot; Swap role</label>
+  <div class="gd-wrap">
+    <p class="concept-label" style="text-align: left;">Give Direction</p>
+    <h1 class="headline gd-title">Same paper, four prompts. Watch what each added instruction changes. Green = what's new.</h1>
+    <div class="gd-grid">
+
+      <div class="gd-cell">
+        <p class="gd-lbl">Prompt</p>
+        <p class="gd-txt">&ldquo;Summarize this study.&rdquo;</p>
       </div>
-      <p class="acc-cap tech-cap gd-c1">&ldquo;Summarize this study.&rdquo; &rarr; a generic recap. Wanders, buries the lead, ends by asking <em>you</em> a question.</p>
-      <p class="acc-cap tech-cap gd-c2">&ldquo;<span class="pe-hl">You are an epidemiologist briefing a provincial health officer.</span> Summarize this study.&rdquo; &rarr; technical and audience-aware. Adds credible intervals, the 900k sample size.</p>
-      <p class="acc-cap tech-cap gd-c3">&ldquo;&hellip;briefing a provincial health officer. Summarize <span class="pe-hl">in under 120 words, focusing on what they most need to know.</span>&rdquo; &rarr; tight, decision-focused. No filler, no closing question.</p>
-      <p class="acc-cap tech-cap gd-c4">&ldquo;<span class="pe-hl">You are a peer reviewer evaluating this for publication.</span> Summarize in under 120 words&hellip;&rdquo; &rarr; different <em>content</em>: the Bayesian model, sampling bias, blood-donor vs. general population, assay changes.</p>
+      <div class="gd-cell">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Generic recap. Wanders. Ends by asking <em>you</em> a question.</p>
+      </div>
+
+      <div class="gd-cell">
+        <p class="gd-lbl">+ Role</p>
+        <p class="gd-txt">&ldquo;<span class="pe-hl">You are an epidemiologist briefing a provincial health officer.</span> Summarize this study.&rdquo;</p>
+      </div>
+      <div class="gd-cell">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Technical + audience-aware. Adds credible intervals, the 900k sample size.</p>
+      </div>
+
+      <div class="gd-cell">
+        <p class="gd-lbl">+ Focus</p>
+        <p class="gd-txt">&ldquo;&hellip;briefing a provincial health officer. Summarize <span class="pe-hl">in under 120 words, focusing on what they most need to know.</span>&rdquo;</p>
+      </div>
+      <div class="gd-cell">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Tight, decision-focused. No filler, no closing question.</p>
+      </div>
+
+      <div class="gd-cell">
+        <p class="gd-lbl">Swap the role</p>
+        <p class="gd-txt">&ldquo;<span class="pe-hl">You are a peer reviewer evaluating this for publication.</span> Summarize in under 120 words&hellip;&rdquo;</p>
+      </div>
+      <div class="gd-cell">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Different <em>content</em>: the Bayesian model, sampling bias, blood-donor vs. general population, assay changes.</p>
+      </div>
+
     </div>
-    <div class="tech-right">
-      <img class="tech-img gd-i1" src="images/prompt_run1.png" alt="Run 1: vague prompt, unfocused output">
-      <img class="tech-img gd-i2" src="images/prompt_run2.png" alt="Run 2: added reader, more focused output">
-      <img class="tech-img gd-i3" src="images/prompt_run3.png" alt="Run 3: added structure, tight brief">
-      <img class="tech-img gd-i4" src="images/prompt_run4.png" alt="Run 4: peer reviewer role, methods-focused">
-    </div>
+    <p class="gd-take"><b>The takeaway:</b> role shapes <em>what counts as important</em>, not just tone. Format controls length and focus. Together they turn one lazy line into a briefing.</p>
   </div>
 </section>
 
