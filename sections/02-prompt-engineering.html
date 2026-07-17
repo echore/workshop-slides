@@ -1,15 +1,4 @@
 <style>
-  /* ===== Two-column technique slides (Give Direction / Show an Example / Divide the Work) ===== */
-  .tech-layout > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
-  .tech-layout {
-    position: absolute; top: 9%; bottom: 3%; left: 5vw; right: 4vw;
-    display: flex; align-items: center; gap: 3vw;
-  }
-  .tech-left { width: 34vw; display: flex; flex-direction: column; gap: 1.2vw; }
-  .tech-head { font-size: 1.9vw; line-height: 1.25; text-align: left; margin: 0; }
-  .tech-left .acc-col { flex-direction: column; gap: 0.7vw; }
-  .tech-left .acc-chip { width: 22vw; text-align: center; }
-  .tech-cap { font: 400 1.4vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0.4vw 0 0; display: none; }
   .pe-hl { background: #bcd1a6; color: #2f4318; padding: 0.02em 0.28em; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 
   /* ===== Give Direction · all-visible grid ===== */
@@ -77,41 +66,24 @@
   .gd-full table.fmt th, .gd-full table.fmt td { border: 1px solid var(--rule-soft); padding: 0.22vw 0.4vw; text-align: left; vertical-align: top; }
   .gd-full table.fmt th { background: #eef3e6; font-weight: 600; color: var(--ink); }
   .gd-full pre.fmt { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 0.8vw; line-height: 1.45; white-space: pre-wrap; word-break: break-word; margin: 0.15vw 0 0; color: var(--ink); }
-  .tech-right {
-    flex: 1; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .tech-img { display: none; max-height: 100%; max-width: 100%; border-radius: 12px; box-shadow: 0 8px 28px rgba(42, 36, 27, 0.16); }
-  /* show active caption + image per group */
-  #gd-1:checked ~ .tech-left .gd-c1, #gd-2:checked ~ .tech-left .gd-c2, #gd-3:checked ~ .tech-left .gd-c3, #gd-4:checked ~ .tech-left .gd-c4,
-  #se-1:checked ~ .tech-left .se-c1, #se-2:checked ~ .tech-left .se-c2, #se-3:checked ~ .tech-left .se-c3,
-  #sf-1:checked ~ .tech-left .sf-c1, #sf-2:checked ~ .tech-left .sf-c2, #sf-3:checked ~ .tech-left .sf-c3,
-  #eq-1:checked ~ .tech-left .eq-c1, #eq-2:checked ~ .tech-left .eq-c2, #eq-3:checked ~ .tech-left .eq-c3, #eq-4:checked ~ .tech-left .eq-c4,
-  #dv-1:checked ~ .tech-left .dv-c1, #dv-2:checked ~ .tech-left .dv-c2, #dv-3:checked ~ .tech-left .dv-c3 { display: block; }
-  #gd-1:checked ~ .tech-right .gd-i1, #gd-2:checked ~ .tech-right .gd-i2, #gd-3:checked ~ .tech-right .gd-i3, #gd-4:checked ~ .tech-right .gd-i4,
-  #se-1:checked ~ .tech-right .se-i1, #se-2:checked ~ .tech-right .se-i2, #se-3:checked ~ .tech-right .se-i3,
-  #sf-1:checked ~ .tech-right .sf-i1, #sf-2:checked ~ .tech-right .sf-i2, #sf-3:checked ~ .tech-right .sf-i3,
-  #eq-1:checked ~ .tech-right .eq-i1, #eq-2:checked ~ .tech-right .eq-i2, #eq-3:checked ~ .tech-right .eq-i3, #eq-4:checked ~ .tech-right .eq-i4,
-  #dv-1:checked ~ .tech-right .dv-i1, #dv-2:checked ~ .tech-right .dv-i2, #dv-3:checked ~ .tech-right .dv-i3 { display: flex; }
-  /* highlight active run button */
-  #gd-1:checked ~ .tech-left label[for="gd-1"], #gd-2:checked ~ .tech-left label[for="gd-2"], #gd-3:checked ~ .tech-left label[for="gd-3"], #gd-4:checked ~ .tech-left label[for="gd-4"],
-  #se-1:checked ~ .tech-left label[for="se-1"], #se-2:checked ~ .tech-left label[for="se-2"], #se-3:checked ~ .tech-left label[for="se-3"],
-  #sf-1:checked ~ .tech-left label[for="sf-1"], #sf-2:checked ~ .tech-left label[for="sf-2"], #sf-3:checked ~ .tech-left label[for="sf-3"],
-  #eq-1:checked ~ .tech-left label[for="eq-1"], #eq-2:checked ~ .tech-left label[for="eq-2"], #eq-3:checked ~ .tech-left label[for="eq-3"], #eq-4:checked ~ .tech-left label[for="eq-4"],
-  #dv-1:checked ~ .tech-left label[for="dv-1"], #dv-2:checked ~ .tech-left label[for="dv-2"], #dv-3:checked ~ .tech-left label[for="dv-3"] { transform: scale(1.03); outline: 2.5px solid var(--ink); outline-offset: 3px; }
 
-  /* Divide the Work · Run C: step tabs under its image */
-  .dv-i3 { flex-direction: column; align-items: center; gap: 0.7vw; box-shadow: none; }
-  .dvc-i { display: none; max-height: 42vw; border-radius: 12px; box-shadow: 0 8px 28px rgba(42, 36, 27, 0.16); }
-  #dvc-1:checked ~ .dvc-imgs .dvc-i1,
-  #dvc-2:checked ~ .dvc-imgs .dvc-i2,
-  #dvc-3:checked ~ .dvc-imgs .dvc-i3 { display: block; }
-  .dv-i3 > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
-  .dvc-tabs { display: flex; gap: 0.6vw; }
-  .dvc-tabs label { font: 400 1.2vw "Work Sans", sans-serif; padding: 0.3vw 1.1vw; border-radius: 999px; border: 1.5px solid var(--rule-soft); color: var(--ink-soft); cursor: pointer; }
-  #dvc-1:checked ~ .dvc-tabs label[for="dvc-1"],
-  #dvc-2:checked ~ .dvc-tabs label[for="dvc-2"],
-  #dvc-3:checked ~ .dvc-tabs label[for="dvc-3"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  /* ===== Evaluate Quality · independent checks ===== */
+  .eq-author { background: #faf8f0; border: 1.5px solid var(--rule-soft); border-radius: 12px; padding: 0.75vw 1.1vw; margin-bottom: 0.7vw; }
+  .eq-author .eq-albl { font: 400 0.82vw "Work Sans", sans-serif; letter-spacing: 0.05em; text-transform: uppercase; color: #a49e8d; margin: 0 0 0.3vw; }
+  .eq-author .eq-atxt { font: 400 1.02vw/1.4 "Work Sans", sans-serif; color: var(--ink); margin: 0; }
+  .eq-author .eq-atxt b { font-weight: 600; }
+  .eq-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1vw; }
+  .eq-card { background: #faf8f0; border: 1.5px solid var(--rule-soft); border-radius: 12px; padding: 0.75vw 1.1vw; }
+  .eq-card .eq-h { font: 600 1.15vw "Work Sans", sans-serif; color: var(--ink); margin: 0 0 0.1vw; }
+  .eq-card .eq-sub { font: 400 0.85vw "Work Sans", sans-serif; color: var(--ink-soft); margin: 0 0 0.45vw; }
+  .eq-list { margin: 0; padding: 0; list-style: none; }
+  .eq-list li { font: 400 0.98vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0 0 0.3vw; padding-left: 1.1vw; position: relative; }
+  .eq-list li::before { content: "\25B8"; position: absolute; left: 0; color: #b9b3a2; }
+  .eq-list li.eq-uniq::before { content: "\2726"; color: #b06a4f; }
+  .eq-list li.eq-uniq b { color: #8a4a33; font-weight: 600; }
+  .eq-key { display: flex; gap: 1.4vw; justify-content: center; margin-top: 0.5vw; font: 400 0.85vw "Work Sans", sans-serif; color: var(--ink-soft); }
+  .eq-key .k-shared::before { content: "\25B8"; color: #b9b3a2; margin-right: 0.3vw; }
+  .eq-key .k-uniq::before { content: "\2726"; color: #b06a4f; margin-right: 0.3vw; }
 </style>
 
 
@@ -503,31 +475,44 @@ Ublituximab (NCT07220252),Phase 2/3 RCT active+placebo multi-part,Children 10-17
 <section class="slide" data-label="Evaluate Quality">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="tech-layout">
-    <input type="radio" name="eq" id="eq-1" checked>
-    <input type="radio" name="eq" id="eq-2">
-    <input type="radio" name="eq" id="eq-3">
-    <input type="radio" name="eq" id="eq-4">
-    <div class="tech-left">
-      <p class="concept-label" style="text-align: left;">Evaluate Quality</p>
-      <h1 class="headline tech-head">Don't take the first answer on faith. Make the model check its own work.</h1>
-      <div class="acc-col">
-        <label for="eq-1" class="chip faded acc-chip">Run A &middot; Take at face value</label>
-        <label for="eq-2" class="chip card--sage acc-chip">Run B &middot; Ask it to check</label>
-        <label for="eq-3" class="chip card--lilac acc-chip">Run C &middot; Rate confidence</label>
-        <label for="eq-4" class="chip card--pink acc-chip">Run D &middot; Second model checks</label>
+  <div class="gd-wrap">
+    <p class="concept-label" style="text-align: left;">Evaluate Quality</p>
+    <h1 class="headline gd-title">A model can't reliably check its own work. Two independent ones catch different things.</h1>
+
+    <div class="eq-author">
+      <p class="eq-albl">Claude's extraction (the ublituximab trial, from Show an Example)</p>
+      <p class="eq-atxt"><b>Design:</b> Ph2/3 RCT, active + placebo, multi-part &nbsp;&middot;&nbsp; <b>Population:</b> Children 10&ndash;17, RMS, EDSS 0&ndash;5.5, n&approx;240 &nbsp;&middot;&nbsp; <b>Intervention:</b> Ublituximab vs fingolimod / placebo &nbsp;&middot;&nbsp; <b>Primary outcome:</b> PK/PD and B-cell counts (A); ARR (B) &nbsp;&middot;&nbsp; <b>Status:</b> Recruiting</p>
+    </div>
+
+    <div class="eq-cols">
+      <div class="eq-card">
+        <p class="eq-h">Reviewer 1 &middot; Gemini</p>
+        <p class="eq-sub">Independent, different vendor. Flags:</p>
+        <ul class="eq-list">
+          <li>Design omits the three-part structure; Part C missing entirely.</li>
+          <li>Comparators are part-specific: fingolimod in Part B only.</li>
+          <li class="eq-uniq"><b>Population drops the Part A weight limit (25&ndash;40 kg)</b> and the 30-day stability rule.</li>
+          <li>Primary outcome omits the named PK endpoints.</li>
+        </ul>
       </div>
-      <p class="acc-cap tech-cap eq-c1">The model gives an answer. It reads well, so it's tempting to trust it as-is.</p>
-      <p class="acc-cap tech-cap eq-c2">&ldquo;Check your answer against the source. Flag anything unsupported.&rdquo; &rarr; it catches its own gaps.</p>
-      <p class="acc-cap tech-cap eq-c3">&ldquo;Rate each claim high / medium / low confidence, with a reason.&rdquo; &rarr; a black box becomes auditable.</p>
-      <p class="acc-cap tech-cap eq-c4">Paste the findings into a different model and ask it to rate them &rarr; an independent check catches what the first was sure of.</p>
+      <div class="eq-card">
+        <p class="eq-h">Reviewer 2 &middot; GPT</p>
+        <p class="eq-sub">Independent, different vendor. Flags:</p>
+        <ul class="eq-list">
+          <li>Design omits Part C; comparator structure differs by part.</li>
+          <li class="eq-uniq"><b>&ldquo;RCT&rdquo; over-claims randomization</b> across all three parts.</li>
+          <li class="eq-uniq"><b>Part B is a non-inferiority design</b>; misses the week-96 and week-168 time horizons.</li>
+          <li class="eq-uniq"><b>Deeper on exclusions</b>: prior anti-CD20, S1P modulators, recent steroids.</li>
+        </ul>
+      </div>
     </div>
-    <div class="tech-right">
-      <img class="tech-img eq-i1" src="images/eq-run1.png" alt="Run A: answer taken at face value">
-      <img class="tech-img eq-i2" src="images/eq-run2.png" alt="Run B: model checks against source">
-      <img class="tech-img eq-i3" src="images/eq-run3.png" alt="Run C: model rates confidence per claim">
-      <img class="tech-img eq-i4" src="images/eq-run4.png" alt="Run D: a second, different model rates the findings">
+
+    <div class="eq-key">
+      <span class="k-shared">Both caught: 3-part structure, comparator logic, stability rule</span>
+      <span class="k-uniq">Only one caught: everything starred</span>
     </div>
+
+    <p class="gd-take"><b>The takeaway:</b> a model auditing itself shares its own blind spots. A different vendor decorrelates the errors, and two reviewers caught genuinely different gaps. One independent check beats none; more than one beats one.</p>
   </div>
 </section>
 
