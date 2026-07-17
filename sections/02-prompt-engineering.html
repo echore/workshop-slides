@@ -37,6 +37,7 @@
   .gd-out .gd-peek { font: 400 0.75vw "Work Sans", sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: #b6b0a0; margin-top: 0.35vw; }
   .gd-out:hover .gd-peek, .gd-out:focus-within .gd-peek, .gd-out.gd-open .gd-peek { display: none; }
   .gd-out { cursor: pointer; }
+  .gd-full em.gd-em { font-style: normal; font-weight: 600; color: var(--ink); background: rgba(188, 209, 166, 0.32); border-radius: 3px; padding: 0 0.15em; }
   .tech-right {
     flex: 1; height: 100%;
     display: flex; align-items: center; justify-content: center;
@@ -211,7 +212,7 @@
       <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
         <p class="gd-lbl">What you get</p>
         <p class="gd-txt gd-soft">Technical + audience-aware. Adds the age and regional patterns, ties them to policy. <span class="gd-peek">&#9662; hover for the real output</span></p>
-        <span class="gd-full">This study used a time-series analysis of over 900,000 samples to track SARS-CoV-2 seroprevalence in Canada from 2020 to 2023. While infection-acquired immunity remained low during the initial pandemic and vaccine roll-out phases, it increased rapidly following the arrival of the Omicron variant, reaching 76% by March 2023. This rapid rise was most pronounced in younger populations and Western provinces. The findings highlight that while high vaccine coverage provided protection against severe illness, it was insufficient to prevent widespread Omicron transmission, resulting in a population now characterized by widespread &ldquo;hybrid immunity&rdquo;. Given variations in seropositivity across geography and age, as well as the potential for waning antibodies and immune-evading variants, future public health and clinical decisions should be tailored to local population immunity patterns.</span>
+        <span class="gd-full">This study used a time-series analysis of over 900,000 samples to track SARS-CoV-2 seroprevalence in Canada from 2020 to 2023. While infection-acquired immunity remained low during the initial pandemic and vaccine roll-out phases, it increased rapidly following the arrival of the Omicron variant, reaching 76% by March 2023. <em class="gd-em">This rapid rise was most pronounced in younger populations and Western provinces.</em> The findings highlight that while high vaccine coverage provided protection against severe illness, it was insufficient to prevent widespread Omicron transmission, resulting in a population now characterized by widespread &ldquo;hybrid immunity&rdquo;. <em class="gd-em">Given variations in seropositivity across geography and age &hellip; future public health and clinical decisions should be tailored to local population immunity patterns.</em></span>
       </div>
 
       <div class="gd-cell">
@@ -221,7 +222,7 @@
       <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
         <p class="gd-lbl">What you get</p>
         <p class="gd-txt gd-soft">Tight, decision-focused. Leads with the number, then policy takeaways. <span class="gd-peek">&#9662; hover for the real output</span></p>
-        <span class="gd-full">By March 2023, approximately 76% of Canadians had developed infection-acquired SARS-CoV-2 antibodies. While vaccination provided widespread protection, it was insufficient to prevent the rapid, unprecedented spread of the Omicron variant, which drastically increased infection-induced seroprevalence across all regions and age groups. <b>Key takeaways for policy:</b> Hybrid immunity &mdash; most of the population now possesses hybrid immunity from both vaccination and infection. Local tailoring &mdash; because seropositivity varies significantly by age and geography, future clinical decisions and public health measures must be tailored to local population immunity patterns.</span>
+        <span class="gd-full"><em class="gd-em">By March 2023, approximately 76% of Canadians had developed infection-acquired SARS-CoV-2 antibodies.</em> While vaccination provided widespread protection, it was insufficient to prevent the rapid, unprecedented spread of the Omicron variant, which drastically increased infection-induced seroprevalence across all regions and age groups. <em class="gd-em">Key takeaways for policy:</em> Hybrid immunity &mdash; most of the population now possesses hybrid immunity from both vaccination and infection. Local tailoring &mdash; because seropositivity varies significantly by age and geography, future clinical decisions and public health measures must be tailored to local population immunity patterns.</span>
       </div>
 
       <div class="gd-cell">
@@ -231,7 +232,7 @@
       <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
         <p class="gd-lbl">What you get</p>
         <p class="gd-txt gd-soft">Different <em>content</em>: shifts from findings to whether they can be trusted &mdash; the model, the data sources, assay bias. <span class="gd-peek">&#9662; hover for the real output</span></p>
-        <span class="gd-full">This study utilizes a Bayesian time-series analysis of over 900,000 samples from seven collaborative studies to estimate SARS-CoV-2 seroprevalence in Canada from 2020 to 2023. It distinguishes between infection-acquired and vaccine-induced humoral immunity. Key findings show a rapid rise in infection-acquired seropositivity during the Omicron era, reaching 76% by March 2023, with variations across age and geography. As a reviewer, I must assess the robustness of the hierarchical modeling, the validity of combining diverse data sources (e.g., blood donors, research cohorts), and the handling of assay-specific bias.</span>
+        <span class="gd-full">This study utilizes a Bayesian time-series analysis of over 900,000 samples from seven collaborative studies to estimate SARS-CoV-2 seroprevalence in Canada from 2020 to 2023. It distinguishes between infection-acquired and vaccine-induced humoral immunity. Key findings show a rapid rise in infection-acquired seropositivity during the Omicron era, reaching 76% by March 2023, with variations across age and geography. <em class="gd-em">As a reviewer, I must assess the robustness of the hierarchical modeling, the validity of combining diverse data sources (e.g., blood donors, research cohorts), and the handling of assay-specific bias.</em></span>
       </div>
 
     </div>
