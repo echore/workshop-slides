@@ -281,7 +281,7 @@
   .xt-tabs { display: flex; gap: 0.7vw; }
   .xt-tabs > label { font: 500 1.3vw "Work Sans", sans-serif; padding: 0.4vw 1.4vw; border-radius: 999px;
                      border: 1.5px solid var(--rule-soft); color: var(--ink-soft); cursor: pointer; transition: all .15s ease; }
-  .xt-frame > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .xt-frame input[type="radio"] { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
   .xt-panel { display: none; flex-direction: column; align-items: center; gap: 0.8vw; }
   table.xt-tbl { border-collapse: collapse; font: 400 1.18vw "Work Sans", sans-serif; width: 84vw; }
   table.xt-tbl th { font-weight: 600; color: var(--ink); text-align: left; padding: 0.42vw 0.8vw;
@@ -311,9 +311,9 @@
 <section class="slide sfy-frame xt-frame" data-label="Exercise: de-identify">
   <div class="eyebrow">Part 5 &middot; Safety &amp; Regulatory</div>
   <div class="pagedot"></div>
-  <input type="radio" name="di" id="di-raw" checked>
-  <input type="radio" name="di" id="di-ans">
   <div class="layout-hero" style="top: 5%; bottom: 5%; gap: 1vw;">
+    <input type="radio" name="di" id="di-raw" checked>
+    <input type="radio" name="di" id="di-ans">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
       <p class="concept-label">Exercise 1 &middot; De-identify</p>
       <h1 class="headline" style="font-size: 1.9vw;">Remove or mask the direct identifiers.</h1>
@@ -364,9 +364,9 @@
 <section class="slide sfy-frame xt-frame" data-label="Exercise: anonymize">
   <div class="eyebrow">Part 5 &middot; Safety &amp; Regulatory</div>
   <div class="pagedot"></div>
-  <input type="radio" name="an" id="an-raw" checked>
-  <input type="radio" name="an" id="an-ans">
   <div class="layout-hero" style="top: 5%; bottom: 5%; gap: 1vw;">
+    <input type="radio" name="an" id="an-raw" checked>
+    <input type="radio" name="an" id="an-ans">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
       <p class="concept-label">Exercise 2 &middot; Anonymize</p>
       <h1 class="headline" style="font-size: 1.9vw;">Generalize until no row points to one person.</h1>
@@ -417,9 +417,9 @@
 <section class="slide sfy-frame xt-frame" data-label="Exercise: synthesize">
   <div class="eyebrow">Part 5 &middot; Safety &amp; Regulatory</div>
   <div class="pagedot"></div>
-  <input type="radio" name="sy" id="sy-raw" checked>
-  <input type="radio" name="sy" id="sy-ans">
   <div class="layout-hero" style="top: 5%; bottom: 5%; gap: 1vw;">
+    <input type="radio" name="sy" id="sy-raw" checked>
+    <input type="radio" name="sy" id="sy-ans">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
       <p class="concept-label">Exercise 3 &middot; Synthesize</p>
       <h1 class="headline" style="font-size: 1.9vw;">Invent records that keep the patterns, not the people.</h1>
