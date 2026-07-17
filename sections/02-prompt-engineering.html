@@ -71,6 +71,12 @@
   .dw-traps { display: grid; grid-template-columns: 1fr 1fr; gap: 1vw; }
   .dw-trap { font: 400 0.98vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
   .dw-trap b { color: var(--ink); font-weight: 600; }
+
+  /* format artifacts inside reveals */
+  .gd-full table.fmt { border-collapse: collapse; width: 100%; font-size: 0.8vw; margin-top: 0.15vw; }
+  .gd-full table.fmt th, .gd-full table.fmt td { border: 1px solid var(--rule-soft); padding: 0.22vw 0.4vw; text-align: left; vertical-align: top; }
+  .gd-full table.fmt th { background: #eef3e6; font-weight: 600; color: var(--ink); }
+  .gd-full pre.fmt { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 0.8vw; line-height: 1.45; white-space: pre-wrap; word-break: break-word; margin: 0.15vw 0 0; color: var(--ink); }
   .tech-right {
     flex: 1; height: 100%;
     display: flex; align-items: center; justify-content: center;
@@ -424,27 +430,72 @@
 <section class="slide" data-label="Specify Format">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="tech-layout">
-    <input type="radio" name="sf" id="sf-1" checked>
-    <input type="radio" name="sf" id="sf-2">
-    <input type="radio" name="sf" id="sf-3">
-    <div class="tech-left">
-      <p class="concept-label" style="text-align: left;">Specify Format</p>
-      <h1 class="headline tech-head">Say what shape you want the answer in, and you get output you can use as-is.</h1>
-      <div class="acc-col">
-        <label for="sf-1" class="chip faded acc-chip">Run A &middot; No format</label>
-        <label for="sf-2" class="chip card--sage acc-chip">Run B &middot; Ask for a table</label>
-        <label for="sf-3" class="chip card--lilac acc-chip">Run C &middot; Ask for CSV</label>
+  <div class="gd-wrap">
+    <p class="concept-label" style="text-align: left;">Specify Format</p>
+    <h1 class="headline gd-title">Same two trials, same fields. You name the container. Green = what's new.</h1>
+    <div class="gd-grid">
+
+      <div class="gd-cell">
+        <p class="gd-lbl">No format</p>
+        <p class="gd-txt">&ldquo;Summarize the key details of these two trials.&rdquo;</p>
       </div>
-      <p class="acc-cap tech-cap sf-c1">&ldquo;Summarize the key results.&rdquo; &rarr; loose prose. You still have to pull the numbers out by hand.</p>
-      <p class="acc-cap tech-cap sf-c2">Ask for a table (Finding, Number, Population) &rarr; a clean grid you can paste straight into a review.</p>
-      <p class="acc-cap tech-cap sf-c3">Ask for CSV instead &rarr; same content, ready to open in Excel. The format is yours to dictate.</p>
+      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Two prose blobs. Fine to read, but you can't scan a column or compute across trials. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <span class="gd-full">The first trial (NCT07067463) is a Phase 3, placebo-controlled study of orelabrutinib in adults with primary progressive MS, enrolling about 705 people to test whether it slows disability progression; it is recruiting. The second (NCT07220252) is a Phase 2/3 study of ublituximab in children with relapsing MS, comparing it against fingolimod and placebo across roughly 240 participants, measuring drug levels and relapse rate; it is also recruiting.</span>
+      </div>
+
+      <div class="gd-cell">
+        <p class="gd-lbl">+ Table</p>
+        <p class="gd-txt">&ldquo;Summarize these two trials <span class="pe-hl">as a table: Design, Population, Intervention, Primary outcome, Status.</span>&rdquo;</p>
+      </div>
+      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">A scannable grid, one row per trial. Paste straight into a review. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <span class="gd-full"><table class="fmt"><tr><th>Trial</th><th>Design</th><th>Population</th><th>Intervention</th><th>Primary outcome</th><th>Status</th></tr><tr><td>Orelabrutinib (NCT07067463)</td><td>Ph3 RCT, double-blind, placebo, 2:1</td><td>Adults 18&ndash;60, PPMS, EDSS 3.0&ndash;6.5, n&approx;705</td><td>Orelabrutinib vs placebo</td><td>Time to 12-wk confirmed disability progression</td><td>Recruiting</td></tr><tr><td>Ublituximab (NCT07220252)</td><td>Ph2/3 RCT, active + placebo, multi-part</td><td>Children 10&ndash;17, RMS, EDSS 0&ndash;5.5, n&approx;240</td><td>Ublituximab vs fingolimod / placebo</td><td>PK/PD &amp; B-cell counts (A); ARR (B)</td><td>Recruiting</td></tr></table></span>
+      </div>
+
+      <div class="gd-cell">
+        <p class="gd-lbl">+ CSV</p>
+        <p class="gd-txt">&ldquo;&hellip;same fields, <span class="pe-hl">as CSV instead.</span>&rdquo;</p>
+      </div>
+      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Same content, comma-separated. Opens in Excel or imports to a reference manager. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <span class="gd-full"><pre class="fmt">trial,design,population,intervention,primary_outcome,status
+Orelabrutinib (NCT07067463),Phase 3 RCT double-blind placebo 2:1,Adults 18-60 PPMS EDSS 3.0-6.5 n=705,Orelabrutinib vs placebo,Time to 12-week confirmed disability progression,Recruiting
+Ublituximab (NCT07220252),Phase 2/3 RCT active+placebo multi-part,Children 10-17 RMS EDSS 0-5.5 n=240,Ublituximab vs fingolimod/placebo,PK-PD and B-cell counts (A); ARR (B),Recruiting</pre></span>
+      </div>
+
+      <div class="gd-cell">
+        <p class="gd-lbl">+ JSON</p>
+        <p class="gd-txt">&ldquo;&hellip;same fields, <span class="pe-hl">as JSON instead.</span>&rdquo;</p>
+      </div>
+      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Same content, structured. Ready to pipe into code or a database. The format is yours to dictate. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <span class="gd-full"><pre class="fmt">[
+  {
+    "nct_id": "NCT07067463",
+    "drug": "Orelabrutinib",
+    "design": "Phase 3, RCT, double-blind, placebo-controlled, 2:1",
+    "population": "Adults 18-60, PPMS, EDSS 3.0-6.5, n=705",
+    "primary_outcome": "Time to 12-week confirmed disability progression",
+    "status": "Recruiting"
+  },
+  {
+    "nct_id": "NCT07220252",
+    "drug": "Ublituximab",
+    "design": "Phase 2/3, RCT, active- and placebo-controlled",
+    "population": "Children 10-17, relapsing MS, EDSS 0-5.5, n=240",
+    "primary_outcome": "PK/PD and B-cell counts (A); ARR (B)",
+    "status": "Recruiting"
+  }
+]</pre></span>
+      </div>
+
     </div>
-    <div class="tech-right">
-      <img class="tech-img sf-i1" src="images/sf-run1.png" alt="Run A: no format, loose prose">
-      <img class="tech-img sf-i2" src="images/sf-run2.png" alt="Run B: results as a table">
-      <img class="tech-img sf-i3" src="images/sf-run3.png" alt="Run C: results as CSV">
-    </div>
+    <p class="gd-take"><b>The takeaway:</b> the information is identical across all four. What changes is the container, and you choose it. Pick the shape you can use next: eyeball a table, load the CSV, script the JSON.</p>
   </div>
 </section>
 
