@@ -10,6 +10,7 @@
   .tech-left .acc-col { flex-direction: column; gap: 0.7vw; }
   .tech-left .acc-chip { width: 22vw; text-align: center; }
   .tech-cap { font: 400 1.4vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0.4vw 0 0; display: none; }
+  .pe-hl { background: #bcd1a6; color: #2f4318; padding: 0.02em 0.28em; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
   .tech-right {
     flex: 1; height: 100%;
     display: flex; align-items: center; justify-content: center;
@@ -173,13 +174,13 @@
       <div class="acc-col">
         <label for="gd-1" class="chip faded acc-chip">Run 1 &middot; Vague</label>
         <label for="gd-2" class="chip card--lemon acc-chip">Run 2 &middot; + Reader</label>
-        <label for="gd-3" class="chip card--sage acc-chip">Run 3 &middot; + Structure</label>
+        <label for="gd-3" class="chip card--sage acc-chip">Run 3 &middot; + Focus</label>
         <label for="gd-4" class="chip card--lilac acc-chip">Run 4 &middot; Swap role</label>
       </div>
-      <p class="acc-cap tech-cap gd-c1">&ldquo;Summarize this study.&rdquo; &rarr; a long, unfocused wall of text. No clear lead.</p>
-      <p class="acc-cap tech-cap gd-c2">Add a persona and a reader &rarr; it starts writing for a decision-maker.</p>
-      <p class="acc-cap tech-cap gd-c3">Add structure and a length limit &rarr; a tight, decision-ready brief.</p>
-      <p class="acc-cap tech-cap gd-c4">Change only the role to &ldquo;peer reviewer&rdquo; &rarr; same paper, now it weighs methods and bias.</p>
+      <p class="acc-cap tech-cap gd-c1">&ldquo;Summarize this study.&rdquo; &rarr; a generic recap. Wanders, buries the lead, ends by asking <em>you</em> a question.</p>
+      <p class="acc-cap tech-cap gd-c2">&ldquo;<span class="pe-hl">You are an epidemiologist briefing a provincial health officer.</span> Summarize this study.&rdquo; &rarr; technical and audience-aware. Adds credible intervals, the 900k sample size.</p>
+      <p class="acc-cap tech-cap gd-c3">&ldquo;&hellip;briefing a provincial health officer. Summarize <span class="pe-hl">in under 120 words, focusing on what they most need to know.</span>&rdquo; &rarr; tight, decision-focused. No filler, no closing question.</p>
+      <p class="acc-cap tech-cap gd-c4">&ldquo;<span class="pe-hl">You are a peer reviewer evaluating this for publication.</span> Summarize in under 120 words&hellip;&rdquo; &rarr; different <em>content</em>: the Bayesian model, sampling bias, blood-donor vs. general population, assay changes.</p>
     </div>
     <div class="tech-right">
       <img class="tech-img gd-i1" src="images/prompt_run1.png" alt="Run 1: vague prompt, unfocused output">
