@@ -39,6 +39,20 @@
   .gd-out:hover .gd-peek, .gd-out:focus-within .gd-peek, .gd-out.gd-open .gd-peek { display: none; }
   .gd-out { cursor: pointer; }
   .gd-full em.gd-em { font-style: normal; font-weight: 600; color: var(--ink); background: rgba(188, 209, 166, 0.32); border-radius: 3px; padding: 0 0.15em; }
+
+  /* ===== Connectors intro · radial ===== */
+  .conn-wrap { position: absolute; top: 10%; bottom: 4%; left: 5vw; right: 5vw; display: flex; flex-direction: column; align-items: center; gap: 0.6vw; }
+  .conn-head { text-align: center; }
+  .conn-stage { position: relative; flex: 1; width: 100%; margin-top: 0.5vw; }
+  .conn-lines { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .conn-star { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 11vw; height: 11vw; }
+  .conn-node { position: absolute; transform: translate(-50%, -50%); width: 19vw; background: #faf8f0; border: 1.5px solid var(--rule-soft); border-radius: 14px; padding: 0.7vw 1vw; text-align: center; }
+  .conn-node .cn-name { font: 600 1.35vw "Work Sans", sans-serif; color: var(--ink); margin: 0; }
+  .conn-node .cn-desc { font: 400 1.05vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0.2vw 0 0; }
+  .conn-node .cn-tag { display: inline-block; font: 400 0.8vw "Work Sans", sans-serif; letter-spacing: 0.03em; text-transform: uppercase; color: #7d8a68; margin-top: 0.35vw; }
+  .conn-node.cn-hl { border: 2.5px solid #8faa6b; background: #eef3e6; }
+  .conn-node.cn-hl .cn-tag { color: #4a5d33; font-weight: 600; }
+  .conn-auth { font: 400 0.95vw "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; margin-top: 0.3vw; }
   .tech-right {
     flex: 1; height: 100%;
     display: flex; align-items: center; justify-content: center;
@@ -184,6 +198,66 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+
+<section class="slide" data-label="Our Toolkit">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="conn-wrap">
+    <div class="conn-head">
+      <p class="concept-label">Our worked example</p>
+      <h1 class="headline" style="font-size: 1.9vw; line-height: 1.3; max-width: 66vw; margin: 0.3vw auto 0;">Claude connects to the science stack. We'll use one live source throughout: ClinicalTrials.gov.</h1>
+    </div>
+    <div class="conn-stage">
+      <svg class="conn-lines" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#c9b8a2" stroke-width="0.35" stroke-dasharray="0.6 1.1" fill="none" stroke-linecap="round">
+          <line x1="50" y1="50" x2="50" y2="16"/>
+          <line x1="50" y1="50" x2="17" y2="36"/>
+          <line x1="50" y1="50" x2="83" y2="36"/>
+          <line x1="50" y1="50" x2="26" y2="84"/>
+          <line x1="50" y1="50" x2="74" y2="84"/>
+        </g>
+      </svg>
+      <svg class="conn-star" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#a9c08f">
+          <g id="pet"><rect x="45.5" y="6" width="9" height="40" rx="4.5"/></g>
+          <use href="#pet" transform="rotate(36 50 50)"/>
+          <use href="#pet" transform="rotate(72 50 50)"/>
+          <use href="#pet" transform="rotate(108 50 50)"/>
+          <use href="#pet" transform="rotate(144 50 50)"/>
+          <use href="#pet" transform="rotate(180 50 50)"/>
+          <use href="#pet" transform="rotate(216 50 50)"/>
+          <use href="#pet" transform="rotate(252 50 50)"/>
+          <use href="#pet" transform="rotate(288 50 50)"/>
+          <use href="#pet" transform="rotate(324 50 50)"/>
+        </g>
+      </svg>
+
+      <div class="conn-node" style="left: 50%; top: 12%;">
+        <p class="cn-name">Open Targets</p>
+        <p class="cn-desc">Link genes, pathways, and drug targets to disease.</p>
+      </div>
+      <div class="conn-node" style="left: 15%; top: 36%;">
+        <p class="cn-name">PubMed</p>
+        <p class="cn-desc">Search and summarize the biomedical literature.</p>
+      </div>
+      <div class="conn-node cn-hl" style="left: 85%; top: 36%;">
+        <p class="cn-name">ClinicalTrials.gov</p>
+        <p class="cn-desc">Search trials, pull details, match eligibility, analyze endpoints.</p>
+        <span class="cn-tag">Our example this section</span>
+      </div>
+      <div class="conn-node" style="left: 24%; top: 86%;">
+        <p class="cn-name">Benchling</p>
+        <p class="cn-desc">Lab notebooks, samples, sequences.</p>
+      </div>
+      <div class="conn-node" style="left: 76%; top: 86%;">
+        <p class="cn-name">BioRender</p>
+        <p class="cn-desc">Search figures and generate scientific illustrations.</p>
+      </div>
+    </div>
+    <p class="conn-auth">PubMed, Open Targets, and ClinicalTrials.gov connect with no login. Benchling and BioRender need an account.</p>
   </div>
 </section>
 
