@@ -270,83 +270,199 @@
   </div>
 </section>
 
-<!-- ========================= EXERCISE ========================= -->
+<!-- ========================= TEAM EXERCISES: MAKE THE DATA SAFER ========================= -->
 <style>
-  .ex-wrap > .ex-t { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
-  .ex-row { display: flex; gap: 2vw; width: 84vw; align-items: stretch; justify-content: center; }
-  .ex-card { flex: 1; display: flex; flex-direction: column; gap: 1vw; border: 1.5px solid var(--rule-soft);
-             border-radius: 1.6vw; padding: 1.6vw 1.5vw; cursor: pointer; text-align: left;
-             transition: transform .15s ease, border-color .15s ease; }
-  .ex-card:hover { transform: translateY(-0.4vw); border-color: var(--ink-soft); }
-  .ex-b1 { background: #F4F5D6; } .ex-b2 { background: #F8EEE6; } .ex-b3 { background: #EEEAF4; }
-  .ex-num { display: inline-flex; align-items: center; justify-content: center; width: 2.5vw; height: 2.5vw;
-            border-radius: 50%; background: rgba(42,36,27,0.12); font: italic 500 1.5vw "Cormorant Garamond", serif; }
-  .ex-scenario { font: 400 1.45vw/1.42 "Work Sans", sans-serif; margin: 0; }
-  .ex-reveal { margin-top: auto; }
-  .ex-prompt { display: flex; align-items: center; gap: 0.5vw; font: italic 400 1.3vw "Cormorant Garamond", serif; color: var(--ink-soft); }
-  .ex-answer { display: none; flex-direction: column; gap: 0.6vw; }
-  .ex-answer .chip { align-self: flex-start; font-size: 1.5vw; }
-  .ex-reason { font: 400 1.25vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
-  #ex1:checked ~ .ex-row label[for="ex1"] .ex-prompt,
-  #ex2:checked ~ .ex-row label[for="ex2"] .ex-prompt,
-  #ex3:checked ~ .ex-row label[for="ex3"] .ex-prompt { display: none; }
-  #ex1:checked ~ .ex-row label[for="ex1"] .ex-answer,
-  #ex2:checked ~ .ex-row label[for="ex2"] .ex-answer,
-  #ex3:checked ~ .ex-row label[for="ex3"] .ex-answer { display: flex; }
-  #ex1:checked ~ .ex-row label[for="ex1"],
-  #ex2:checked ~ .ex-row label[for="ex2"],
-  #ex3:checked ~ .ex-row label[for="ex3"] { border-color: var(--ink); }
+  /* shared exercise-table styling + raw/answer toggle */
+  .xt-frame { --warn: #B0553C; --ok: #5f7a55; }
+  .xt-task { display: flex; align-items: center; gap: 1vw; width: 84vw; padding: 0.7vw 1.4vw;
+             border-radius: 1vw; background: var(--card-fill); }
+  .xt-task .clock { font: 500 1.5vw "Cormorant Garamond", serif; color: var(--ink); white-space: nowrap; }
+  .xt-task .goal { font: 400 1.3vw/1.35 "Work Sans", sans-serif; color: var(--ink); }
+  .xt-tabs { display: flex; gap: 0.7vw; }
+  .xt-tabs > label { font: 500 1.3vw "Work Sans", sans-serif; padding: 0.4vw 1.4vw; border-radius: 999px;
+                     border: 1.5px solid var(--rule-soft); color: var(--ink-soft); cursor: pointer; transition: all .15s ease; }
+  .xt-frame > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .xt-panel { display: none; flex-direction: column; align-items: center; gap: 0.8vw; }
+  table.xt-tbl { border-collapse: collapse; font: 400 1.18vw "Work Sans", sans-serif; width: 84vw; }
+  table.xt-tbl th { font-weight: 600; color: var(--ink); text-align: left; padding: 0.42vw 0.8vw;
+                    border-bottom: 2px solid var(--rule-soft); white-space: nowrap; }
+  table.xt-tbl td { color: var(--ink); padding: 0.4vw 0.8vw; border-bottom: 1px solid var(--rule-soft); white-space: nowrap; }
+  table.xt-tbl tr:last-child td { border-bottom: none; }
+  .xt-tbl .drop { color: var(--warn); text-decoration: line-through; opacity: 0.55; }
+  .xt-tbl .new { color: var(--ok); font-weight: 600; }
+  .xt-fixes { display: flex; flex-wrap: wrap; gap: 0.5vw; justify-content: center; margin-top: 0.3vw; }
+  .xt-fix { font: 500 1.15vw "Work Sans", sans-serif; padding: 0.25vw 1vw; border-radius: 999px;
+            background: var(--paper); border: 1.5px solid var(--rule-soft); color: var(--ink); }
+  .xt-note { font: italic 400 1.25vw/1.4 "Cormorant Garamond", serif; text-align: center; max-width: 80vw; }
+  .xt-fake { font: 400 1.02vw "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; }
+
+  /* De-identify toggle */
+  #di-raw:checked ~ .xt-tabs label[for="di-raw"], #di-ans:checked ~ .xt-tabs label[for="di-ans"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  #di-raw:checked ~ .xt-p-raw, #di-ans:checked ~ .xt-p-ans { display: flex; }
+  /* Anonymize toggle */
+  #an-raw:checked ~ .xt-tabs label[for="an-raw"], #an-ans:checked ~ .xt-tabs label[for="an-ans"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  #an-raw:checked ~ .xt-p-raw, #an-ans:checked ~ .xt-p-ans { display: flex; }
+  /* Synthesize toggle */
+  #sy-raw:checked ~ .xt-tabs label[for="sy-raw"], #sy-ans:checked ~ .xt-tabs label[for="sy-ans"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  #sy-raw:checked ~ .xt-p-raw, #sy-ans:checked ~ .xt-p-ans { display: flex; }
 </style>
 
-<section class="slide sfy-frame" data-label="Exercise">
+<!-- ===== Exercise 1: De-identify ===== -->
+<section class="slide sfy-frame xt-frame" data-label="Exercise: de-identify">
   <div class="eyebrow">Part 5 &middot; Safety &amp; Regulatory</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 10%; bottom: 10%; gap: 1.8vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.6vw;">
-      <p class="concept-label">Your turn</p>
-      <h1 class="headline" style="font-size: 2.4vw;">Spot the risk.</h1>
-      <p class="body" style="font-size: 1.4vw; color: var(--ink-soft);">Name the main risk in each scenario, then tap to reveal.</p>
+  <input type="radio" name="di" id="di-raw" checked>
+  <input type="radio" name="di" id="di-ans">
+  <div class="layout-hero" style="top: 5%; bottom: 5%; gap: 1vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
+      <p class="concept-label">Exercise 1 &middot; De-identify</p>
+      <h1 class="headline" style="font-size: 1.9vw;">Remove or mask the direct identifiers.</h1>
     </div>
-    <div class="ex-wrap">
-      <input class="ex-t" type="checkbox" id="ex1">
-      <input class="ex-t" type="checkbox" id="ex2">
-      <input class="ex-t" type="checkbox" id="ex3">
-      <div class="ex-row">
-        <label class="ex-card ex-b1" for="ex1">
-          <span class="ex-num">1</span>
-          <p class="ex-scenario">You paste an outbreak line list (names, postal codes, diagnoses) into ChatGPT to summarize it.</p>
-          <div class="ex-reveal">
-            <span class="ex-prompt">&#9656; tap to reveal</span>
-            <span class="ex-answer">
-              <span class="chip card--pink">Privacy / PHI</span>
-              <p class="ex-reason">That data leaves your machine and may be stored. De-identify first, or use a local model, and check your data agreement.</p>
-            </span>
-          </div>
-        </label>
-        <label class="ex-card ex-b2" for="ex2">
-          <span class="ex-num">2</span>
-          <p class="ex-scenario">An LLM hands you three perfectly-formatted references for your literature review.</p>
-          <div class="ex-reveal">
-            <span class="ex-prompt">&#9656; tap to reveal</span>
-            <span class="ex-answer">
-              <span class="chip card--sage">Reliability</span>
-              <p class="ex-reason">They may be fabricated. Confirm every source actually exists before you cite it.</p>
-            </span>
-          </div>
-        </label>
-        <label class="ex-card ex-b3" for="ex3">
-          <span class="ex-num">3</span>
-          <p class="ex-scenario">You send a collaborator a &ldquo;de-identified&rdquo; file (age, postal code, sex, diagnosis) through a chatbot.</p>
-          <div class="ex-reveal">
-            <span class="ex-prompt">&#9656; tap to reveal</span>
-            <span class="ex-answer">
-              <span class="chip card--lilac">Re-identification</span>
-              <p class="ex-reason">Those few fields can re-identify people, and it&rsquo;s going through a cloud tool. Treat it as sensitive.</p>
-            </span>
-          </div>
-        </label>
-      </div>
+    <div class="xt-task">
+      <span class="clock">&#9201; 10 min &middot; in teams</span>
+      <span class="goal">This line list is going to an analyst on your team. Strip what directly names a person, keep what&rsquo;s needed for analysis. Which columns go, which get masked, which stay?</span>
     </div>
+    <div class="xt-tabs">
+      <label for="di-raw">Raw data</label>
+      <label for="di-ans">One safer version</label>
+    </div>
+
+    <div class="xt-panel xt-p-raw">
+      <table class="xt-tbl">
+        <tr><th>Full name</th><th>Health card #</th><th>Date of birth</th><th>Phone</th><th>Postal code</th><th>Sex</th><th>Diagnosis</th><th>Onset date</th></tr>
+        <tr><td>Maria Tremblay</td><td>4821-337-114</td><td>1990-03-12</td><td>514-555-0182</td><td>H2X 1Y4</td><td>F</td><td>Influenza A</td><td>2026-01-05</td></tr>
+        <tr><td>Jean Bouchard</td><td>9075-114-882</td><td>1987-07-30</td><td>514-555-0147</td><td>H2X 2Z9</td><td>M</td><td>Influenza A</td><td>2026-01-06</td></tr>
+        <tr><td>Amara Okafor</td><td>3320-889-455</td><td>1995-11-02</td><td>438-555-0298</td><td>H3B 2K1</td><td>F</td><td>COVID-19</td><td>2026-01-06</td></tr>
+        <tr><td>Liam Gagnon</td><td>6641-203-770</td><td>1972-01-19</td><td>450-555-0111</td><td>J4W 1P0</td><td>M</td><td>Influenza B</td><td>2026-01-08</td></tr>
+        <tr><td>Sofia Rossi</td><td>1198-556-902</td><td>2001-09-25</td><td>514-555-0176</td><td>H2X 1Y4</td><td>F</td><td>COVID-19</td><td>2026-01-09</td></tr>
+        <tr><td>David Nguyen</td><td>7734-661-338</td><td>1965-05-14</td><td>514-555-0203</td><td>H4C 3M8</td><td>M</td><td>Influenza A</td><td>2026-01-10</td></tr>
+        <tr><td>Fatima Zahra</td><td>2205-447-119</td><td>1998-12-07</td><td>438-555-0155</td><td>H3B 2K1</td><td>F</td><td>RSV</td><td>2026-01-11</td></tr>
+        <tr><td>Noah Bergeron</td><td>8890-332-201</td><td>1980-08-22</td><td>450-555-0190</td><td>J4W 1P0</td><td>M</td><td>COVID-19</td><td>2026-01-12</td></tr>
+      </table>
+    </div>
+
+    <div class="xt-panel xt-p-ans">
+      <table class="xt-tbl">
+        <tr><th>ID</th><th>Date of birth</th><th>Postal code</th><th>Sex</th><th>Diagnosis</th><th>Onset date</th></tr>
+        <tr><td class="new">P-001</td><td>1990-03-12</td><td>H2X 1Y4</td><td>F</td><td>Influenza A</td><td>2026-01-05</td></tr>
+        <tr><td class="new">P-002</td><td>1987-07-30</td><td>H2X 2Z9</td><td>M</td><td>Influenza A</td><td>2026-01-06</td></tr>
+        <tr><td class="new">P-003</td><td>1995-11-02</td><td>H3B 2K1</td><td>F</td><td>COVID-19</td><td>2026-01-06</td></tr>
+        <tr><td class="new">P-004</td><td>1972-01-19</td><td>J4W 1P0</td><td>M</td><td>Influenza B</td><td>2026-01-08</td></tr>
+        <tr><td class="new">P-005</td><td>2001-09-25</td><td>H2X 1Y4</td><td>F</td><td>COVID-19</td><td>2026-01-09</td></tr>
+        <tr><td class="new">P-006</td><td>1965-05-14</td><td>H4C 3M8</td><td>M</td><td>Influenza A</td><td>2026-01-10</td></tr>
+        <tr><td class="new">P-007</td><td>1998-12-07</td><td>H3B 2K1</td><td>F</td><td>RSV</td><td>2026-01-11</td></tr>
+        <tr><td class="new">P-008</td><td>1980-08-22</td><td>J4W 1P0</td><td>M</td><td>COVID-19</td><td>2026-01-12</td></tr>
+      </table>
+      <div class="xt-fixes"><span class="xt-fix">drop name</span><span class="xt-fix">drop phone</span><span class="xt-fix">pseudonymize health card &rarr; ID</span></div>
+      <p class="xt-note warn">Direct identifiers gone, but DOB + postal + sex together can still re-identify. That&rsquo;s what Exercise 2 fixes.</p>
+    </div>
+    <p class="xt-fake">All values invented for teaching, not real patient data.</p>
+  </div>
+</section>
+
+<!-- ===== Exercise 2: Anonymize ===== -->
+<section class="slide sfy-frame xt-frame" data-label="Exercise: anonymize">
+  <div class="eyebrow">Part 5 &middot; Safety &amp; Regulatory</div>
+  <div class="pagedot"></div>
+  <input type="radio" name="an" id="an-raw" checked>
+  <input type="radio" name="an" id="an-ans">
+  <div class="layout-hero" style="top: 5%; bottom: 5%; gap: 1vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
+      <p class="concept-label">Exercise 2 &middot; Anonymize</p>
+      <h1 class="headline" style="font-size: 1.9vw;">Generalize until no row points to one person.</h1>
+    </div>
+    <div class="xt-task">
+      <span class="clock">&#9201; 10 min &middot; in teams</span>
+      <span class="goal">Names are already gone, but these indirect fields still single people out. Generalize each column so many people share every row. What would you widen, round, or bucket?</span>
+    </div>
+    <div class="xt-tabs">
+      <label for="an-raw">Raw data</label>
+      <label for="an-ans">One safer version</label>
+    </div>
+
+    <div class="xt-panel xt-p-raw">
+      <table class="xt-tbl">
+        <tr><th>ID</th><th>Date of birth</th><th>Postal code</th><th>Sex</th><th>Occupation</th><th>Diagnosis</th><th>Onset date</th></tr>
+        <tr><td>P-001</td><td>1990-03-12</td><td>H2X 1Y4</td><td>F</td><td>Nurse</td><td>Influenza A</td><td>2026-01-05</td></tr>
+        <tr><td>P-002</td><td>1987-07-30</td><td>H2X 2Z9</td><td>M</td><td>Teacher</td><td>Influenza A</td><td>2026-01-06</td></tr>
+        <tr><td>P-003</td><td>1995-11-02</td><td>H3B 2K1</td><td>F</td><td>Driver</td><td>COVID-19</td><td>2026-01-06</td></tr>
+        <tr><td>P-004</td><td>1972-01-19</td><td>J4W 1P0</td><td>M</td><td>Chef</td><td>Influenza B</td><td>2026-01-08</td></tr>
+        <tr><td>P-005</td><td>2001-09-25</td><td>H2X 1Y4</td><td>F</td><td>Student</td><td>COVID-19</td><td>2026-01-09</td></tr>
+        <tr><td>P-006</td><td>1965-05-14</td><td>H4C 3M8</td><td>M</td><td>Pilot</td><td>Influenza A</td><td>2026-01-10</td></tr>
+        <tr><td>P-007</td><td>1998-12-07</td><td>H3B 2K1</td><td>F</td><td>Cashier</td><td>RSV</td><td>2026-01-11</td></tr>
+        <tr><td>P-008</td><td>1980-08-22</td><td>J4W 1P0</td><td>M</td><td>Welder</td><td>COVID-19</td><td>2026-01-12</td></tr>
+      </table>
+    </div>
+
+    <div class="xt-panel xt-p-ans">
+      <table class="xt-tbl">
+        <tr><th>ID</th><th>Age band</th><th>Region (FSA)</th><th>Sex</th><th>Sector</th><th>Diagnosis</th><th>Onset week</th></tr>
+        <tr><td>P-001</td><td class="new">30&ndash;39</td><td class="new">H2X</td><td>F</td><td class="new">Healthcare</td><td>Influenza A</td><td class="new">2026-W01</td></tr>
+        <tr><td>P-002</td><td class="new">30&ndash;39</td><td class="new">H2X</td><td>M</td><td class="new">Education</td><td>Influenza A</td><td class="new">2026-W01</td></tr>
+        <tr><td>P-003</td><td class="new">20&ndash;29</td><td class="new">H3B</td><td>F</td><td class="new">Transport</td><td>COVID-19</td><td class="new">2026-W01</td></tr>
+        <tr><td>P-004</td><td class="new">50&ndash;59</td><td class="new">J4W</td><td>M</td><td class="new">Food service</td><td>Influenza B</td><td class="new">2026-W02</td></tr>
+        <tr><td>P-005</td><td class="new">20&ndash;29</td><td class="new">H2X</td><td>F</td><td class="new">Education</td><td>COVID-19</td><td class="new">2026-W02</td></tr>
+        <tr><td>P-006</td><td class="new">60&ndash;69</td><td class="new">H4C</td><td>M</td><td class="new">Transport</td><td>Influenza A</td><td class="new">2026-W02</td></tr>
+        <tr><td>P-007</td><td class="new">20&ndash;29</td><td class="new">H3B</td><td>F</td><td class="new">Retail</td><td>RSV</td><td class="new">2026-W02</td></tr>
+        <tr><td>P-008</td><td class="new">40&ndash;49</td><td class="new">J4W</td><td>M</td><td class="new">Trades</td><td>COVID-19</td><td class="new">2026-W02</td></tr>
+      </table>
+      <div class="xt-fixes"><span class="xt-fix">DOB &rarr; age band</span><span class="xt-fix">postal &rarr; FSA</span><span class="xt-fix">job &rarr; sector</span><span class="xt-fix">date &rarr; week</span></div>
+      <p class="xt-note ok">Now each row describes a group, not an individual. Rare combinations (e.g. one pilot) are the ones to watch and widen further.</p>
+    </div>
+    <p class="xt-fake">All values invented for teaching, not real patient data.</p>
+  </div>
+</section>
+
+<!-- ===== Exercise 3: Synthesize ===== -->
+<section class="slide sfy-frame xt-frame" data-label="Exercise: synthesize">
+  <div class="eyebrow">Part 5 &middot; Safety &amp; Regulatory</div>
+  <div class="pagedot"></div>
+  <input type="radio" name="sy" id="sy-raw" checked>
+  <input type="radio" name="sy" id="sy-ans">
+  <div class="layout-hero" style="top: 5%; bottom: 5%; gap: 1vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
+      <p class="concept-label">Exercise 3 &middot; Synthesize</p>
+      <h1 class="headline" style="font-size: 1.9vw;">Invent records that keep the patterns, not the people.</h1>
+    </div>
+    <div class="xt-task">
+      <span class="clock">&#9201; 10 min &middot; in teams</span>
+      <span class="goal">You want to share a demo dataset that behaves like the real one. As a team, list the patterns worth preserving (diagnosis mix, age spread, weekly counts), then sketch fake rows that match them without copying any real person.</span>
+    </div>
+    <div class="xt-tabs">
+      <label for="sy-raw">Real data</label>
+      <label for="sy-ans">A synthetic version</label>
+    </div>
+
+    <div class="xt-panel xt-p-raw">
+      <table class="xt-tbl">
+        <tr><th>ID</th><th>Age</th><th>Postal code</th><th>Sex</th><th>Diagnosis</th><th>Onset date</th><th>Outcome</th></tr>
+        <tr><td>P-001</td><td>34</td><td>H2X 1Y4</td><td>F</td><td>Influenza A</td><td>2026-01-05</td><td>Recovered</td></tr>
+        <tr><td>P-002</td><td>38</td><td>H2X 2Z9</td><td>M</td><td>Influenza A</td><td>2026-01-06</td><td>Recovered</td></tr>
+        <tr><td>P-003</td><td>30</td><td>H3B 2K1</td><td>F</td><td>COVID-19</td><td>2026-01-06</td><td>Hospitalized</td></tr>
+        <tr><td>P-004</td><td>54</td><td>J4W 1P0</td><td>M</td><td>Influenza B</td><td>2026-01-08</td><td>Recovered</td></tr>
+        <tr><td>P-005</td><td>24</td><td>H2X 1Y4</td><td>F</td><td>COVID-19</td><td>2026-01-09</td><td>Recovered</td></tr>
+        <tr><td>P-006</td><td>60</td><td>H4C 3M8</td><td>M</td><td>Influenza A</td><td>2026-01-10</td><td>Hospitalized</td></tr>
+        <tr><td>P-007</td><td>27</td><td>H3B 2K1</td><td>F</td><td>RSV</td><td>2026-01-11</td><td>Recovered</td></tr>
+        <tr><td>P-008</td><td>45</td><td>J4W 1P0</td><td>M</td><td>COVID-19</td><td>2026-01-12</td><td>Recovered</td></tr>
+      </table>
+    </div>
+
+    <div class="xt-panel xt-p-ans">
+      <table class="xt-tbl">
+        <tr><th>ID</th><th>Age</th><th>Postal code</th><th>Sex</th><th>Diagnosis</th><th>Onset date</th><th>Outcome</th></tr>
+        <tr><td class="new">S-001</td><td class="new">41</td><td class="new">H3B 2K1</td><td>F</td><td>Influenza A</td><td class="new">2026-01-04</td><td>Recovered</td></tr>
+        <tr><td class="new">S-002</td><td class="new">36</td><td class="new">H2X 4R2</td><td>M</td><td>Influenza A</td><td class="new">2026-01-07</td><td>Recovered</td></tr>
+        <tr><td class="new">S-003</td><td class="new">29</td><td class="new">H4C 1B8</td><td>F</td><td>COVID-19</td><td class="new">2026-01-05</td><td>Hospitalized</td></tr>
+        <tr><td class="new">S-004</td><td class="new">51</td><td class="new">J4W 3M5</td><td>M</td><td>Influenza B</td><td class="new">2026-01-09</td><td>Recovered</td></tr>
+        <tr><td class="new">S-005</td><td class="new">22</td><td class="new">H2X 2Z9</td><td>F</td><td>COVID-19</td><td class="new">2026-01-10</td><td>Recovered</td></tr>
+        <tr><td class="new">S-006</td><td class="new">63</td><td class="new">H3B 5K0</td><td>M</td><td>Influenza A</td><td class="new">2026-01-11</td><td>Hospitalized</td></tr>
+        <tr><td class="new">S-007</td><td class="new">31</td><td class="new">H4C 3M8</td><td>F</td><td>RSV</td><td class="new">2026-01-12</td><td>Recovered</td></tr>
+        <tr><td class="new">S-008</td><td class="new">48</td><td class="new">J4W 1P0</td><td>M</td><td>COVID-19</td><td class="new">2026-01-13</td><td>Recovered</td></tr>
+      </table>
+      <div class="xt-fixes"><span class="xt-fix">same diagnosis mix</span><span class="xt-fix">similar age spread</span><span class="xt-fix">same weekly trend</span><span class="xt-fix">no real person</span></div>
+      <p class="xt-note ok">Every row is generated. The statistics match; the individuals don&rsquo;t exist. (Careful: a bad generator can memorize and leak a real row.)</p>
+    </div>
+    <p class="xt-fake">All values invented for teaching, not real patient data.</p>
   </div>
 </section>
 
