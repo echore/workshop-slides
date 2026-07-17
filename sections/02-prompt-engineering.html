@@ -267,51 +267,51 @@
   <div class="pagedot"></div>
   <div class="gd-wrap">
     <p class="concept-label" style="text-align: left;">Give Direction</p>
-    <h1 class="headline gd-title">Same paper, four prompts. Watch what each added instruction changes. Green = what's new.</h1>
+    <h1 class="headline gd-title">Same trial, four prompts. Watch what each added instruction changes. Green = what's new.</h1>
     <div class="gd-grid">
 
       <div class="gd-cell">
         <p class="gd-lbl">Prompt</p>
-        <p class="gd-txt">&ldquo;Summarize this study in a few sentences.&rdquo;</p>
+        <p class="gd-txt">&ldquo;Summarize this trial in a few sentences.&rdquo;</p>
       </div>
       <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
         <p class="gd-lbl">What you get</p>
-        <p class="gd-txt gd-soft">Generic recap. Broad strokes, no audience. <span class="gd-peek">&#9662; hover for the real output</span></p>
-        <span class="gd-full">This study used a time-series analysis of over 900,000 samples to track the evolution of SARS-CoV-2 population immunity in Canada between 2020 and 2023. While infection-acquired seroprevalence remained low during the pre-vaccination and vaccine roll-out phases, it rose rapidly following the arrival of the Omicron variant, reaching approximately 76% by March 2023. The findings highlight that most Canadians achieved hybrid immunity through a combination of vaccination and natural infection, though public health strategies must remain adaptable due to regional and age-based variations in immunity.</span>
+        <p class="gd-txt gd-soft">Generic recap. What the trial is, no audience in mind. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <span class="gd-full">This is a Phase 3, randomized, double-blind trial comparing orelabrutinib, a CNS-penetrable BTK inhibitor, to placebo in people with primary progressive multiple sclerosis (PPMS). About 705 participants are randomized 2:1 (drug:placebo) and treated for roughly 30 to 60 months. The primary aim is whether orelabrutinib delays confirmed disability progression versus placebo. It is currently recruiting across the US and Europe.</span>
       </div>
 
       <div class="gd-cell">
         <p class="gd-lbl">+ Role</p>
-        <p class="gd-txt">&ldquo;<span class="pe-hl">You are an epidemiologist briefing a provincial health officer.</span> Summarize this study in a few sentences.&rdquo;</p>
+        <p class="gd-txt">&ldquo;<span class="pe-hl">You're an epidemiologist.</span> Summarize this trial in a few sentences.&rdquo;</p>
       </div>
       <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
         <p class="gd-lbl">What you get</p>
-        <p class="gd-txt gd-soft">Technical + audience-aware. Adds the age and regional patterns, ties them to policy. <span class="gd-peek">&#9662; hover for the real output</span></p>
-        <span class="gd-full">This study used a time-series analysis of over 900,000 samples to track SARS-CoV-2 seroprevalence in Canada from 2020 to 2023. While infection-acquired immunity remained low during the initial pandemic and vaccine roll-out phases, it increased rapidly following the arrival of the Omicron variant, reaching 76% by March 2023. <em class="gd-em">This rapid rise was most pronounced in younger populations and Western provinces.</em> The findings highlight that while high vaccine coverage provided protection against severe illness, it was insufficient to prevent widespread Omicron transmission, resulting in a population now characterized by widespread &ldquo;hybrid immunity&rdquo;. <em class="gd-em">Given variations in seropositivity across geography and age &hellip; future public health and clinical decisions should be tailored to local population immunity patterns.</em></span>
+        <p class="gd-txt gd-soft">Population lens. Adds the PPMS-subset context and who the results would speak to. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <span class="gd-full">This Phase 3 trial compares orelabrutinib, an oral CNS-penetrable BTK inhibitor, with placebo in primary progressive MS, a smaller and harder-to-treat subset of the MS population. It randomizes about 705 adults aged 18 to 60 with an EDSS of 3.0 to 6.5 and documented recent progression, 2:1 to drug or placebo, for up to five years. The primary outcome is time to confirmed disability progression. <em class="gd-em">From a population view, the narrow eligibility means any benefit would speak to ambulatory PPMS patients with active progression, not MS more broadly.</em></span>
       </div>
 
       <div class="gd-cell">
         <p class="gd-lbl">+ Focus</p>
-        <p class="gd-txt">&ldquo;&hellip;briefing a provincial health officer. Summarize <span class="pe-hl">in under 100 words, focusing on what they most need to know.</span>&rdquo;</p>
+        <p class="gd-txt">&ldquo;You're an epidemiologist. Summarize this trial <span class="pe-hl">in under 80 words, focusing on whom the results would apply to.</span>&rdquo;</p>
       </div>
       <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
         <p class="gd-lbl">What you get</p>
-        <p class="gd-txt gd-soft">Tight, decision-focused. Leads with the number, then policy takeaways. <span class="gd-peek">&#9662; hover for the real output</span></p>
-        <span class="gd-full"><em class="gd-em">By March 2023, approximately 76% of Canadians had developed infection-acquired SARS-CoV-2 antibodies.</em> While vaccination provided widespread protection, it was insufficient to prevent the rapid, unprecedented spread of the Omicron variant, which drastically increased infection-induced seroprevalence across all regions and age groups. <em class="gd-em">Key takeaways for policy:</em> Hybrid immunity. Most of the population now possesses hybrid immunity from both vaccination and infection. Local tailoring. Because seropositivity varies significantly by age and geography, future clinical decisions and public health measures must be tailored to local population immunity patterns.</span>
+        <p class="gd-txt gd-soft">Tight, generalizability-first. Leads with whom it applies to. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <span class="gd-full">Whom would this apply to? Enrollment is restricted to adults 18 to 60 with primary progressive MS, EDSS 3.0 to 6.5, and documented progression in the prior 24 months. <em class="gd-em">So any finding would generalize to ambulatory PPMS patients with recent active progression, not to older, more disabled, or relapsing patients.</em> It's a 2:1 placebo-controlled Phase 3 with a confirmed-disability-progression endpoint.</span>
       </div>
 
       <div class="gd-cell">
         <p class="gd-lbl">Swap the role</p>
-        <p class="gd-txt">&ldquo;<span class="pe-hl">You are a peer reviewer evaluating this for publication.</span> Summarize it in under 100 words, focusing on what you most need to assess.&rdquo;</p>
+        <p class="gd-txt">&ldquo;<span class="pe-hl">You're a clinician advising a patient.</span> Summarize this trial in a few sentences.&rdquo;</p>
       </div>
       <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
         <p class="gd-lbl">What you get</p>
-        <p class="gd-txt gd-soft">Different <em>content</em>: shifts from findings to whether they can be trusted. Weighs the model, the data sources, assay bias. <span class="gd-peek">&#9662; hover for the real output</span></p>
-        <span class="gd-full">This study utilizes a Bayesian time-series analysis of over 900,000 samples from seven collaborative studies to estimate SARS-CoV-2 seroprevalence in Canada from 2020 to 2023. It distinguishes between infection-acquired and vaccine-induced humoral immunity. Key findings show a rapid rise in infection-acquired seropositivity during the Omicron era, reaching 76% by March 2023, with variations across age and geography. <em class="gd-em">As a reviewer, I must assess the robustness of the hierarchical modeling, the validity of combining diverse data sources (e.g., blood donors, research cohorts), and the handling of assay-specific bias.</em></span>
+        <p class="gd-txt gd-soft">Different <em>content</em>: not the population, the individual. Placebo odds, what joining involves, who's excluded. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <span class="gd-full">This study tests whether a daily oral drug, orelabrutinib, can slow disability progression in primary progressive MS, compared with placebo. <em class="gd-em">If your patient joins, there's a 2-in-3 chance of the active drug and 1-in-3 of placebo, and neither of you would know which; treatment lasts at least a year, up to five.</em> They'd need PPMS with recent documented progression and moderate disability, and <em class="gd-em">would be excluded if on blood thinners, certain interacting medications, or with other significant health conditions.</em></span>
       </div>
 
     </div>
-    <p class="gd-take"><b>The takeaway:</b> role shapes <em>what counts as important</em>, not just tone. Format controls length and focus. Together they turn one lazy line into a briefing.</p>
+    <p class="gd-take"><b>The takeaway:</b> role shapes <em>what counts as important</em>, not just tone. The epidemiologist asks whom the results generalize to; the clinician asks what it means for one patient. Same record, two different reads.</p>
   </div>
 </section>
 
