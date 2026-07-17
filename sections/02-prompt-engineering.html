@@ -517,6 +517,152 @@ Ublituximab (NCT07220252),Phase 2/3 RCT active+placebo multi-part,Children 10-17
 </section>
 
 
+<!-- ========================= TEAM EXERCISES: PROMPTING ========================= -->
+<style>
+  .px-frame { --warn: #B0553C; --ok: #5f7a55; }
+  .px-task { display: flex; align-items: center; gap: 1vw; width: 80vw; padding: 0.7vw 1.4vw;
+             border-radius: 1vw; background: var(--card-fill); }
+  .px-task .clock { font: 500 1.5vw "Cormorant Garamond", serif; color: var(--ink); white-space: nowrap; }
+  .px-task .goal { font: 400 1.3vw/1.35 "Work Sans", sans-serif; color: var(--ink); }
+  .px-cols { display: flex; gap: 2vw; width: 84vw; align-items: stretch; justify-content: center; }
+  .px-col { flex: 1; display: flex; flex-direction: column; gap: 0.6vw; }
+  .px-lbl { font: 600 1vw "Work Sans", sans-serif; letter-spacing: 0.05em; text-transform: uppercase;
+            color: var(--ink-soft); margin: 0; }
+  .px-box { border-radius: 1vw; padding: 1vw 1.3vw; border: 1.5px solid var(--rule-soft); background: var(--paper);
+            font: 400 1.35vw/1.5 "Work Sans", sans-serif; color: var(--ink); flex: 1; }
+  .px-box.weak { background: #F8EEE6; }
+  .px-box.strong { background: #ECF1E2; }
+  .px-box .mono { font-family: "IBM Plex Mono", "Work Sans", monospace; }
+  .px-box ul { margin: 0.3vw 0 0; padding-left: 1.4vw; }
+  .px-box li { margin: 0.15vw 0; }
+  .px-tag { color: var(--ok); font-weight: 600; }
+  .px-frame input[type="checkbox"] { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .px-reveal-btn { font: 500 1.35vw "Work Sans", sans-serif; padding: 0.5vw 1.8vw; border-radius: 999px;
+                   border: 1.5px solid var(--ink); color: var(--ink); background: var(--paper); cursor: pointer;
+                   transition: all .15s ease; align-self: center; }
+  .px-reveal-btn:hover { background: var(--ink); color: var(--paper); }
+  .px-reveal-btn .lbl-hide { display: none; }
+  .px-answer { display: none; }
+  .px-frame input[type="checkbox"]:checked ~ .px-cols .px-answer { display: flex; }
+  .px-frame input[type="checkbox"]:checked ~ .px-reveal-btn { background: var(--ink); color: var(--paper); }
+  .px-frame input[type="checkbox"]:checked ~ .px-reveal-btn .lbl-show { display: none; }
+  .px-frame input[type="checkbox"]:checked ~ .px-reveal-btn .lbl-hide { display: inline; }
+  .px-fixes { display: flex; flex-wrap: wrap; gap: 0.5vw; margin-top: 0.6vw; }
+  .px-fix { font: 500 1.05vw "Work Sans", sans-serif; padding: 0.2vw 0.9vw; border-radius: 999px;
+            background: var(--paper); border: 1.5px solid var(--rule-soft); color: var(--ink); }
+  .px-note { font: italic 400 1.2vw/1.4 "Cormorant Garamond", serif; text-align: center; max-width: 80vw; color: var(--ink-soft); }
+</style>
+
+<!-- ===== Exercise 1: FIX this prompt ===== -->
+<section class="slide px-frame" data-label="Exercise: fix the prompt">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 6%; bottom: 6%; gap: 1vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
+      <p class="concept-label">Exercise 1 &middot; Fix it</p>
+      <h1 class="headline" style="font-size: 1.9vw;">Rewrite a lazy prompt into a strong one.</h1>
+    </div>
+    <div class="px-task">
+      <span class="clock">&#9201; 10 min &middot; in teams</span>
+      <span class="goal">A colleague wants a summary of a new vaccine-safety study for a public briefing. Their prompt is below. Rewrite it using the principles: give direction, specify format, add a constraint.</span>
+    </div>
+    <input type="checkbox" id="px1-ans">
+    <div class="px-cols">
+      <div class="px-col">
+        <p class="px-lbl">The prompt they wrote</p>
+        <div class="px-box weak"><span class="mono">&ldquo;Summarize this study.&rdquo;</span>
+          <p class="px-note" style="text-align: left; margin-top: 0.6vw;">No role, no audience, no format, no length. You get a shapeless wall of text.</p>
+        </div>
+      </div>
+      <div class="px-col px-answer" style="flex-direction: column; gap: 0.6vw;">
+        <p class="px-lbl">One strong rewrite</p>
+        <div class="px-box strong"><span class="mono">&ldquo;You are a public health analyst. Summarize this study for a busy program director with no stats background. Give me: (1) the main finding in one sentence, (2) three key numbers with their populations, (3) one limitation. Under 150 words. If a number isn&rsquo;t in the text, say so, don&rsquo;t estimate.&rdquo;</span>
+          <div class="px-fixes"><span class="px-fix">role</span><span class="px-fix">audience</span><span class="px-fix">format</span><span class="px-fix">length limit</span><span class="px-fix">anti-hallucination rule</span></div>
+        </div>
+      </div>
+    </div>
+    <label class="px-reveal-btn" for="px1-ans"><span class="lbl-show">&#9656; Reveal one strong rewrite</span><span class="lbl-hide">&#9662; Hide the rewrite</span></label>
+    <p class="px-note">There&rsquo;s no single right answer, only prompts that are clearer about what you actually want.</p>
+  </div>
+</section>
+
+<!-- ===== Exercise 2: DIAGNOSE what's missing ===== -->
+<section class="slide px-frame" data-label="Exercise: spot what's missing">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 6%; bottom: 6%; gap: 1vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
+      <p class="concept-label">Exercise 2 &middot; Diagnose</p>
+      <h1 class="headline" style="font-size: 1.9vw;">Spot what this prompt is missing.</h1>
+    </div>
+    <div class="px-task">
+      <span class="clock">&#9201; 10 min &middot; in teams</span>
+      <span class="goal">This prompt extracts data from 200 survey responses. It&rsquo;s not terrible, but it will give messy, inconsistent output. Check it against the five principles: which are missing?</span>
+    </div>
+    <input type="checkbox" id="px2-ans">
+    <div class="px-cols">
+      <div class="px-col">
+        <p class="px-lbl">The prompt</p>
+        <div class="px-box weak"><span class="mono">&ldquo;Read each open-ended survey answer about barriers to vaccination and tell me the main themes. Be thorough.&rdquo;</span>
+          <p class="px-note" style="text-align: left; margin-top: 0.6vw;">It has a role-ish task and a topic. So what will go wrong across 200 rows?</p>
+        </div>
+      </div>
+      <div class="px-col px-answer" style="flex-direction: column; gap: 0.6vw;">
+        <p class="px-lbl">What&rsquo;s missing</p>
+        <div class="px-box strong">
+          <ul>
+            <li><span class="px-tag">Format</span>: no fixed output shape, so every row comes back differently.</li>
+            <li><span class="px-tag">Example</span>: no worked case, so the theme labels drift.</li>
+            <li><span class="px-tag">Fixed categories</span>: &ldquo;main themes&rdquo; is open-ended; give it a set list to sort into.</li>
+            <li><span class="px-tag">Evaluate</span>: nothing asks it to flag low-confidence or ambiguous answers.</li>
+          </ul>
+          <div class="px-fixes"><span class="px-fix">add a table format</span><span class="px-fix">show one example</span><span class="px-fix">give categories</span><span class="px-fix">ask for a confidence flag</span></div>
+        </div>
+      </div>
+    </div>
+    <label class="px-reveal-btn" for="px2-ans"><span class="lbl-show">&#9656; Reveal the gaps</span><span class="lbl-hide">&#9662; Hide the gaps</span></label>
+    <p class="px-note">&ldquo;Be thorough&rdquo; is not an instruction. Structure is what makes 200 rows come back consistent.</p>
+  </div>
+</section>
+
+<!-- ===== Exercise 3: BUILD from scratch ===== -->
+<section class="slide px-frame" data-label="Exercise: build from scratch">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 6%; bottom: 6%; gap: 1vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
+      <p class="concept-label">Exercise 3 &middot; Build it</p>
+      <h1 class="headline" style="font-size: 1.9vw;">Write a full prompt from scratch.</h1>
+    </div>
+    <div class="px-task">
+      <span class="clock">&#9201; 10 min &middot; in teams</span>
+      <span class="goal">The task: turn a dense clinical guideline into a plain-language FAQ for the public. No prompt exists yet. As a team, write one from zero, using every principle you can. If you have a chatbot open, run it and compare.</span>
+    </div>
+    <input type="checkbox" id="px3-ans">
+    <div class="px-cols">
+      <div class="px-col">
+        <p class="px-lbl">Your brief</p>
+        <div class="px-box weak">
+          <ul>
+            <li><b>Input:</b> a 4-page clinical guideline on a new screening recommendation.</li>
+            <li><b>Output wanted:</b> a public-facing FAQ, plain language, no jargon.</li>
+            <li><b>Checklist:</b> role? audience &amp; reading level? format? an example Q&amp;A? a constraint (length, what to avoid)? a self-check?</li>
+          </ul>
+        </div>
+      </div>
+      <div class="px-col px-answer" style="flex-direction: column; gap: 0.6vw;">
+        <p class="px-lbl">One strong answer</p>
+        <div class="px-box strong"><span class="mono">&ldquo;You are a health communicator writing for the general public at a grade-8 reading level. Turn the guideline below into an FAQ of 5&ndash;7 questions. Format each as a bold question then a 2&ndash;3 sentence plain answer. No medical jargon; if a term is unavoidable, define it in brackets. Example: <b>Q: Who should get screened?</b> A: ... Only use facts from the guideline; if something isn&rsquo;t covered, leave it out. End by listing any claim you were unsure about.&rdquo;</span>
+          <div class="px-fixes"><span class="px-fix">role</span><span class="px-fix">reading level</span><span class="px-fix">format</span><span class="px-fix">example</span><span class="px-fix">constraint</span><span class="px-fix">self-check</span></div>
+        </div>
+      </div>
+    </div>
+    <label class="px-reveal-btn" for="px3-ans"><span class="lbl-show">&#9656; Reveal one strong answer</span><span class="lbl-hide">&#9662; Hide the answer</span></label>
+    <p class="px-note">Compare yours to this, and to each other&rsquo;s. Different wording, same six ingredients.</p>
+  </div>
+</section>
+
+
 <section class="slide" data-label="Your Turn">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
