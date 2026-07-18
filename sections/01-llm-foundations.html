@@ -591,6 +591,12 @@
       <p class="body" style="font-size: 1.32vw; color: var(--ink-soft);">Every chatbot offers the same three speeds. Different names, same choice: how capable, and how hard should it think?</p>
     </div>
 
+    <input class="rv-t" type="checkbox" id="rv-chat">
+    <div class="rv-ask">
+      <p class="rv-q">Which chatbot do you use, and do you ever change the model or the &ldquo;thinking&rdquo; setting?</p>
+      <label class="rv-btn" for="rv-chat"><span class="lbl-show">&#9656; Show the comparison</span><span class="lbl-hide">&#9662; Hide the comparison</span></label>
+    </div>
+
     <div class="pv-table">
       <!-- header row -->
       <div></div>
@@ -667,6 +673,27 @@
   .hp-out .lbl { display: block; font: 600 0.95vw "Work Sans", sans-serif; letter-spacing: 0.05em;
                  text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.25vw; }
   .hp-out .mono { font-family: "IBM Plex Mono", monospace; font-size: 1.02vw; color: #5f7a55; }
+
+  /* ask-then-reveal */
+  .rv-ask { display: flex; flex-direction: column; align-items: center; gap: 0.5vw; }
+  .rv-q { font: italic 400 1.45vw "Cormorant Garamond", serif; color: var(--ink-soft); text-align: center; margin: 0; }
+  .rv-btn { font: 500 1.3vw "Work Sans", sans-serif; padding: 0.45vw 1.6vw; border-radius: 999px;
+            border: 1.5px solid var(--ink); color: var(--ink); background: var(--paper); cursor: pointer;
+            transition: all .15s ease; }
+  .rv-btn:hover { background: var(--ink); color: var(--paper); }
+  .rv-btn .lbl-hide { display: none; }
+  .rv-t { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .rv-t:checked ~ .rv-ask .rv-btn { background: var(--ink); color: var(--paper); }
+  .rv-t:checked ~ .rv-ask .rv-btn .lbl-show { display: none; }
+  .rv-t:checked ~ .rv-ask .rv-btn .lbl-hide { display: inline; }
+  .rv-t:checked ~ .rv-ask .rv-q { display: none; }
+  /* hide targets until revealed */
+  .hp-split .hp-side.demo { display: none; }
+  .rv-t:checked ~ .hp-split .hp-side.demo { display: flex; }
+  .pv-table { display: none; }
+  .rv-t:checked ~ .pv-table { display: grid; }
+  .rv-t:checked ~ .pv-note { display: block; }
+  .pv-note { display: none; }
 </style>
 
 <!-- ===== In practice: cloud API ===== -->
@@ -678,6 +705,12 @@
       <p class="concept-label">In practice</p>
       <h1 class="headline" style="font-size: 2.1vw;">Using a cloud API</h1>
       <p class="body" style="font-size: 1.3vw; color: var(--ink-soft);">When you want to run the same task over hundreds of thousands of public records, from your own code.</p>
+    </div>
+
+    <input class="rv-t" type="checkbox" id="rv-api">
+    <div class="rv-ask">
+      <p class="rv-q">Has anyone called an API before? What do you think the code actually looks like?</p>
+      <label class="rv-btn" for="rv-api"><span class="lbl-show">&#9656; Show the example</span><span class="lbl-hide">&#9662; Hide the example</span></label>
     </div>
 
     <div class="hp-split">
@@ -738,6 +771,12 @@ r = client.responses.create(
       <p class="concept-label">In practice</p>
       <h1 class="headline" style="font-size: 2.1vw;">Running a model locally</h1>
       <p class="body" style="font-size: 1.3vw; color: var(--ink-soft);">When the data is PHI and can&rsquo;t leave your machine. Same four inputs, your own hardware.</p>
+    </div>
+
+    <input class="rv-t" type="checkbox" id="rv-local">
+    <div class="rv-ask">
+      <p class="rv-q">What would you need in place to run a model on your own machine?</p>
+      <label class="rv-btn" for="rv-local"><span class="lbl-show">&#9656; Show the example</span><span class="lbl-hide">&#9662; Hide the example</span></label>
     </div>
 
     <div class="hp-split">
