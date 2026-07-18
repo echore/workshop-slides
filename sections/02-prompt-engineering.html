@@ -560,29 +560,29 @@ Ublituximab (NCT07220252),Phase 2/3 RCT active+placebo multi-part,Children 10-17
   <div class="layout-hero" style="top: 6%; bottom: 6%; gap: 1vw;">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
       <p class="concept-label">Exercise 1 &middot; Fix it</p>
-      <h1 class="headline" style="font-size: 1.9vw;">Rewrite a lazy prompt into a strong one.</h1>
+      <h1 class="headline" style="font-size: 1.9vw;">Rewrite a lazy screening prompt into a reproducible one.</h1>
     </div>
     <div class="px-task">
       <span class="clock">&#9201; 10 min &middot; in teams</span>
-      <span class="goal">A colleague wants a summary of a new vaccine-safety study for a public briefing. Their prompt is below. Rewrite it using the principles: give direction, specify format, add a constraint.</span>
+      <span class="goal">You're screening abstracts for a systematic review. A colleague wrote the prompt below to speed it up. Rewrite it using the principles: give direction, specify format, add a constraint.</span>
     </div>
     <input type="checkbox" id="px1-ans">
     <div class="px-cols">
       <div class="px-col">
         <p class="px-lbl">The prompt they wrote</p>
-        <div class="px-box weak"><span class="mono">&ldquo;Summarize this study.&rdquo;</span>
-          <p class="px-note" style="text-align: left; margin-top: 0.6vw;">No role, no audience, no format, no length. You get a shapeless wall of text.</p>
+        <div class="px-box weak"><span class="mono">&ldquo;Tell me if these abstracts are relevant to my review.&rdquo;</span>
+          <p class="px-note" style="text-align: left; margin-top: 0.6vw;">No criteria, no output shape, no reason given. Across 200 abstracts you get inconsistent calls you can't audit or report.</p>
         </div>
       </div>
       <div class="px-col px-answer" style="flex-direction: column; gap: 0.6vw;">
         <p class="px-lbl">One strong rewrite</p>
-        <div class="px-box strong"><span class="mono">&ldquo;You are a public health analyst. Summarize this study for a busy program director with no stats background. Give me: (1) the main finding in one sentence, (2) three key numbers with their populations, (3) one limitation. Under 150 words. If a number isn&rsquo;t in the text, say so, don&rsquo;t estimate.&rdquo;</span>
-          <div class="px-fixes"><span class="px-fix">role</span><span class="px-fix">audience</span><span class="px-fix">format</span><span class="px-fix">length limit</span><span class="px-fix">anti-hallucination rule</span></div>
+        <div class="px-box strong"><span class="mono">&ldquo;You are screening abstracts for a systematic review. Include if: adult population, randomized design, reports a clinical outcome. Exclude otherwise. For each abstract return one row: ID | INCLUDE or EXCLUDE | the single criterion that decided it | confidence (high/med/low). If the abstract doesn&rsquo;t report enough to judge, return UNCLEAR rather than guessing.&rdquo;</span>
+          <div class="px-fixes"><span class="px-fix">role</span><span class="px-fix">explicit criteria</span><span class="px-fix">format</span><span class="px-fix">reason per call</span><span class="px-fix">no-guessing rule</span></div>
         </div>
       </div>
     </div>
     <label class="px-reveal-btn" for="px1-ans"><span class="lbl-show">&#9656; Reveal one strong rewrite</span><span class="lbl-hide">&#9662; Hide the rewrite</span></label>
-    <p class="px-note">There&rsquo;s no single right answer, only prompts that are clearer about what you actually want.</p>
+    <p class="px-note">There&rsquo;s no single right answer, only prompts that make the decision rule explicit enough to reproduce.</p>
   </div>
 </section>
 
@@ -632,11 +632,11 @@ Ublituximab (NCT07220252),Phase 2/3 RCT active+placebo multi-part,Children 10-17
   <div class="layout-hero" style="top: 6%; bottom: 6%; gap: 1vw;">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
       <p class="concept-label">Exercise 3 &middot; Build it</p>
-      <h1 class="headline" style="font-size: 1.9vw;">Write a full prompt from scratch.</h1>
+      <h1 class="headline" style="font-size: 1.9vw;">Write an extraction prompt from scratch.</h1>
     </div>
     <div class="px-task">
       <span class="clock">&#9201; 10 min &middot; in teams</span>
-      <span class="goal">The task: turn a dense clinical guideline into a plain-language FAQ for the public. No prompt exists yet. As a team, write one from zero, using every principle you can. If you have a chatbot open, run it and compare.</span>
+      <span class="goal">The task: pull study characteristics out of a set of papers into a table you can actually analyze. No prompt exists yet. As a team, write one from zero, using every principle you can. If you have a chatbot open, run it on a paper and compare.</span>
     </div>
     <input type="checkbox" id="px3-ans">
     <div class="px-cols">
@@ -644,16 +644,16 @@ Ublituximab (NCT07220252),Phase 2/3 RCT active+placebo multi-part,Children 10-17
         <p class="px-lbl">Your brief</p>
         <div class="px-box weak">
           <ul>
-            <li><b>Input:</b> a 4-page clinical guideline on a new screening recommendation.</li>
-            <li><b>Output wanted:</b> a public-facing FAQ, plain language, no jargon.</li>
-            <li><b>Checklist:</b> role? audience &amp; reading level? format? an example Q&amp;A? a constraint (length, what to avoid)? a self-check?</li>
+            <li><b>Input:</b> a set of published studies on the same research question.</li>
+            <li><b>Output wanted:</b> one row per study, same fields every time, ready to compare.</li>
+            <li><b>Checklist:</b> role? which fields? output format? a worked example row? what to do when a field isn&rsquo;t reported? a confidence or verification step?</li>
           </ul>
         </div>
       </div>
       <div class="px-col px-answer" style="flex-direction: column; gap: 0.6vw;">
         <p class="px-lbl">One strong answer</p>
-        <div class="px-box strong"><span class="mono">&ldquo;You are a health communicator writing for the general public at a grade-8 reading level. Turn the guideline below into an FAQ of 5&ndash;7 questions. Format each as a bold question then a 2&ndash;3 sentence plain answer. No medical jargon; if a term is unavoidable, define it in brackets. Example: <b>Q: Who should get screened?</b> A: ... Only use facts from the guideline; if something isn&rsquo;t covered, leave it out. End by listing any claim you were unsure about.&rdquo;</span>
-          <div class="px-fixes"><span class="px-fix">role</span><span class="px-fix">reading level</span><span class="px-fix">format</span><span class="px-fix">example</span><span class="px-fix">constraint</span><span class="px-fix">self-check</span></div>
+        <div class="px-box strong"><span class="mono">&ldquo;You are extracting study characteristics for a review. For each paper return one CSV row with exactly these fields: study_id, design, population, sample_size, exposure, outcome, effect_estimate, confidence_interval. Worked example: <b>S01,cohort,adults 40-70 Ontario,12480,air pollution PM2.5,incident asthma,HR 1.12,1.03-1.22</b>. If a field isn&rsquo;t reported, write NOT_REPORTED, never estimate. After the rows, list any field you had to interpret rather than read directly.&rdquo;</span>
+          <div class="px-fixes"><span class="px-fix">role</span><span class="px-fix">named fields</span><span class="px-fix">format</span><span class="px-fix">worked example</span><span class="px-fix">missing-data rule</span><span class="px-fix">self-check</span></div>
         </div>
       </div>
     </div>
