@@ -636,7 +636,7 @@ Ublituximab (NCT07220252),Phase 2/3 RCT active+placebo multi-part,Children 10-17
     </div>
     <div class="px-task">
       <span class="clock">&#9201; 10 min &middot; in teams</span>
-      <span class="goal">You have a dataset with an outcome, an exposure, and covariates. A colleague wrote the prompt below to get a quick answer. Rewrite it using the principles.</span>
+      <span class="goal">You have a cohort dataset: incident type 2 diabetes as the outcome, physical inactivity as the exposure, plus age, sex, BMI, and household income. A colleague wrote the prompt below to get a quick answer. Rewrite it using the principles.</span>
     </div>
     <input type="checkbox" id="px3-ans">
     <div class="px-cols">
@@ -648,7 +648,7 @@ Ublituximab (NCT07220252),Phase 2/3 RCT active+placebo multi-part,Children 10-17
       </div>
       <div class="px-col px-answer" style="flex-direction: column; gap: 0.6vw;">
         <p class="px-lbl">One strong rewrite</p>
-        <div class="px-box strong"><span class="mono">&ldquo;You are an epidemiologist. Fit a logistic regression predicting [outcome] from [exposure], adjusting for age, sex, and income. Report: the model specification, N included and N excluded with the reason, the adjusted odds ratio with its 95% CI, and all covariates in the model. State the assumptions you are relying on and any you could not check. Do not drop records silently. Do not call anything significant beyond what the interval supports.&rdquo;</span>
+        <div class="px-box strong"><span class="mono">&ldquo;You are an epidemiologist. Fit a logistic regression predicting incident type 2 diabetes from physical inactivity, adjusting for age, sex, BMI, and household income. Report: the model specification, N included and N excluded with the reason, the adjusted odds ratio with its 95% CI for inactivity, and every covariate in the model. State the assumptions you are relying on and any you could not check. Do not drop records silently. Do not call anything significant beyond what the interval supports.&rdquo;</span>
           <div class="px-fixes"><span class="px-fix">role</span><span class="px-fix">specified model</span><span class="px-fix">named covariates</span><span class="px-fix">reporting format</span><span class="px-fix">missing-data transparency</span><span class="px-fix">assumption check</span></div>
         </div>
       </div>
