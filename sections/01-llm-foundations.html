@@ -873,6 +873,37 @@ out = pipe(
                 background: var(--paper); border: 1.5px solid var(--rule-soft); color: var(--ink); }
   .mf-ex span small { color: var(--ink-soft); font-style: italic;
                       font-family: "Cormorant Garamond", serif; font-size: 1.05vw; margin-left: 0.25vw; }
+
+  /* staged reveal: family, then its examples, one at a time */
+  .mf-t { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .mf-list .mf-row { display: none; }
+  .mf-list .mf-ex { display: none; }
+  .mf-card { display: none; }
+  #mf1:checked ~ .mf-list .mf-row.g { display: grid; }
+  #mf2:checked ~ .mf-list .mf-row.g .mf-ex { display: flex; }
+  #mf3:checked ~ .mf-list .mf-row.b { display: grid; }
+  #mf4:checked ~ .mf-list .mf-row.b .mf-ex { display: flex; }
+  #mf5:checked ~ .mf-list .mf-row.s { display: grid; }
+  #mf6:checked ~ .mf-list .mf-row.s .mf-ex { display: flex; }
+  #mf6:checked ~ .mf-card { display: block; }
+  /* one advancing button */
+  .mf-ask { display: flex; justify-content: center; }
+  .mf-b { font: 500 1.3vw "Work Sans", sans-serif; padding: 0.45vw 1.6vw; border-radius: 999px;
+          border: 1.5px solid var(--ink); color: var(--ink); background: var(--paper); cursor: pointer;
+          transition: all .15s ease; display: none; }
+  .mf-b:hover { background: var(--ink); color: var(--paper); }
+  .mf-b1 { display: inline-block; }
+  #mf1:checked ~ .mf-ask .mf-b1 { display: none; }
+  #mf1:checked ~ .mf-ask .mf-b2 { display: inline-block; }
+  #mf2:checked ~ .mf-ask .mf-b2 { display: none; }
+  #mf2:checked ~ .mf-ask .mf-b3 { display: inline-block; }
+  #mf3:checked ~ .mf-ask .mf-b3 { display: none; }
+  #mf3:checked ~ .mf-ask .mf-b4 { display: inline-block; }
+  #mf4:checked ~ .mf-ask .mf-b4 { display: none; }
+  #mf4:checked ~ .mf-ask .mf-b5 { display: inline-block; }
+  #mf5:checked ~ .mf-ask .mf-b5 { display: none; }
+  #mf5:checked ~ .mf-ask .mf-b6 { display: inline-block; }
+  #mf6:checked ~ .mf-ask .mf-b6 { display: none; }
 </style>
 
 <section class="slide" data-label="Model families">
@@ -883,6 +914,21 @@ out = pipe(
       <p class="concept-label">Model types</p>
       <h1 class="headline" style="font-size: 2.1vw;">Three families you&rsquo;ll actually meet</h1>
       <p class="body" style="font-size: 1.35vw; color: var(--ink-soft);">Match the family to the job. The names change fast; the categories don&rsquo;t.</p>
+    </div>
+
+    <input class="mf-t" type="checkbox" id="mf1">
+    <input class="mf-t" type="checkbox" id="mf2">
+    <input class="mf-t" type="checkbox" id="mf3">
+    <input class="mf-t" type="checkbox" id="mf4">
+    <input class="mf-t" type="checkbox" id="mf5">
+    <input class="mf-t" type="checkbox" id="mf6">
+    <div class="mf-ask">
+      <label class="mf-b mf-b1" for="mf1">&#9656; General-purpose</label>
+      <label class="mf-b mf-b2" for="mf2">&#9656; Examples</label>
+      <label class="mf-b mf-b3" for="mf3">&#9656; Biomedical / domain</label>
+      <label class="mf-b mf-b4" for="mf4">&#9656; Examples</label>
+      <label class="mf-b mf-b5" for="mf5">&#9656; Small language models</label>
+      <label class="mf-b mf-b6" for="mf6">&#9656; Examples</label>
     </div>
 
     <div class="mf-list">
@@ -911,7 +957,7 @@ out = pipe(
       </div>
     </div>
 
-    <div class="card" style="padding: 1vw 2.2vw; max-width: 74vw;">
+    <div class="card mf-card" style="padding: 1vw 2.2vw; max-width: 74vw;">
       <p class="body" style="font-size: 1.4vw; text-align: center;">A big cloud model for a quick question; a small local or medical model for sensitive or specialized work.</p>
     </div>
   </div>
