@@ -1,0 +1,49 @@
+name: Build deck PDF
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:   # lets you trigger it by hand from the Actions tab
+
+permissions:
+  contents: write      # needed to commit deck.pdf back to the repo
+
+jobs:
+  pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Playwright
+        run: |
+          npm init -y
+          npm install playwright
+          npx playwright install --with-deps chromium
+
+      - name: Serve the deck
+        run: |
+          npx --yes http-server . -p 8080 --silent &
+          npx --yes wait-on http://localhost:8080/index.html
+
+      - name: Render PDF
+        env:
+          PORT: 8080
+        run: node tools/build-pdf.mjs
+
+      # Always grab the artifact, even if the commit step is skipped.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: deck-pdf
+          path: deck.pdf
+
+      - name: Commit deck.pdf
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add deck.pdf
+          git diff --staged --quiet || git commit -m "Rebuild deck.pdf [skip ci]"
+          git push
