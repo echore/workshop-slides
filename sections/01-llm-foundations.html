@@ -692,7 +692,7 @@ r = client.responses.create(
       </div>
 
       <div class="hp-side demo">
-        <p class="hp-codetitle">Example &middot; extracting variables from EHR notes</p>
+        <p class="hp-codetitle">Example &middot; 100 EHR notes, on your own machine</p>
         <pre class="hp-code"><span class="c"># 1&ndash;2. load the model onto your machine</span>
 pipe = pipeline(<span class="s">"text-generation"</span>,
   model=<span class="s">"meta-llama/Llama-3-8B-Instruct"</span>)
@@ -703,14 +703,14 @@ out = pipe(
   <span class="s">f"status, diagnosis, housing.\n{note}"</span>,
   max_new_tokens=<span class="s">200</span>, temperature=<span class="s">0</span>)
 
-<span class="c"># 4. nothing ever left the building</span>
-<span class="k">for</span> note <span class="k">in</span> ehr_notes:
+<span class="c"># 4. loop all 100 notes, offline</span>
+<span class="k">for</span> note <span class="k">in</span> ehr_notes:      <span class="c"># 100 rows</span>
   rows.append(extract(note))</pre>
         <div class="hp-out"><span class="lbl">What comes back</span>
           &ldquo;Pt reports quitting 2 yrs ago, now in shelter&hellip;&rdquo;<br>
           &rarr; <b>smoking:</b> former &middot; <b>housing:</b> unstable
         </div>
-        <p class="hp-take">EHR notes are PHI, so they never touch the internet. This runs air-gapped, and finds things the structured fields don&rsquo;t capture.</p>
+        <p class="hp-take">All 100 notes stay on your machine. Same four inputs as the API, but nothing crosses the internet, and it finds things the structured fields don&rsquo;t capture.</p>
       </div>
     </div>
   </div>
