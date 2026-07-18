@@ -6,6 +6,18 @@
   .pr-card { cursor: pointer; display: block; transition: background 0.2s ease; }
   .pr-body { display: none; }
   .pr-hint { font: 400 1.4vw "Work Sans", sans-serif; color: #b6b0a0; font-style: italic; }
+
+  /* ===== Example grids · click-to-reveal cells ===== */
+  .gx-wrap > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .gx-ph { display: flex; align-items: center; justify-content: center; border: 2px dashed #d5cdb8; border-radius: 12px;
+           background: transparent; cursor: pointer; min-height: 4vw; padding: 0.8vw 1vw;
+           font: 400 1vw "Work Sans", sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: #b6b0a0; }
+  .gx-ph:hover { border-color: #b9b3a2; color: #8a8577; }
+  .gx-cell { display: none; }
+  #gx-1:checked ~ .gd-grid .gx-c1, #gx-2:checked ~ .gd-grid .gx-c2, #gx-3:checked ~ .gd-grid .gx-c3,
+  #gx-4:checked ~ .gd-grid .gx-c4, #gx-5:checked ~ .gd-grid .gx-c5, #gx-6:checked ~ .gd-grid .gx-c6 { display: block; }
+  #gx-1:checked ~ .gd-grid .gx-p1, #gx-2:checked ~ .gd-grid .gx-p2, #gx-3:checked ~ .gd-grid .gx-p3,
+  #gx-4:checked ~ .gd-grid .gx-p4, #gx-5:checked ~ .gd-grid .gx-p5, #gx-6:checked ~ .gd-grid .gx-p6 { display: none; }
   #pr-1:checked ~ .pr-list .pr-c1 .pr-body,
   #pr-2:checked ~ .pr-list .pr-c2 .pr-body,
   #pr-3:checked ~ .pr-list .pr-c3 .pr-body,
@@ -302,6 +314,9 @@
   <div class="gd-wrap">
     <p class="concept-label" style="text-align: left;">Give Direction</p>
     <h1 class="headline gd-title">Same trial, four prompts. Watch what each added instruction changes. Green = what's new.</h1>
+    <div class="gx-wrap">
+    <input type="checkbox" id="gx-1"><input type="checkbox" id="gx-2"><input type="checkbox" id="gx-3">
+    <input type="checkbox" id="gx-4"><input type="checkbox" id="gx-5"><input type="checkbox" id="gx-6">
     <div class="gd-grid">
 
       <div class="gd-cell">
@@ -314,36 +329,43 @@
         <span class="gd-full">This is a Phase 3, randomized, double-blind trial comparing orelabrutinib, a CNS-penetrable BTK inhibitor, to placebo in people with primary progressive multiple sclerosis (PPMS). About 705 participants are randomized 2:1 (drug:placebo) and treated for roughly 30 to 60 months. The primary aim is whether orelabrutinib delays confirmed disability progression versus placebo. It is currently recruiting across the US and Europe.</span>
       </div>
 
-      <div class="gd-cell">
+      <label class="gx-ph gx-p1" for="gx-1">&#9656; reveal the next prompt</label>
+      <div class="gd-cell gx-cell gx-c1">
         <p class="gd-lbl">+ Role</p>
         <p class="gd-txt">&ldquo;<span class="pe-hl">You're an epidemiologist.</span> Summarize this trial in a few sentences.&rdquo;</p>
       </div>
-      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
+      <label class="gx-ph gx-p2" for="gx-2">what will change?</label>
+      <div class="gd-cell gd-out gx-cell gx-c2" tabindex="0" onclick="this.classList.toggle('gd-open')">
         <p class="gd-lbl">What you get</p>
         <p class="gd-txt gd-soft">Population lens. Adds the PPMS-subset context and who the results would speak to. <span class="gd-peek">&#9662; hover for the real output</span></p>
         <span class="gd-full">This Phase 3 trial compares orelabrutinib, an oral CNS-penetrable BTK inhibitor, with placebo in primary progressive MS, a smaller and harder-to-treat subset of the MS population. It randomizes about 705 adults aged 18 to 60 with an EDSS of 3.0 to 6.5 and documented recent progression, 2:1 to drug or placebo, for up to five years. The primary outcome is time to confirmed disability progression. <em class="gd-em">From a population view, the narrow eligibility means any benefit would speak to ambulatory PPMS patients with active progression, not MS more broadly.</em></span>
       </div>
 
-      <div class="gd-cell">
+      <label class="gx-ph gx-p3" for="gx-3">&#9656; reveal the next prompt</label>
+      <div class="gd-cell gx-cell gx-c3">
         <p class="gd-lbl">+ Focus</p>
         <p class="gd-txt">&ldquo;You're an epidemiologist. Summarize this trial <span class="pe-hl">in under 80 words, focusing on whom the results would apply to.</span>&rdquo;</p>
       </div>
-      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
+      <label class="gx-ph gx-p4" for="gx-4">what will change?</label>
+      <div class="gd-cell gd-out gx-cell gx-c4" tabindex="0" onclick="this.classList.toggle('gd-open')">
         <p class="gd-lbl">What you get</p>
         <p class="gd-txt gd-soft">Tight, generalizability-first. Leads with whom it applies to. <span class="gd-peek">&#9662; hover for the real output</span></p>
         <span class="gd-full">Whom would this apply to? Enrollment is restricted to adults 18 to 60 with primary progressive MS, EDSS 3.0 to 6.5, and documented progression in the prior 24 months. <em class="gd-em">So any finding would generalize to ambulatory PPMS patients with recent active progression, not to older, more disabled, or relapsing patients.</em> It's a 2:1 placebo-controlled Phase 3 with a confirmed-disability-progression endpoint.</span>
       </div>
 
-      <div class="gd-cell">
+      <label class="gx-ph gx-p5" for="gx-5">&#9656; reveal the next prompt</label>
+      <div class="gd-cell gx-cell gx-c5">
         <p class="gd-lbl">Swap the role</p>
         <p class="gd-txt">&ldquo;<span class="pe-hl">You're a clinician advising a patient.</span> Summarize this trial in a few sentences.&rdquo;</p>
       </div>
-      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
+      <label class="gx-ph gx-p6" for="gx-6">what will change?</label>
+      <div class="gd-cell gd-out gx-cell gx-c6" tabindex="0" onclick="this.classList.toggle('gd-open')">
         <p class="gd-lbl">What you get</p>
         <p class="gd-txt gd-soft">Different <em>content</em>: not the population, the individual. Placebo odds, what joining involves, who's excluded. <span class="gd-peek">&#9662; hover for the real output</span></p>
         <span class="gd-full">This study tests whether a daily oral drug, orelabrutinib, can slow disability progression in primary progressive MS, compared with placebo. <em class="gd-em">If your patient joins, there's a 2-in-3 chance of the active drug and 1-in-3 of placebo, and neither of you would know which; treatment lasts at least a year, up to five.</em> They'd need PPMS with recent documented progression and moderate disability, and <em class="gd-em">would be excluded if on blood thinners, certain interacting medications, or with other significant health conditions.</em></span>
       </div>
 
+    </div>
     </div>
     <p class="gd-take"><b>The takeaway:</b> role shapes <em>what counts as important</em>, not just tone. The epidemiologist asks whom the results generalize to; the clinician asks what it means for one patient. Same record, two different reads.</p>
   </div>
