@@ -693,13 +693,21 @@
   .rv-btn:hover { background: var(--ink); color: var(--paper); }
   .rv-btn .lbl-hide { display: none; }
   .rv-t { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
-  .rv-t:checked ~ .rv-ask .rv-btn { background: var(--ink); color: var(--paper); }
+  .rv-t:checked ~ .rv-ask .rv-btn:not(.rv-btn1):not(.rv-btn2) { background: var(--ink); color: var(--paper); }
   .rv-t:checked ~ .rv-ask .rv-btn .lbl-show { display: none; }
   .rv-t:checked ~ .rv-ask .rv-btn .lbl-hide { display: inline; }
   .rv-t:checked ~ .rv-ask .rv-q { display: none; }
-  /* hide targets until revealed */
-  .hp-split .hp-side.demo { display: none; }
-  .rv-t:checked ~ .hp-split .hp-side.demo { display: flex; }
+  /* staged reveal: nothing -> left box -> right box */
+  .hp-split .hp-side.api, .hp-split .hp-side.local, .hp-split .hp-side.demo { display: none; }
+  .st1:checked ~ .hp-split .hp-side.api,
+  .st1:checked ~ .hp-split .hp-side.local { display: flex; }
+  .st2:checked ~ .hp-split .hp-side.demo { display: flex; }
+  .rv-btn2 { display: none; }
+  .st1:checked ~ .rv-ask .rv-btn2 { display: inline-block; }
+  .st1:checked ~ .rv-ask .rv-btn1 { background: var(--ink); color: var(--paper); }
+  .st2:checked ~ .rv-ask .rv-btn2 { background: var(--ink); color: var(--paper); }
+  .st1:checked ~ .rv-ask .rv-q { display: none; }
+  .rv-row { display: flex; gap: 0.7vw; align-items: center; }
   .pv-hide { display: none !important; }
   .rv-t:checked ~ .pv-table .pv-h.pv-hide { display: flex !important; }
   .rv-t:checked ~ .pv-table .pv-quote.pv-hide,
@@ -721,10 +729,14 @@
       <p class="body" style="font-size: 1.3vw; color: var(--ink-soft);">When you want to run the same task over hundreds of thousands of public records, from your own code.</p>
     </div>
 
-    <input class="rv-t" type="checkbox" id="rv-api">
+    <input class="rv-t st1" type="checkbox" id="api-s1">
+    <input class="rv-t st2" type="checkbox" id="api-s2">
     <div class="rv-ask">
-      <p class="rv-q">Has anyone called an API before? What do you think the code actually looks like?</p>
-      <label class="rv-btn" for="rv-api"><span class="lbl-show">&#9656; Show the example</span><span class="lbl-hide">&#9662; Hide the example</span></label>
+      <p class="rv-q">Has anyone set up an API call before? What do you think it takes?</p>
+      <div class="rv-row">
+        <label class="rv-btn rv-btn1" for="api-s1">&#9656; The steps</label>
+        <label class="rv-btn rv-btn2" for="api-s2">&#9656; A real example</label>
+      </div>
     </div>
 
     <div class="hp-split">
@@ -787,10 +799,14 @@ r = client.responses.create(
       <p class="body" style="font-size: 1.3vw; color: var(--ink-soft);">When the data is PHI and can&rsquo;t leave your machine. Same four inputs, your own hardware.</p>
     </div>
 
-    <input class="rv-t" type="checkbox" id="rv-local">
+    <input class="rv-t st1" type="checkbox" id="loc-s1">
+    <input class="rv-t st2" type="checkbox" id="loc-s2">
     <div class="rv-ask">
       <p class="rv-q">What would you need in place to run a model on your own machine?</p>
-      <label class="rv-btn" for="rv-local"><span class="lbl-show">&#9656; Show the example</span><span class="lbl-hide">&#9662; Hide the example</span></label>
+      <div class="rv-row">
+        <label class="rv-btn rv-btn1" for="loc-s1">&#9656; The steps</label>
+        <label class="rv-btn rv-btn2" for="loc-s2">&#9656; A real example</label>
+      </div>
     </div>
 
     <div class="hp-split">
