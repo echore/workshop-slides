@@ -96,6 +96,14 @@
   .dw-traps { display: grid; grid-template-columns: 1fr 1fr; gap: 1vw; }
   .dw-trap { font: 400 0.98vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
   .dw-trap b { color: var(--ink); font-weight: 600; }
+  .dw-scores { display: grid; grid-template-columns: 1fr 1fr; gap: 1vw; margin-top: 0.7vw; }
+  .dw-scorebox { background: #faf8f0; border: 1.5px solid var(--rule-soft); border-radius: 12px; padding: 0.7vw 1.2vw;
+                 display: flex; align-items: baseline; gap: 0.6vw; }
+  .dw-scorebox.dw-win { border: 2.5px solid #8faa6b; background: #eef3e6; }
+  .dwc-1, .dwc-2, .dwc-3 { display: none; }
+  #dw-1:checked ~ .dw-after .dwc-1, #dw-2:checked ~ .dw-after .dwc-2, #dw-3:checked ~ .dw-after .dwc-3 { display: flex; }
+  #dw-3:checked ~ .dw-after .dwc-3 { display: block; }
+  #dw-1:checked ~ .dw-after .dwp-1, #dw-2:checked ~ .dw-after .dwp-2, #dw-3:checked ~ .dw-after .dwp-3 { display: none; }
 
   /* format artifacts inside reveals */
   .gd-full table.fmt { border-collapse: collapse; width: 100%; font-size: 0.8vw; margin-top: 0.15vw; }
@@ -439,14 +447,13 @@
     <p class="concept-label" style="text-align: left;">Divide the Work</p>
     <h1 class="headline gd-title">Four jobs in one prompt, or one job per prompt? Same 12 trials, one measured difference.</h1>
 
+    <div class="gx-wrap">
+    <input type="checkbox" id="dw-1"><input type="checkbox" id="dw-2"><input type="checkbox" id="dw-3">
+
     <div class="dw-cols">
       <div class="dw-card">
         <p class="dw-clbl">One overloaded prompt</p>
         <p class="dw-prompt">&ldquo;For each of these 12 trials, give: study type, a plain-language title, a one-line summary, and two reviewer questions.&rdquo;</p>
-        <div class="dw-scorewrap">
-          <span class="dw-score">10&#8202;/&#8202;12</span>
-          <span class="dw-scoresub">classified correctly</span>
-        </div>
       </div>
       <div class="dw-card dw-win">
         <p class="dw-clbl">One task per prompt</p>
@@ -455,19 +462,32 @@
           <span class="dw-q">2. &ldquo;Write a plain-language title for each.&rdquo;</span>
           <span class="dw-q">3. &ldquo;Summarize each in one line.&rdquo;</span>
         </p>
-        <div class="dw-scorewrap">
+      </div>
+    </div>
+
+    <div class="dw-after">
+      <div class="dw-scores">
+        <label class="gx-ph dwp-1" for="dw-1">how many did it get right?</label>
+        <div class="dw-scorebox dwc-1">
+          <span class="dw-score">10&#8202;/&#8202;12</span>
+          <span class="dw-scoresub">classified correctly</span>
+        </div>
+        <label class="gx-ph dwp-2" for="dw-2">and this one?</label>
+        <div class="dw-scorebox dw-win dwc-2">
           <span class="dw-score">12&#8202;/&#8202;12</span>
           <span class="dw-scoresub">classified correctly</span>
         </div>
       </div>
-    </div>
 
-    <div class="dw-why">
-      <p class="dw-why-h">Both misses were <span class="dw-hl">traps</span>: observational trials that name a drug or device.</p>
-      <div class="dw-traps">
-        <p class="dw-trap"><b>NCT02677077</b>: observational MRI study of patients already on natalizumab. Bundled, the model saw the drug name and called it interventional.</p>
-        <p class="dw-trap"><b>NCT03993275</b>: observational balance study that lists a device (MindMotion GO). Same slip: the device cue overrode the design.</p>
+      <label class="gx-ph dwp-3" for="dw-3" style="margin-top: 0.7vw;">&#9656; which two did it miss, and why?</label>
+      <div class="dw-why dwc-3">
+        <p class="dw-why-h">Both misses were <span class="dw-hl">traps</span>: observational trials that name a drug or device.</p>
+        <div class="dw-traps">
+          <p class="dw-trap"><b>NCT02677077</b>: observational MRI study of patients already on natalizumab. Bundled, the model saw the drug name and called it interventional.</p>
+          <p class="dw-trap"><b>NCT03993275</b>: observational balance study that lists a device (MindMotion GO). Same slip: the device cue overrode the design.</p>
+        </div>
       </div>
+    </div>
     </div>
 
     <p class="gd-take"><b>The takeaway:</b> juggling four jobs at once, the model grabs a surface cue and mislabels. Give each task its own prompt and the irrelevant details fall away. Independent tasks don't belong in one prompt. <span style="color: var(--ink-soft);">(Shi et al., &ldquo;Large language models can be easily distracted by irrelevant context.&rdquo;)</span></p>
