@@ -1,1 +1,67 @@
+/* tools/print.css
+   Injected only during the PDF build. Not loaded by index.html.
+   Two jobs: (1) show every slide, since deck.js shows one at a time,
+             (2) force every tap/hover reveal open, so the handout is complete. */
 
+/* ---- 1. every slide on its own page -------------------------------- */
+.slide {
+  display: block !important;
+  position: relative !important;
+  width: 1600px !important;
+  height: 900px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  page-break-after: always;
+  break-after: page;
+  overflow: hidden;
+}
+.slide:last-child { page-break-after: auto; break-after: auto; }
+
+/* deck chrome that shouldn't print */
+.pagedot { display: none !important; }
+
+/* ---- 2. force every reveal open ------------------------------------ */
+/* hidden answer panels across all five sections */
+.gd-full,
+.hb-answer,
+.pq-answer,
+.rev-answer,
+.rq-answer,
+.ttl-tag,
+.agent-poll-answer,
+.px-answer,
+.xt-answer {
+  display: flex !important;
+  flex-direction: column !important;
+  max-height: none !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+  margin-top: 0.55vw !important;
+  padding-top: 0.55vw !important;
+}
+
+/* .gd-full is inline text, not a flex column */
+.gd-full { display: block !important; }
+
+/* punchlines that fade in only after all cards are tapped */
+.rq-punch,
+.agent-poll-punch,
+.ttl-explain { opacity: 1 !important; }
+
+/* ---- 3. hide the "tap to reveal" affordances ------------------------ */
+.gd-peek,
+.hb-prompt,
+.pq-prompt,
+.rev-prompt,
+.rq-prompt,
+.agent-poll-prompt,
+.ttl-cta,
+.px-reveal-btn,
+.xt-reveal-btn { display: none !important; }
+
+/* ---- 4. agent example: radio-driven carousel ------------------------ */
+/* only one screen shows at a time; print them all */
+.ax-screen { display: flex !important; }
+.ax-screens { flex-direction: column !important; gap: 1vw; }
+.ax-dots { display: none !important; }
