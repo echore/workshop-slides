@@ -598,6 +598,7 @@
             font: 400 1.15vw/1.4 "Work Sans", sans-serif; color: var(--ink); text-align: left; }
   .hp-out .lbl { display: block; font: 600 0.95vw "Work Sans", sans-serif; letter-spacing: 0.05em;
                  text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.25vw; }
+  .hp-out .mono { font-family: "IBM Plex Mono", monospace; font-size: 1.02vw; color: #5f7a55; }
 </style>
 
 <!-- ===== In practice: cloud API ===== -->
@@ -608,7 +609,7 @@
     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4vw;">
       <p class="concept-label">In practice</p>
       <h1 class="headline" style="font-size: 2.1vw;">Using a cloud API</h1>
-      <p class="body" style="font-size: 1.3vw; color: var(--ink-soft);">When you want to run the same task over thousands of public records, from your own code.</p>
+      <p class="body" style="font-size: 1.3vw; color: var(--ink-soft);">When you want to run the same task over a million public records, from your own code.</p>
     </div>
 
     <div class="hp-split">
@@ -632,27 +633,29 @@
       </div>
 
       <div class="hp-side demo">
-        <p class="hp-codetitle">Example &middot; 20,000 public adverse-event reports</p>
+        <p class="hp-codetitle">Example &middot; Canada Vigilance, 1965&ndash;2026</p>
         <pre class="hp-code"><span class="c"># 1. connect once</span>
 client = OpenAI(api_key=<span class="s">MY_KEY</span>)
 
 <span class="c"># 2. the four inputs</span>
 r = client.responses.create(
   model=<span class="s">"gpt-5"</span>,
-  instructions=<span class="s">"You are a pharmacovigilance coder."</span>,
-  input=<span class="s">f"From this report, return drug, "</span>
-        <span class="s">f"reaction, seriousness.\n{narrative}"</span>,
+  instructions=<span class="s">"You are a pharmacovigilance analyst."</span>,
+  input=<span class="s">f"Group this reaction term into one of: "</span>
+        <span class="s">f"cardiac, hepatic, skin, neuro, other. "</span>
+        <span class="s">f"Return JSON with term, group, confidence. "</span>
+        <span class="s">f"If unclear use other + low.\n{term}"</span>,
   temperature=<span class="s">0</span>,
 )
 
-<span class="c"># 3. loop the public Canada Vigilance extract</span>
-<span class="k">for</span> narrative <span class="k">in</span> reports:
-  rows.append(code(narrative))</pre>
+<span class="c"># 3. loop the public monthly extract</span>
+<span class="k">for</span> term <span class="k">in</span> reaction_terms:
+  rows.append(group(term))</pre>
         <div class="hp-out"><span class="lbl">What comes back</span>
-          &ldquo;Started drug X, developed severe rash, hospitalised&rdquo;<br>
-          &rarr; <b>drug:</b> X &middot; <b>reaction:</b> rash &middot; <b>serious:</b> yes
+          <span class="mono">{"term": "hepatocellular injury",</span><br>
+          <span class="mono">&nbsp;"group": "hepatic", "confidence": "high"}</span>
         </div>
-        <p class="hp-take">Canada Vigilance and FAERS are public, so nothing sensitive leaves your machine. Temperature 0 keeps all 20,000 coded the same way.</p>
+        <p class="hp-take">A free monthly download from Health Canada, so nothing sensitive leaves your machine. Fixed categories + temperature 0 keep every row grouped the same way.</p>
       </div>
     </div>
   </div>
