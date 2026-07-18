@@ -128,6 +128,12 @@
   .eq-claude .eq-h { font: 600 1.15vw "Work Sans", sans-serif; color: var(--ink); margin: 0 0 0.1vw; }
   .eq-claude .eq-ctxt { font: 400 0.98vw/1.42 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
   .eq-claude .eq-ctxt b { color: #4a5d33; font-weight: 600; }
+  .eq-prompt { background: #f3ede2; border-radius: 12px; padding: 0.6vw 1.1vw; margin-bottom: 0.7vw; }
+  .eq-prompt .eq-plbl { font: 400 0.82vw "Work Sans", sans-serif; letter-spacing: 0.05em; text-transform: uppercase; color: #a49e8d; margin: 0 0 0.2vw; }
+  .eq-prompt .eq-ptxt { font: 400 1.02vw/1.4 "Work Sans", sans-serif; color: var(--ink); margin: 0; }
+  .eqc-1, .eqc-2, .eqc-3 { display: none; }
+  #eq-1:checked ~ .eq-after .eqc-1, #eq-2:checked ~ .eq-after .eqc-2, #eq-3:checked ~ .eq-after .eqc-3 { display: block; }
+  #eq-1:checked ~ .eq-after .eqp-1, #eq-2:checked ~ .eq-after .eqp-2, #eq-3:checked ~ .eq-after .eqp-3 { display: none; }
 </style>
 
 
@@ -590,32 +596,49 @@ Ublituximab (NCT07220252),Phase 2/3 RCT active+placebo multi-part,Children 10-17
       <p class="eq-atxt"><b>Design:</b> Ph2/3 RCT, active + placebo, multi-part &nbsp;&middot;&nbsp; <b>Population:</b> Children 10&ndash;17, RMS, EDSS 0&ndash;5.5, n&approx;240 &nbsp;&middot;&nbsp; <b>Intervention:</b> Ublituximab vs fingolimod / placebo &nbsp;&middot;&nbsp; <b>Primary outcome:</b> PK/PD and B-cell counts (A); ARR (B) &nbsp;&middot;&nbsp; <b>Status:</b> Recruiting</p>
     </div>
 
+    <div class="eq-prompt">
+      <p class="eq-plbl">The prompt sent to each reviewer</p>
+      <p class="eq-ptxt">&ldquo;You are an independent reviewer. Below is another model's extraction of a clinical trial, plus the trial's ClinicalTrials.gov record. Check every field against the record. Flag anything unsupported, incomplete, or oversimplified.&rdquo;</p>
+    </div>
+
+    <div class="gx-wrap">
+    <input type="checkbox" id="eq-1"><input type="checkbox" id="eq-2"><input type="checkbox" id="eq-3">
+    <div class="eq-after">
     <div class="eq-cols">
-      <div class="eq-card">
-        <p class="eq-h">ChatGPT</p>
-        <p class="eq-sub">Independent, different model. Flags:</p>
-        <ul class="eq-list">
-          <li>Design omits Part C; comparator structure differs by part.</li>
-          <li><b>&ldquo;RCT&rdquo; over-claims randomization</b>: only Part B's comparison is verified.</li>
-          <li><b>Part B is a non-inferiority design</b>; misses the week-96 and week-168 horizons.</li>
-          <li>Deeper on exclusions: prior anti-CD20, S1P modulators, recent steroids.</li>
-        </ul>
+      <div>
+        <label class="gx-ph eqp-1" for="eq-1">Reviewer: ChatGPT</label>
+        <div class="eq-card eqc-1">
+          <p class="eq-h">Reviewer: ChatGPT</p>
+          <p class="eq-sub">Independent, different model. Flags:</p>
+          <ul class="eq-list">
+            <li>Design omits Part C; comparator structure differs by part.</li>
+            <li><b>&ldquo;RCT&rdquo; over-claims randomization</b>: only Part B's comparison is verified.</li>
+            <li><b>Part B is a non-inferiority design</b>; misses the week-96 and week-168 horizons.</li>
+            <li>Deeper on exclusions: prior anti-CD20, S1P modulators, recent steroids.</li>
+          </ul>
+        </div>
       </div>
-      <div class="eq-card">
-        <p class="eq-h">Gemini</p>
-        <p class="eq-sub">Independent, different model. Flags:</p>
-        <ul class="eq-list">
-          <li>Design omits the three-part structure; Part C missing entirely.</li>
-          <li><b>Population drops the Part A weight limit (25&ndash;40 kg)</b> and the 30-day stability rule.</li>
-          <li>Comparators are part-specific: fingolimod in Part B only.</li>
-          <li>Primary outcome omits the named PK endpoints (AUC, Cmax).</li>
-        </ul>
+      <div>
+        <label class="gx-ph eqp-2" for="eq-2">Reviewer: Gemini</label>
+        <div class="eq-card eqc-2">
+          <p class="eq-h">Reviewer: Gemini</p>
+          <p class="eq-sub">Independent, different model. Flags:</p>
+          <ul class="eq-list">
+            <li>Design omits the three-part structure; Part C missing entirely.</li>
+            <li><b>Population drops the Part A weight limit (25&ndash;40 kg)</b> and the 30-day stability rule.</li>
+            <li>Comparators are part-specific: fingolimod in Part B only.</li>
+            <li>Primary outcome omits the named PK endpoints (AUC, Cmax).</li>
+          </ul>
+        </div>
       </div>
     </div>
 
-    <div class="eq-claude">
-      <p class="eq-h">And Claude, in a fresh chat</p>
+    <label class="gx-ph eqp-3" for="eq-3" style="margin-top: 0.7vw;">Reviewer: Claude, in a fresh chat</label>
+    <div class="eq-claude eqc-3">
+      <p class="eq-h">Reviewer: Claude, in a fresh chat</p>
       <p class="eq-ctxt">Asked to check its own extraction, a new Claude chat caught the big gaps too (the missing Part C, the dropped weight criteria) <b>plus two the others underplayed:</b> &ldquo;n&approx;240&rdquo; is falsely approximate (240 is a precise target), and &ldquo;RCT&rdquo; is an unverified field, not a confirmed one. Self-review isn't worthless, but only when it actually checks the record instead of ratifying.</p>
+    </div>
+    </div>
     </div>
 
     <p class="gd-take"><b>The takeaway:</b> the author can't see its own blind spots. A different model catches them, and two different models catch different things. Even a fresh pass from the same model helps, as long as it verifies against the primary record rather than trusting the first answer.</p>
