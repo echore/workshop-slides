@@ -633,7 +633,7 @@
       </div>
 
       <div class="hp-side demo">
-        <p class="hp-codetitle">Example &middot; Canada Vigilance &middot; 1965&ndash;2026, updated monthly</p>
+        <p class="hp-codetitle">Example &middot; a 200,000-report sample from Canada Vigilance</p>
         <pre class="hp-code"><span class="c"># 1. connect once</span>
 client = OpenAI(api_key=<span class="s">MY_KEY</span>)
 
@@ -648,14 +648,14 @@ r = client.responses.create(
   temperature=<span class="s">0</span>,
 )
 
-<span class="c"># 3. loop the public monthly extract</span>
+<span class="c"># 3. loop the sample (public, 1965&ndash;2026)</span>
 <span class="k">for</span> term <span class="k">in</span> reaction_terms:
   rows.append(group(term))</pre>
         <div class="hp-out"><span class="lbl">What comes back</span>
           <span class="mono">{"term": "hepatocellular injury",</span><br>
           <span class="mono">&nbsp;"group": "hepatic", "confidence": "high"}</span>
         </div>
-        <p class="hp-take">A free monthly download from Health Canada, so nothing sensitive leaves your machine. Fixed categories + temperature 0 keep every row grouped the same way.</p>
+        <p class="hp-take">A free monthly download from Health Canada, so nothing sensitive leaves your machine. Fixed categories + temperature 0 keep all 200,000 grouped the same way.</p>
       </div>
     </div>
   </div>
