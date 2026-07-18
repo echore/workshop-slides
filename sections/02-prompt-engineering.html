@@ -1,6 +1,22 @@
 <style>
   .pe-hl { background: #bcd1a6; color: #2f4318; padding: 0.02em 0.28em; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 
+  /* ===== The Principles · click-to-reveal ===== */
+  .pr-wrap > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .pr-card { cursor: pointer; display: block; transition: background 0.2s ease; }
+  .pr-body { display: none; }
+  .pr-hint { font: 400 1.4vw "Work Sans", sans-serif; color: #b6b0a0; font-style: italic; }
+  #pr-1:checked ~ .pr-list .pr-c1 .pr-body,
+  #pr-2:checked ~ .pr-list .pr-c2 .pr-body,
+  #pr-3:checked ~ .pr-list .pr-c3 .pr-body,
+  #pr-4:checked ~ .pr-list .pr-c4 .pr-body,
+  #pr-5:checked ~ .pr-list .pr-c5 .pr-body { display: block; }
+  #pr-1:checked ~ .pr-list .pr-c1 .pr-hint,
+  #pr-2:checked ~ .pr-list .pr-c2 .pr-hint,
+  #pr-3:checked ~ .pr-list .pr-c3 .pr-hint,
+  #pr-4:checked ~ .pr-list .pr-c4 .pr-hint,
+  #pr-5:checked ~ .pr-list .pr-c5 .pr-hint { display: none; }
+
   /* ===== Give Direction · all-visible grid ===== */
   .gd-wrap { position: absolute; top: 11%; bottom: 4%; left: 5vw; right: 5vw; display: flex; flex-direction: column; gap: 1vw; }
   .gd-wrap .concept-label { margin-bottom: 0.5vw; }
@@ -157,41 +173,63 @@
       <p class="concept-label" style="text-align: left;">The principles</p>
       <p class="body" style="font-size: 1.6vw; line-height: 1.35; text-align: left; max-width: 74vw;">Prompt engineering is the discipline that has grown up around a set of best practices for making AI output more reliable, efficient, and accurate.</p>
     </div>
-    <div style="display: flex; flex-direction: column; gap: 0.9vw; width: 100%;">
-      <div class="card" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
-        <span class="chip card--sage" style="font-size: 1.5vw;">1</span>
-        <div>
-          <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Give direction</p>
-          <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Tell it who to be and what style to aim for.</p>
-        </div>
-      </div>
-      <div class="card" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
-        <span class="chip card--sage" style="font-size: 1.5vw;">2</span>
-        <div>
-          <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Specify format</p>
-          <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Say what structure you want the answer in.</p>
-        </div>
-      </div>
-      <div class="card" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
-        <span class="chip card--sage" style="font-size: 1.5vw;">3</span>
-        <div>
-          <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Show an example</p>
-          <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Give one worked case and it matches the pattern.</p>
-        </div>
-      </div>
-      <div class="card" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
-        <span class="chip card--sage" style="font-size: 1.5vw;">4</span>
-        <div>
-          <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Evaluate quality</p>
-          <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Check the output; ask it to rate or fix its own work.</p>
-        </div>
-      </div>
-      <div class="card" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
-        <span class="chip card--sage" style="font-size: 1.5vw;">5</span>
-        <div>
-          <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Divide the work</p>
-          <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Break big tasks into steps, done one at a time.</p>
-        </div>
+    <div class="pr-wrap" style="display: flex; flex-direction: column; gap: 0.9vw; width: 100%;">
+      <input type="checkbox" id="pr-1">
+      <input type="checkbox" id="pr-2">
+      <input type="checkbox" id="pr-3">
+      <input type="checkbox" id="pr-4">
+      <input type="checkbox" id="pr-5">
+      <div class="pr-list" style="display: flex; flex-direction: column; gap: 0.9vw; width: 100%;">
+        <label class="card pr-card pr-c1" for="pr-1" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+          <span class="chip card--sage" style="font-size: 1.5vw;">1</span>
+          <div>
+            <span class="pr-hint">click to reveal</span>
+            <div class="pr-body">
+              <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Give direction</p>
+              <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Tell it who to be and what style to aim for.</p>
+            </div>
+          </div>
+        </label>
+        <label class="card pr-card pr-c2" for="pr-2" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+          <span class="chip card--sage" style="font-size: 1.5vw;">2</span>
+          <div>
+            <span class="pr-hint">click to reveal</span>
+            <div class="pr-body">
+              <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Specify format</p>
+              <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Say what structure you want the answer in.</p>
+            </div>
+          </div>
+        </label>
+        <label class="card pr-card pr-c3" for="pr-3" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+          <span class="chip card--sage" style="font-size: 1.5vw;">3</span>
+          <div>
+            <span class="pr-hint">click to reveal</span>
+            <div class="pr-body">
+              <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Show an example</p>
+              <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Give one worked case and it matches the pattern.</p>
+            </div>
+          </div>
+        </label>
+        <label class="card pr-card pr-c4" for="pr-4" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+          <span class="chip card--sage" style="font-size: 1.5vw;">4</span>
+          <div>
+            <span class="pr-hint">click to reveal</span>
+            <div class="pr-body">
+              <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Evaluate quality</p>
+              <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Check the output; ask it to rate or fix its own work.</p>
+            </div>
+          </div>
+        </label>
+        <label class="card pr-card pr-c5" for="pr-5" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+          <span class="chip card--sage" style="font-size: 1.5vw;">5</span>
+          <div>
+            <span class="pr-hint">click to reveal</span>
+            <div class="pr-body">
+              <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Divide the work</p>
+              <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Break big tasks into steps, done one at a time.</p>
+            </div>
+          </div>
+        </label>
       </div>
     </div>
   </div>
