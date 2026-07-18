@@ -1,501 +1,253 @@
 <style>
-  .concept-label { font: 500 3vw "Cormorant Garamond", serif; color: var(--ink); margin: 0; }
+  .pe-hl { background: #bcd1a6; color: #2f4318; padding: 0.02em 0.28em; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+
+  /* ===== The Principles · click-to-reveal ===== */
+  .pr-wrap > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .pr-card { cursor: pointer; display: block; transition: background 0.2s ease; }
+  .pr-body { display: none; }
+  .pr-hint { font: 400 1.4vw "Work Sans", sans-serif; color: #b6b0a0; font-style: italic; }
+
+  /* ===== Example grids · click-to-reveal cells ===== */
+  .gx-wrap > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .gx-ph { display: flex; align-items: center; justify-content: center; border: 2px dashed #d5cdb8; border-radius: 12px;
+           background: transparent; cursor: pointer; min-height: 4vw; padding: 0.8vw 1vw;
+           font: 400 1vw "Work Sans", sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: #b6b0a0; }
+  .gx-ph:hover { border-color: #b9b3a2; color: #8a8577; }
+  .gx-cell { display: none; }
+  #gx-1:checked ~ .gd-grid .gx-c1, #gx-2:checked ~ .gd-grid .gx-c2, #gx-3:checked ~ .gd-grid .gx-c3,
+  #gx-4:checked ~ .gd-grid .gx-c4, #gx-5:checked ~ .gd-grid .gx-c5, #gx-6:checked ~ .gd-grid .gx-c6,
+  #sx-1:checked ~ .gd-grid .gx-c1, #sx-2:checked ~ .gd-grid .gx-c2, #sx-3:checked ~ .gd-grid .gx-c3,
+  #sx-4:checked ~ .gd-grid .gx-c4,
+  #fx-1:checked ~ .gd-grid .gx-c1, #fx-2:checked ~ .gd-grid .gx-c2, #fx-3:checked ~ .gd-grid .gx-c3,
+  #fx-4:checked ~ .gd-grid .gx-c4, #fx-5:checked ~ .gd-grid .gx-c5, #fx-6:checked ~ .gd-grid .gx-c6 { display: block; }
+  #gx-1:checked ~ .gd-grid .gx-p1, #gx-2:checked ~ .gd-grid .gx-p2, #gx-3:checked ~ .gd-grid .gx-p3,
+  #gx-4:checked ~ .gd-grid .gx-p4, #gx-5:checked ~ .gd-grid .gx-p5, #gx-6:checked ~ .gd-grid .gx-p6,
+  #sx-1:checked ~ .gd-grid .gx-p1, #sx-2:checked ~ .gd-grid .gx-p2, #sx-3:checked ~ .gd-grid .gx-p3,
+  #sx-4:checked ~ .gd-grid .gx-p4,
+  #fx-1:checked ~ .gd-grid .gx-p1, #fx-2:checked ~ .gd-grid .gx-p2, #fx-3:checked ~ .gd-grid .gx-p3,
+  #fx-4:checked ~ .gd-grid .gx-p4, #fx-5:checked ~ .gd-grid .gx-p5, #fx-6:checked ~ .gd-grid .gx-p6 { display: none; }
+  #pr-1:checked ~ .pr-list .pr-c1 .pr-body,
+  #pr-2:checked ~ .pr-list .pr-c2 .pr-body,
+  #pr-3:checked ~ .pr-list .pr-c3 .pr-body,
+  #pr-4:checked ~ .pr-list .pr-c4 .pr-body,
+  #pr-5:checked ~ .pr-list .pr-c5 .pr-body { display: block; }
+  #pr-1:checked ~ .pr-list .pr-c1 .pr-hint,
+  #pr-2:checked ~ .pr-list .pr-c2 .pr-hint,
+  #pr-3:checked ~ .pr-list .pr-c3 .pr-hint,
+  #pr-4:checked ~ .pr-list .pr-c4 .pr-hint,
+  #pr-5:checked ~ .pr-list .pr-c5 .pr-hint { display: none; }
+
+  /* ===== Give Direction · all-visible grid ===== */
+  .gd-wrap { position: absolute; top: 8%; bottom: 3%; left: 5vw; right: 5vw; display: flex; flex-direction: column; gap: 0.7vw; }
+  .gd-wrap .concept-label { margin-bottom: 0.1vw; }
+  .gd-title { font-size: 1.7vw; line-height: 1.25; text-align: left; margin: 0.15vw 0 0.5vw; }
+  .gd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8vw; }
+  .gd-cell { background: #faf8f0; border-radius: 12px; padding: 0.85vw 1.1vw; }
+  .gd-lbl { font: 400 0.85vw "Work Sans", sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: #a49e8d; margin: 0 0 0.35vw; }
+  .gd-txt { font: 400 1.15vw/1.45 "Work Sans", sans-serif; color: var(--ink); margin: 0; }
+  .gd-txt.gd-soft { color: var(--ink-soft); }
+  .gd-take { margin-top: auto; padding-top: 0.8vw; border-top: 1.5px solid var(--rule-soft); font: 400 1.15vw/1.5 "Work Sans", sans-serif; color: var(--ink-soft); }
+  .gd-take b { color: #2f4318; font-weight: 600; }
+
+  /* hover/tap reveal of the real model output */
+  .gd-out { position: relative; }
+  .gd-out .gd-full {
+    display: block; max-height: 0; overflow: hidden; opacity: 0;
+    margin-top: 0; transition: max-height 0.28s ease, opacity 0.22s ease, margin-top 0.28s ease;
+    font: 400 0.98vw/1.5 "Work Sans", sans-serif; color: var(--ink);
+    border-top: 1px solid var(--rule-soft); padding-top: 0;
+  }
+  .gd-out:hover .gd-full, .gd-out:focus-within .gd-full, .gd-out.gd-open .gd-full {
+    max-height: 30vw; opacity: 1; margin-top: 0.55vw; padding-top: 0.55vw;
+  }
+  .gd-out .gd-peek { font: 400 0.75vw "Work Sans", sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: #b6b0a0; margin-top: 0.35vw; }
+  .gd-out:hover .gd-peek, .gd-out:focus-within .gd-peek, .gd-out.gd-open .gd-peek { display: none; }
+  .gd-out { cursor: pointer; }
+  .gd-full em.gd-em { font-style: normal; font-weight: 600; color: var(--ink); background: rgba(188, 209, 166, 0.32); border-radius: 3px; padding: 0 0.15em; }
+
+  /* ===== Connectors intro · radial ===== */
+  .conn-wrap { position: absolute; top: 10%; bottom: 4%; left: 5vw; right: 5vw; display: flex; flex-direction: column; align-items: center; gap: 0.6vw; }
+  .conn-head { text-align: center; }
+  .conn-stage { position: relative; flex: 1; width: 100%; margin-top: 0.5vw; }
+  .conn-lines { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .conn-star { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 11vw; height: 11vw; }
+  .conn-node { position: absolute; transform: translate(-50%, -50%); width: 19vw; background: #faf8f0; border: 1.5px solid var(--rule-soft); border-radius: 14px; padding: 0.7vw 1vw; text-align: center; }
+  .conn-node .cn-name { font: 600 1.35vw "Work Sans", sans-serif; color: var(--ink); margin: 0; }
+  .conn-node .cn-desc { font: 400 1.05vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0.2vw 0 0; }
+  .conn-node .cn-tag { display: inline-block; font: 400 0.8vw "Work Sans", sans-serif; letter-spacing: 0.03em; text-transform: uppercase; color: #7d8a68; margin-top: 0.35vw; }
+  .conn-node.cn-hl { border: 2.5px solid #8faa6b; background: #eef3e6; }
+  .conn-node.cn-hl .cn-tag { color: #4a5d33; font-weight: 600; }
+  .conn-auth { font: 400 0.95vw "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; margin-top: 0.3vw; }
+
+  /* ===== Divide the Work · two-condition comparison ===== */
+  .dw-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1vw; }
+  .dw-card { background: #faf8f0; border: 1.5px solid var(--rule-soft); border-radius: 14px; padding: 1vw 1.3vw; display: flex; flex-direction: column; gap: 0.5vw; }
+  .dw-card.dw-win { border: 2.5px solid #8faa6b; background: #eef3e6; }
+  .dw-clbl { font: 600 1.3vw "Work Sans", sans-serif; color: var(--ink); margin: 0; }
+  .dw-prompt { font: 400 1.05vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
+  .dw-prompt .dw-q { display: block; margin: 0.15vw 0; }
+  .dw-scorewrap { display: flex; align-items: baseline; gap: 0.5vw; margin-top: auto; padding-top: 0.6vw; }
+  .dw-score { font: 700 2.6vw "Work Sans", sans-serif; line-height: 1; color: #b06a4f; }
+  .dw-win .dw-score { color: #4a5d33; }
+  .dw-scoresub { font: 400 1vw "Work Sans", sans-serif; color: var(--ink-soft); }
+  .dw-why { background: #f3ede2; border-radius: 12px; padding: 0.85vw 1.3vw; margin-top: 0.3vw; }
+  .dw-why-h { font: 600 1.05vw "Work Sans", sans-serif; color: var(--ink); margin: 0 0 0.35vw; }
+  .dw-why-h .dw-hl { background: #e6c9bd; color: #7a3f2a; border-radius: 3px; padding: 0 0.25em; }
+  .dw-traps { display: grid; grid-template-columns: 1fr 1fr; gap: 1vw; }
+  .dw-trap { font: 400 0.98vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
+  .dw-trap b { color: var(--ink); font-weight: 600; }
+
+  /* format artifacts inside reveals */
+  .gd-full table.fmt { border-collapse: collapse; width: 100%; font-size: 0.8vw; margin-top: 0.15vw; }
+  .gd-full table.fmt th, .gd-full table.fmt td { border: 1px solid var(--rule-soft); padding: 0.22vw 0.4vw; text-align: left; vertical-align: top; }
+  .gd-full table.fmt th { background: #eef3e6; font-weight: 600; color: var(--ink); }
+  .gd-full pre.fmt { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 0.8vw; line-height: 1.45; white-space: pre-wrap; word-break: break-word; margin: 0.15vw 0 0; color: var(--ink); }
+
+  /* ===== Evaluate Quality · independent checks ===== */
+  .eq-author { background: #faf8f0; border: 1.5px solid var(--rule-soft); border-radius: 12px; padding: 0.75vw 1.1vw; margin-bottom: 0.7vw; }
+  .eq-author .eq-albl { font: 400 0.82vw "Work Sans", sans-serif; letter-spacing: 0.05em; text-transform: uppercase; color: #a49e8d; margin: 0 0 0.3vw; }
+  .eq-author .eq-atxt { font: 400 1.02vw/1.4 "Work Sans", sans-serif; color: var(--ink); margin: 0; }
+  .eq-author .eq-atxt b { font-weight: 600; }
+  .eq-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1vw; }
+  .eq-card { background: #faf8f0; border: 1.5px solid var(--rule-soft); border-radius: 12px; padding: 0.75vw 1.1vw; }
+  .eq-card .eq-h { font: 600 1.15vw "Work Sans", sans-serif; color: var(--ink); margin: 0 0 0.1vw; }
+  .eq-card .eq-sub { font: 400 0.85vw "Work Sans", sans-serif; color: var(--ink-soft); margin: 0 0 0.45vw; }
+  .eq-list { margin: 0; padding: 0; list-style: none; }
+  .eq-list li { font: 400 0.98vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0 0 0.3vw; padding-left: 1.1vw; position: relative; }
+  .eq-list li::before { content: "\25B8"; position: absolute; left: 0; color: #b9b3a2; }
+  .eq-list li b { color: var(--ink); font-weight: 600; }
+  .eq-claude { background: #eef3e6; border: 1.5px solid #8faa6b; border-radius: 12px; padding: 0.75vw 1.1vw; margin-top: 0.7vw; }
+  .eq-claude .eq-h { font: 600 1.15vw "Work Sans", sans-serif; color: var(--ink); margin: 0 0 0.1vw; }
+  .eq-claude .eq-ctxt { font: 400 0.98vw/1.42 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
+  .eq-claude .eq-ctxt b { color: #4a5d33; font-weight: 600; }
 </style>
 
-<section class="slide" data-label="Title">
-  <div class="eyebrow" style="font-size: 1.4vw;">AI4PH &middot; Workshop</div>
-  <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 10%; bottom: 10%; gap: 1.2vw;">
-    <p class="kicker" style="font-size: 1.9vw;">July 20, 2026</p>
-    <h1 class="headline" style="font-size: 4vw; max-width: 84vw;">Introduction to Generative AI<br>for Public Health</h1>
-    <p class="subhead" style="color: var(--ink-soft);">From Chatbots to Agents</p>
-    <p class="body" style="font-size: 1.7vw; margin-top: 1vw;">Presented by Melissa Ouellet &amp; Yachen Li</p>
-  </div>
-</section>
 
-<!-- ============================================================
-     SCHEDULE  —  paste directly after the Title </section>
-     and before the "Hook" <section>.
-     Uses existing deck classes + CSS variables only.
-     Rhythm per section: poll -> theory -> exercise.
-     ============================================================ -->
-<style>
-  .sched-legend { display: flex; align-items: center; gap: 0.7vw; margin-bottom: 0.4vw;
-                  font: 400 1.3vw "Work Sans", sans-serif; color: var(--ink-soft); }
-  .sched-legend .lg { padding: 0.25vw 0.9vw; border-radius: 999px; border: 1.5px solid var(--rule-soft); }
-  .sched-legend .ar { font-size: 1.1vw; }
-
-  .sched-list { display: flex; flex-direction: column; gap: 0.75vw; width: 78vw; }
-
-  .sched-sec { display: grid; grid-template-columns: 11vw 1fr auto; align-items: center;
-               gap: 1.6vw; padding: 1.05vw 1.6vw; border-radius: 1.1vw; text-align: left;
-               border: 1.5px solid var(--rule-soft); border-left-width: 0.55vw; }
-  .sched-sec.s1 { border-left-color: var(--pink);  background: #F6EAF1; }
-  .sched-sec.s2 { border-left-color: var(--lemon); background: #F4F5D6; }
-  .sched-sec.s3 { border-left-color: var(--blush); background: #F8EEE6; }
-  .sched-sec.s4 { border-left-color: var(--sage);  background: #ECF1E2; }
-  .sched-sec.s5 { border-left-color: var(--lilac); background: #EEEAF4; }
-
-  .sched-span { font: italic 500 1.35vw "Cormorant Garamond", serif; color: var(--ink-soft); text-align: left; }
-  .sched-name { font: 500 1.75vw "Work Sans", sans-serif; color: var(--ink); line-height: 1.1; text-align: left; }
-  .sched-who { font: italic 400 1.35vw "Cormorant Garamond", serif; color: var(--ink-soft);
-               white-space: nowrap; }
-
-  .sched-break { display: flex; align-items: center; justify-content: center; gap: 1vw;
-                 width: 78vw; padding: 0.35vw 0; }
-  .sched-break .line { flex: 1; height: 1.5px; background: var(--rule-soft); }
-  .sched-break span { font: italic 400 1.4vw "Cormorant Garamond", serif; color: var(--ink-soft);
-                      white-space: nowrap; }
-</style>
-
-<section class="slide" data-label="Schedule">
-  <div class="eyebrow" style="font-size: 1.4vw;">AI4PH &middot; Workshop</div>
-  <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 7%; bottom: 7%; gap: 0.9vw;">
-    <p class="kicker" style="font-size: 1.8vw;">9:00 AM &ndash; 12:00 PM</p>
-    <h1 class="headline" style="font-size: 3vw; margin-bottom: 0.1vw;">This morning</h1>
-    <p class="body" style="font-size: 1.35vw; color: var(--ink-soft); margin-bottom: 0.3vw;">
-      Every section runs the same way:
-    </p>
-    <div class="sched-legend">
-      <span class="lg">Poll</span>
-      <span class="ar">&rarr;</span>
-      <span class="lg">Short talk</span>
-      <span class="ar">&rarr;</span>
-      <span class="lg">Discussion</span>
-    </div>
-
-    <div class="sched-list">
-
-      <div class="sched-sec s1">
-        <span class="sched-span">9:00 &ndash; 9:30</span>
-        <span class="sched-name">LLM Foundations</span>
-        <span class="sched-who">Yachen &amp; Melissa</span>
-      </div>
-
-      <div class="sched-sec s2">
-        <span class="sched-span">9:30 &ndash; 10:10</span>
-        <span class="sched-name">Prompt Engineering</span>
-        <span class="sched-who">Melissa</span>
-      </div>
-
-      <div class="sched-break">
-        <span class="line"></span>
-        <span>&#9749;&nbsp; Coffee break &middot; 10:10 &ndash; 10:40</span>
-        <span class="line"></span>
-      </div>
-
-      <div class="sched-sec s3">
-        <span class="sched-span">10:40 &ndash; 10:55</span>
-        <span class="sched-name">Retrieval-Augmented Generation</span>
-        <span class="sched-who">Yachen</span>
-      </div>
-
-      <div class="sched-sec s4">
-        <span class="sched-span">10:55 &ndash; 11:10</span>
-        <span class="sched-name">Agents</span>
-        <span class="sched-who">Yachen</span>
-      </div>
-
-      <div class="sched-sec s5">
-        <span class="sched-span">11:10 &ndash; 11:50</span>
-        <span class="sched-name">Safety &amp; Regulatory considerations</span>
-        <span class="sched-who">Melissa</span>
-      </div>
-
-      <div class="sched-sec s1">
-        <span class="sched-span">11:50 &ndash; 12:00</span>
-        <span class="sched-name">Closing &amp; open discussion</span>
-        <span class="sched-who">All</span>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="slide" data-label="Hook">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
-  <div class="pagedot"></div>
-  <div style="position: absolute; top: 17%; bottom: 13%; left: 7%; right: 7%; display: grid; grid-template-columns: 0.9fr 1.1fr; align-items: center; gap: 4vw;">
-    <div style="display: flex; flex-direction: column; gap: 1.2vw; align-items: flex-start;">
-      <p class="kicker" style="font-size: 2vw;">Icebreaker</p>
-      <h1 class="headline" style="font-size: 3.7vw;">Chatbot yourself.</h1>
-      <p class="body" style="font-size: 1.55vw; line-height: 1.45; max-width: 34vw; color: var(--ink-soft);">Open your usual chatbot and ask the same question with your name.</p>
-      <div class="card" style="padding: 1vw 1.4vw; border-radius: 1.2vw;">
-        <p class="body" style="font-size: 1.5vw;">who is [your name]?</p>
-      </div>
-    </div>
-    <div style="display: flex; justify-content: center; align-items: center;">
-      <img src="images/chatbot-yourself-search.png" alt="Chatbot search box asking who is Yachen Li" style="width: 44vw; max-height: 22vw; object-fit: contain; border-radius: 1vw; box-shadow: 0 1vw 2.8vw rgba(42, 36, 27, 0.14);">
-    </div>
-  </div>
-</section>
-
-<!-- ===================== HOOK FOLLOW-UP (3 reveal cards) ===================== -->
-<style>
-  .hb-wrap > .hb-t { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
-  .hb-row { display: flex; gap: 2vw; width: 84vw; align-items: stretch; justify-content: center; }
-  .hb-card { flex: 1; display: flex; flex-direction: column; gap: 0.9vw; border: 1.5px solid var(--rule-soft);
-             border-radius: 1.4vw; padding: 1.6vw 1.5vw; cursor: pointer; text-align: left;
-             transition: transform .15s ease, border-color .15s ease; }
-  .hb-card:hover { transform: translateY(-0.4vw); border-color: var(--ink-soft); }
-  .hb-1 { background: #F6EAF1; } .hb-2 { background: #F4F5D6; } .hb-3 { background: #ECF1E2; }
-  .hb-q { font: 500 1.55vw/1.35 "Work Sans", sans-serif; color: var(--ink); margin: 0; }
-  .hb-reveal { margin-top: auto; }
-  .hb-prompt { font: italic 400 1.3vw "Cormorant Garamond", serif; color: var(--ink-soft); }
-  .hb-answer { display: none; flex-direction: column; gap: 0.4vw; }
-  .hb-lesson { font: 600 1.3vw "Work Sans", sans-serif; color: var(--ink); }
-  .hb-reason { font: 400 1.2vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
-  #hb1:checked ~ .hb-row label[for="hb1"] .hb-prompt,
-  #hb2:checked ~ .hb-row label[for="hb2"] .hb-prompt,
-  #hb3:checked ~ .hb-row label[for="hb3"] .hb-prompt { display: none; }
-  #hb1:checked ~ .hb-row label[for="hb1"] .hb-answer,
-  #hb2:checked ~ .hb-row label[for="hb2"] .hb-answer,
-  #hb3:checked ~ .hb-row label[for="hb3"] .hb-answer { display: flex; }
-  #hb1:checked ~ .hb-row label[for="hb1"],
-  #hb2:checked ~ .hb-row label[for="hb2"],
-  #hb3:checked ~ .hb-row label[for="hb3"] { border-color: var(--ink); }
-</style>
-
-<section class="slide" data-label="Hook debrief">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
-  <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.9vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.6vw;">
-      <p class="concept-label">Let&rsquo;s compare</p>
-      <h1 class="headline" style="font-size: 2.3vw;">What did your chatbot say about you?</h1>
-      <p class="body" style="font-size: 1.35vw; color: var(--ink-soft);">Hands up for each. Tap a card for what it reveals.</p>
-    </div>
-    <div class="hb-wrap">
-      <input class="hb-t" type="checkbox" id="hb1">
-      <input class="hb-t" type="checkbox" id="hb2">
-      <input class="hb-t" type="checkbox" id="hb3">
-      <div class="hb-row">
-        <label class="hb-card hb-1" for="hb1">
-          <p class="hb-q">Who got a single answer, but it wasn&rsquo;t you?</p>
-          <div class="hb-reveal">
-            <span class="hb-prompt">&#9656; tap to reveal</span>
-            <span class="hb-answer">
-              <span class="hb-lesson">Hallucination</span>
-              <p class="hb-reason">Confident, specific, and wrong. It filled the gap with a plausible person.</p>
-            </span>
-          </div>
-        </label>
-        <label class="hb-card hb-2" for="hb2">
-          <p class="hb-q">Who got several possible people, none of them right?</p>
-          <div class="hb-reveal">
-            <span class="hb-prompt">&#9656; tap to reveal</span>
-            <span class="hb-answer">
-              <span class="hb-lesson">Pattern, not identity</span>
-              <p class="hb-reason">It blends whoever is most common in the training data, not you.</p>
-            </span>
-          </div>
-        </label>
-        <label class="hb-card hb-3" for="hb3">
-          <p class="hb-q">Who got it right, whether one answer or several?</p>
-          <div class="hb-reveal">
-            <span class="hb-prompt">&#9656; tap to reveal</span>
-            <span class="hb-answer">
-              <span class="hb-lesson">Recall, not knowing</span>
-              <p class="hb-reason">You likely have a real online footprint it could echo back.</p>
-            </span>
-          </div>
-        </label>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="slide" data-label="LLM Foundations">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+<section class="slide" data-label="Prompt Engineering">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
   <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.4vw;">
-    <p class="kicker" style="font-size: 2vw;">Yachen Li</p>
-    <h1 class="headline" style="font-size: 3.6vw;">LLM Foundations</h1>
-    <p class="subhead" style="color: var(--ink-soft);">Know what it is before you trust it.</p>
+    <p class="kicker" style="font-size: 2vw;">Melissa Ouellet</p>
+    <h1 class="headline" style="font-size: 3.6vw;">Prompt Engineering</h1>
+    <p class="subhead" style="color: var(--ink-soft);">The one lever you control: what you put in.</p>
   </div>
 </section>
+
 
 <section class="slide" data-label="Poll">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.5vw;">
-    <p class="kicker" style="font-size: 2vw;">Quick poll</p>
-    <h1 class="headline" style="font-size: 3.3vw;">Which AI product do you use most?</h1>
-    <p class="body" style="font-size: 1.55vw; color: var(--ink-soft);">Say it out loud or raise your hand, and tell us why.</p>
-    <div class="chip-row" style="font-size: 1.65vw; gap: 0.9vw; max-width: 76vw;">
-      <span class="chip card--pink">ChatGPT</span>
-      <span class="chip card--lemon">Claude</span>
-      <span class="chip card--blush">Gemini</span>
-      <span class="chip card--sage">Copilot</span>
-      <span class="chip card--lilac">Perplexity</span>
-      <span class="chip chip--blank">Other / not sure</span>
+  <div class="layout-hero" style="top: 10%; bottom: 10%; gap: 1.6vw; align-items: center;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1vw;">
+      <p class="concept-label">Quick poll</p>
+      <h1 class="headline" style="font-size: 2.2vw; line-height: 1.25; max-width: 72vw;">When you ask AI to do something, how do you usually write it?</h1>
+      <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft);">Show of hands. Be honest.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 1vw; width: 62vw;">
+      <div class="card" style="padding: 1vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+        <span class="chip card--pink" style="font-size: 1.5vw;">A</span>
+        <p class="body" style="font-size: 1.7vw; margin: 0;">A quick line: &ldquo;summarize this,&rdquo; &ldquo;fix this,&rdquo; &ldquo;explain this.&rdquo;</p>
+      </div>
+      <div class="card" style="padding: 1vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+        <span class="chip card--sage" style="font-size: 1.5vw;">B</span>
+        <p class="body" style="font-size: 1.7vw; margin: 0;">I add a bit of context: who it's for and what I want back.</p>
+      </div>
+      <div class="card" style="padding: 1vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+        <span class="chip card--lilac" style="font-size: 1.5vw;">C</span>
+        <p class="body" style="font-size: 1.7vw; margin: 0;">I go further: I give examples, set the format, and say what not to do.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="slide" data-label="Training">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
-  <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.6vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
-      <p class="concept-label">Training</p>
-      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 74vw;">Trained on large datasets, it learned to predict the next token.</h1>
-    </div>
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8vw;">
-      <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 1vw; font-size: 1.6vw;">
-        <span class="chip card--pink">Read tokens</span>
-        <span style="color: var(--ink-soft);">&rarr;</span>
-        <span class="chip card--lemon">Predict next token</span>
-        <span style="color: var(--ink-soft);">&rarr;</span>
-        <span class="chip card--blush">Compare</span>
-        <span style="color: var(--ink-soft);">&rarr;</span>
-        <span class="chip card--sage">Adjust</span>
-      </div>
-      <p class="body-sm" style="font-size: 1.5vw; color: var(--ink-soft);">&#8635; repeated billions of times</p>
-    </div>
-    <div class="card" style="padding: 1.3vw 2.4vw; max-width: 64vw;">
-      <p class="body" style="font-size: 1.6vw; text-align: center;">It learned statistical patterns in language.</p>
-    </div>
-  </div>
-</section>
 
-<section class="slide" data-label="Token">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
-  <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.6vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
-      <p class="concept-label">Tokens</p>
-      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 76vw;">It spells any word from a small set of pieces, whole or split into parts.</h1>
-    </div>
-    <div style="display: flex; align-items: flex-end; justify-content: center; gap: 6vw;">
-      <div style="text-align: center;">
-        <div class="brick-row" style="justify-content: center;">
-          <div class="brick-col">
-            <div class="brick-studs"><span class="brick-stud" style="background: #c98aab;"></span><span class="brick-stud" style="background: #c98aab;"></span></div>
-            <div class="brick" style="background: var(--pink); font-size: 1.9vw;">health</div>
-          </div>
-        </div>
-        <p class="body-sm" style="font-size: 1.5vw; color: var(--ink-soft); margin-top: 0.9vw;">1 piece</p>
-      </div>
-      <div style="text-align: center;">
-        <div class="brick-row" style="justify-content: center;">
-          <div class="brick-col">
-            <div class="brick-studs"><span class="brick-stud" style="background: #b7bf4f;"></span><span class="brick-stud" style="background: #b7bf4f;"></span></div>
-            <div class="brick" style="background: var(--lemon); font-size: 1.9vw;">hand</div>
-          </div>
-          <div class="brick-col">
-            <div class="brick-studs"><span class="brick-stud" style="background: #d9ad94;"></span><span class="brick-stud" style="background: #d9ad94;"></span></div>
-            <div class="brick" style="background: var(--blush); font-size: 1.9vw;">wash</div>
-          </div>
-          <div class="brick-col">
-            <div class="brick-studs"><span class="brick-stud" style="background: #98ab86;"></span></div>
-            <div class="brick" style="background: var(--sage); font-size: 1.9vw;">ing</div>
-          </div>
-        </div>
-        <p class="body-sm" style="font-size: 1.5vw; color: var(--ink-soft); margin-top: 0.9vw;">3 pieces</p>
-      </div>
-    </div>
-    <div class="card" style="padding: 1.3vw 2.4vw; max-width: 64vw;">
-      <p class="body" style="font-size: 1.6vw; text-align: center;">Longer words are built from smaller, familiar pieces.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide" data-label="Prediction">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
-  <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.4vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
-      <p class="concept-label">Prediction</p>
-      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 76vw;">An LLM generates its response one token at a time.</h1>
-    </div>
-    <div style="display: flex; align-items: center; justify-content: center; gap: 0.7vw; font-size: 1.6vw;">
-      <span class="chip card--pink">The</span>
-      <span class="chip card--lemon">cat</span>
-      <span class="chip card--blush">sat</span>
-      <span class="chip card--sage">on</span>
-      <span class="chip card--lilac">the</span>
-      <span class="chip chip--blank">&hellip;?</span>
-    </div>
-    <div class="window-box" style="flex-direction: column; gap: 0.8vw; padding: 1.1vw 1.4vw; width: 40vw;">
-      <div class="bar-row" style="margin-bottom: 0;">
-        <span class="bar-label" style="width: 6vw; font-size: 1.5vw;">mat</span>
-        <div class="bar-track"><div class="bar-fill" style="width: 71%; background: var(--pink);"></div></div>
-        <span style="width: 4vw; font-size: 1.5vw; text-align: right; color: var(--ink-soft);">71%</span>
-      </div>
-      <div class="bar-row" style="margin-bottom: 0;">
-        <span class="bar-label" style="width: 6vw; font-size: 1.5vw;">floor</span>
-        <div class="bar-track"><div class="bar-fill" style="width: 15%; background: var(--lemon);"></div></div>
-        <span style="width: 4vw; font-size: 1.5vw; text-align: right; color: var(--ink-soft);">15%</span>
-      </div>
-      <div class="bar-row" style="margin-bottom: 0;">
-        <span class="bar-label" style="width: 6vw; font-size: 1.5vw;">roof</span>
-        <div class="bar-track"><div class="bar-fill" style="width: 6%; background: var(--sage);"></div></div>
-        <span style="width: 4vw; font-size: 1.5vw; text-align: right; color: var(--ink-soft);">6%</span>
-      </div>
-    </div>
-    <p class="body-sm" style="font-size: 1.5vw; color: var(--ink-soft);">&rarr;&rarr;&rarr; Each new token is based on the tokens before it.</p>
-  </div>
-</section>
-
-<section class="slide" data-label="Context">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+<section class="slide" data-label="Why">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
   <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.5vw;">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 1.3vw;">
-      <p class="concept-label">Context</p>
-      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 76vw;">The context window is the limited amount of information a model can process at one time.</h1>
+      <p class="concept-label">Why it matters</p>
+      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 76vw;">What you get out depends on what you put in.</h1>
     </div>
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.9vw;">
-      <div style="display: flex; align-items: center; justify-content: center; gap: 0.8vw; font-size: 1.5vw;">
-        <span class="chip faded">removed</span>
-        <span class="chip faded">summarized</span>
-        <div class="window-box" style="align-items: center; padding: 0.8vw 0.9vw; gap: 0.6vw;">
-          <span class="chip card--pink">message</span>
-          <span class="chip card--lemon">history</span>
-          <span class="chip card--blush">instructions</span>
-          <span class="chip card--sage">files</span>
-        </div>
-      </div>
-      <p class="body-sm" style="font-size: 1.5vw; color: var(--ink-soft);">&uarr; context window: everything given to the model for this request</p>
+    <div class="card" style="padding: 1.5vw 2.6vw; max-width: 62vw;">
+      <p class="body" style="font-size: 1.7vw; text-align: center; font-style: italic;">It's not about a magic word. What matters is &ldquo;the quality of ideas and the understanding of what you want.&rdquo;</p>
+      <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); text-align: center; margin-top: 0.6vw;">&nbsp;&nbsp;Sam Altman</p>
+    </div>
+    <div class="chip-row" style="gap: 1vw; font-size: 1.6vw;">
+      <span class="chip card--pink">More reliable</span>
+      <span class="chip card--lemon">More efficient</span>
+      <span class="chip card--blush">More accurate</span>
     </div>
     <div class="card" style="padding: 1.3vw 2.4vw; max-width: 66vw;">
-      <p class="body" style="font-size: 1.6vw; text-align: center;">When that limit is reached, some older information may need to be removed or summarized to make room for new input.</p>
+      <p class="body" style="font-size: 1.6vw; text-align: center;">A skill, like knowing Excel. And it comes down to a few core principles.</p>
     </div>
   </div>
 </section>
 
-<!-- ===================== HOW YOU REACH AI (comparison table) ===================== -->
-<style>
-  .cmp-table { display: grid; grid-template-columns: 15vw repeat(3, 1fr);
-               gap: 0.5vw; width: 82vw; }
-  .cmp-h { display: flex; flex-direction: column; align-items: center; justify-content: center;
-           gap: 0.15vw; text-align: center; padding: 0.85vw 0.8vw; border-radius: 0.9vw;
-           font: 500 1.55vw "Work Sans", sans-serif; color: var(--ink); }
-  .cmp-h small { font: italic 400 1.1vw "Cormorant Garamond", serif; opacity: 0.72; }
-  .cmp-rl { display: flex; align-items: center; padding: 0.6vw 1vw; border-radius: 0.9vw;
-            font: 600 1.4vw "Work Sans", sans-serif; color: var(--ink); background: var(--card-fill); }
-  .cmp-c { display: flex; align-items: center; justify-content: center; text-align: center;
-           padding: 0.6vw 1vw; border-radius: 0.9vw; border: 1.5px solid var(--rule-soft);
-           background: var(--paper); font: 400 1.3vw/1.3 "Work Sans", sans-serif; color: var(--ink-soft); }
-</style>
 
-<section class="slide" data-label="Access">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+<section class="slide" data-label="The Principles">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 10%; bottom: 10%; gap: 1.5vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1vw;">
-      <p class="concept-label">How you reach AI</p>
-      <h1 class="headline" style="font-size: 2vw; line-height: 1.25; max-width: 78vw;">Three doorways to the same cloud models, each with its own trade-offs.</h1>
+  <div class="layout-hero" style="top: 15%; bottom: 7%; gap: 1.4vw; align-items: flex-start; padding-left: 8vw; padding-right: 8vw;">
+    <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 1vw;">
+      <p class="concept-label" style="text-align: left;">The principles</p>
+      <p class="body" style="font-size: 1.6vw; line-height: 1.35; text-align: left; max-width: 74vw;">Prompt engineering is the discipline that has grown up around a set of best practices for making AI output more reliable, efficient, and accurate.</p>
     </div>
-
-    <div class="cmp-table">
-      <!-- header row -->
-      <div></div>
-      <div class="cmp-h" style="background: var(--pink);">Chatbot<small>in a browser</small></div>
-      <div class="cmp-h" style="background: var(--blush);">API<small>wired into your code</small></div>
-      <div class="cmp-h" style="background: var(--lilac);">Local<small>on your own machine</small></div>
-
-      <div class="cmp-rl">Setup effort</div>
-      <div class="cmp-c">Minimal, just sign up</div>
-      <div class="cmp-c">Moderate, needs code</div>
-      <div class="cmp-c">High, hardware + config</div>
-
-      <div class="cmp-rl">Privacy</div>
-      <div class="cmp-c">Low: data may be retained &amp; used for training</div>
-      <div class="cmp-c">Medium: no training on data; short-term retention</div>
-      <div class="cmp-c">High: data never leaves your machine</div>
-
-      <div class="cmp-rl">Scalability</div>
-      <div class="cmp-c">One user, manual</div>
-      <div class="cmp-c">High, programmatic</div>
-      <div class="cmp-c">Limited by hardware</div>
-
-      <div class="cmp-rl">Cost</div>
-      <div class="cmp-c">Flat subscription</div>
-      <div class="cmp-c">Pay-per-token</div>
-      <div class="cmp-c">Upfront hardware only</div>
-
-      <div class="cmp-rl">Use case</div>
-      <div class="cmp-c">Daily tasks by hand</div>
-      <div class="cmp-c">Systematic analyses</div>
-      <div class="cmp-c">Sensitive or offline work</div>
-    </div>
-  </div>
-</section>
-
-<style>
-  .pq-wrap > .pq-t { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
-  .pq-row { display: flex; gap: 2vw; width: 84vw; align-items: stretch; justify-content: center; }
-  .pq-card { flex: 1; display: flex; flex-direction: column; gap: 1vw; border: 1.5px solid var(--rule-soft); border-radius: 1.6vw; padding: 1.7vw 1.6vw; cursor: pointer; text-align: left; transition: border-color .15s ease, transform .15s ease, background .15s ease; }
-  .pq-b1 { background: #E8ECA9; }
-  .pq-b2 { background: #F2E1D7; }
-  .pq-b3 { background: #E1DBEC; }
-  .pq-card:hover { transform: translateY(-0.4vw); border-color: var(--ink-soft); }
-  .pq-num { display: inline-flex; align-items: center; justify-content: center; width: 2.6vw; height: 2.6vw; border-radius: 50%; background: rgba(42, 36, 27, 0.12); font: italic 500 1.5vw "Cormorant Garamond", serif; color: var(--ink); }
-  .pq-scenario { font: 400 1.5vw/1.42 "Work Sans", sans-serif; margin: 0; }
-  .pq-reveal { margin-top: auto; }
-  .pq-prompt { display: flex; align-items: center; gap: 0.5vw; font: italic 400 1.3vw "Cormorant Garamond", serif; color: var(--ink-soft); }
-  .pq-answer { display: none; flex-direction: column; gap: 0.7vw; }
-  .pq-answer .chip { align-self: flex-start; font-size: 1.6vw; }
-  .pq-reason { font: 400 1.3vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
-  #pq1:checked ~ .pq-row label[for="pq1"] .pq-prompt,
-  #pq2:checked ~ .pq-row label[for="pq2"] .pq-prompt,
-  #pq3:checked ~ .pq-row label[for="pq3"] .pq-prompt { display: none; }
-  #pq1:checked ~ .pq-row label[for="pq1"] .pq-answer,
-  #pq2:checked ~ .pq-row label[for="pq2"] .pq-answer,
-  #pq3:checked ~ .pq-row label[for="pq3"] .pq-answer { display: flex; }
-  #pq1:checked ~ .pq-row label[for="pq1"] { border-color: var(--ink); background: #E3E895; }
-  #pq2:checked ~ .pq-row label[for="pq2"] { border-color: var(--ink); background: #EFDACD; }
-  #pq3:checked ~ .pq-row label[for="pq3"] { border-color: var(--ink); background: #DAD2E7; }
-</style>
-
-<section class="slide" data-label="Practice">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
-  <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.9vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
-      <p class="concept-label">Your turn</p>
-      <h1 class="headline" style="font-size: 2.4vw;">Which way fits the job?</h1>
-      <p class="body" style="font-size: 1.4vw; color: var(--ink-soft);">Chatbot, API, or local? Guess, then tap a card.</p>
-    </div>
-    <div class="pq-wrap">
-      <input class="pq-t" type="checkbox" id="pq1">
-      <input class="pq-t" type="checkbox" id="pq2">
-      <input class="pq-t" type="checkbox" id="pq3">
-      <div class="pq-row">
-        <label class="pq-card pq-b1" for="pq1">
-          <span class="pq-num">1</span>
-          <p class="pq-scenario">8,000 open-ended survey answers to sort into themes.</p>
-          <div class="pq-reveal">
-            <span class="pq-prompt">&#9656; tap to reveal</span>
-            <span class="pq-answer">
-              <span class="chip card--sage">API</span>
-              <p class="pq-reason">Many items, and repeatable. Build it once, run on all 8,000.</p>
-            </span>
+    <div class="pr-wrap" style="display: flex; flex-direction: column; gap: 0.9vw; width: 100%;">
+      <input type="checkbox" id="pr-1">
+      <input type="checkbox" id="pr-2">
+      <input type="checkbox" id="pr-3">
+      <input type="checkbox" id="pr-4">
+      <input type="checkbox" id="pr-5">
+      <div class="pr-list" style="display: flex; flex-direction: column; gap: 0.9vw; width: 100%;">
+        <label class="card pr-card pr-c1" for="pr-1" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+          <span class="chip card--sage" style="font-size: 1.5vw;">1</span>
+          <div>
+            <span class="pr-hint">click to reveal</span>
+            <div class="pr-body">
+              <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Give direction</p>
+              <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Tell it who to be and what style to aim for.</p>
+            </div>
           </div>
         </label>
-        <label class="pq-card pq-b2" for="pq2">
-          <span class="pq-num">2</span>
-          <p class="pq-scenario">A line list with patient names and addresses to summarize. None of it can leave your computer.</p>
-          <div class="pq-reveal">
-            <span class="pq-prompt">&#9656; tap to reveal</span>
-            <span class="pq-answer">
-              <span class="chip chip--blank">Local</span>
-              <p class="pq-reason">Sensitive data. It stays on your machine, even offline.</p>
-            </span>
+        <label class="card pr-card pr-c2" for="pr-2" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+          <span class="chip card--sage" style="font-size: 1.5vw;">2</span>
+          <div>
+            <span class="pr-hint">click to reveal</span>
+            <div class="pr-body">
+              <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Specify format</p>
+              <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Say what structure you want the answer in.</p>
+            </div>
           </div>
         </label>
-        <label class="pq-card pq-b3" for="pq3">
-          <span class="pq-num">3</span>
-          <p class="pq-scenario">One plain-language summary of a new vaccine guideline for the public.</p>
-          <div class="pq-reveal">
-            <span class="pq-prompt">&#9656; tap to reveal</span>
-            <span class="pq-answer">
-              <span class="chip card--pink">Chatbot</span>
-              <p class="pq-reason">Just one, and interactive. No code needed.</p>
-            </span>
+        <label class="card pr-card pr-c3" for="pr-3" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+          <span class="chip card--sage" style="font-size: 1.5vw;">3</span>
+          <div>
+            <span class="pr-hint">click to reveal</span>
+            <div class="pr-body">
+              <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Show an example</p>
+              <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Give one worked case and it matches the pattern.</p>
+            </div>
+          </div>
+        </label>
+        <label class="card pr-card pr-c4" for="pr-4" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+          <span class="chip card--sage" style="font-size: 1.5vw;">4</span>
+          <div>
+            <span class="pr-hint">click to reveal</span>
+            <div class="pr-body">
+              <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Evaluate quality</p>
+              <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Check the output; ask it to rate or fix its own work.</p>
+            </div>
+          </div>
+        </label>
+        <label class="card pr-card pr-c5" for="pr-5" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+          <span class="chip card--sage" style="font-size: 1.5vw;">5</span>
+          <div>
+            <span class="pr-hint">click to reveal</span>
+            <div class="pr-body">
+              <p class="body" style="font-size: 1.7vw; margin: 0; text-align: left;">Divide the work</p>
+              <p class="body-sm" style="font-size: 1.4vw; color: var(--ink-soft); margin: 0.2vw 0 0; text-align: left;">Break big tasks into steps, done one at a time.</p>
+            </div>
           </div>
         </label>
       </div>
@@ -503,552 +255,544 @@
   </div>
 </section>
 
-<!-- ============================================================
-     Add to 01-llm-foundations.html, AFTER the "Practice" </section>.
-     Order: Model types -> Different types -> PH examples (reveal)
-            -> Reasoning -> Reasoning test (reveal).
-     Uses existing deck classes + variables. concept-label is already
-     defined in this file's first <style> block.
-     (This supersedes the earlier 2-slide file — paste all of this.)
-     ============================================================ -->
 
-<!-- ===================== HOW-TO: API & LOCAL ===================== -->
-<style>
-  .ht-grid { display: grid; grid-template-columns: 3.4vw 1fr; row-gap: 1.1vw; column-gap: 1.1vw;
-             width: 60vw; align-items: start; text-align: left; }
-  .ht-n { display: flex; align-items: center; justify-content: center; width: 3vw; height: 3vw;
-          border-radius: 50%; font: 600 1.4vw "Work Sans", sans-serif; color: var(--ink); }
-  .ht-body { display: flex; flex-direction: column; gap: 0.35vw; padding-top: 0.35vw; }
-  .ht-step { font: 400 1.55vw/1.3 "Work Sans", sans-serif; color: var(--ink); margin: 0; }
-  .ht-step b { font-weight: 600; }
-  .ht-note { font: 400 1.2vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
-  .ht-sub { display: flex; flex-wrap: wrap; gap: 0.5vw; margin-top: 0.15vw; }
-  .ht-term { font: 400 1.2vw "Work Sans", sans-serif; padding: 0.25vw 0.9vw; border-radius: 0.7vw;
-             color: var(--ink); border: 1.5px solid var(--rule-soft); }
-  .ht-term b { font-weight: 600; }
-  .ht-code { font: 400 1.2vw "IBM Plex Mono", "Work Sans", monospace; padding: 0.1vw 0.5vw;
-             border-radius: 0.4vw; background: var(--card-fill); color: var(--ink); }
-  .ht-tools { display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
-              gap: 0.6vw 0.8vw; width: 74vw; }
-  .ht-tools .lbl { font: italic 400 1.2vw "Cormorant Garamond", serif; color: var(--ink-soft); }
-  .ht-tool { font: 400 1.25vw "Work Sans", sans-serif; padding: 0.3vw 1vw; border-radius: 999px;
-             color: var(--ink); }
-  .ht-tool small { color: var(--ink-soft); font-style: italic;
-                   font-family: "Cormorant Garamond", serif; font-size: 1.05vw; }
-
-  /* combined two-column layout */
-  .ht2-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; width: 84vw; align-items: stretch; }
-  .ht2-col { display: flex; flex-direction: column; gap: 0.7vw; padding: 1.4vw 1.6vw;
-             border-radius: 1.4vw; border: 1.5px solid var(--rule-soft); }
-  .ht2-col.api { background: #F6EAF1; }
-  .ht2-col.local { background: #ECF1E2; }
-  .ht2-title { font: 500 1.85vw "Work Sans", sans-serif; color: var(--ink); margin: 0; }
-  .ht2-sub { font: italic 400 1.3vw "Cormorant Garamond", serif; color: var(--ink-soft); margin: 0 0 0.3vw; }
-  .ht2-grid { display: grid; grid-template-columns: 2.2vw 1fr; row-gap: 0.7vw; column-gap: 0.8vw;
-              align-items: start; text-align: left; }
-  .ht2-n { display: flex; align-items: center; justify-content: center; width: 2vw; height: 2vw;
-           border-radius: 50%; background: var(--paper); font: 600 1.1vw "Work Sans", sans-serif; color: var(--ink); }
-  .ht2-step { font: 400 1.35vw/1.28 "Work Sans", sans-serif; color: var(--ink); margin: 0; padding-top: 0.15vw; }
-  .ht2-step b { font-weight: 600; }
-  .ht2-step small { display: block; font-size: 1.1vw; color: var(--ink-soft); font-style: italic;
-                    font-family: "Cormorant Garamond", serif; }
-  .ht2-code { font: 400 1.1vw "IBM Plex Mono", "Work Sans", monospace; padding: 0.05vw 0.4vw;
-              border-radius: 0.4vw; background: var(--paper); color: var(--ink); }
-  .ht2-tools { display: flex; flex-wrap: wrap; gap: 0.45vw; margin-top: auto; padding-top: 0.6vw; }
-  .ht2-tool { font: 400 1.1vw "Work Sans", sans-serif; padding: 0.2vw 0.75vw; border-radius: 999px;
-              background: var(--paper); color: var(--ink); border: 1.5px solid var(--rule-soft); }
-  .ht2-tool small { color: var(--ink-soft); font-style: italic;
-                    font-family: "Cormorant Garamond", serif; font-size: 0.95vw; }
-  .ht2-take { font: 400 1.2vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0.4vw 0 0; }
-</style>
-
-<!-- ===================== CHOOSING WITHIN A CHATBOT ===================== -->
-<style>
-  .pv-table { display: grid; grid-template-columns: 12vw repeat(4, 1fr); gap: 0.45vw; width: 86vw; }
-  .pv-h { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.1vw;
-          text-align: center; padding: 0.7vw 0.6vw; border-radius: 0.9vw;
-          font: 500 1.4vw "Work Sans", sans-serif; color: var(--ink); }
-  .pv-h small { font: italic 400 1.05vw "Cormorant Garamond", serif; opacity: 0.75; }
-  .pv-rl { display: flex; align-items: center; padding: 0.5vw 0.9vw; border-radius: 0.9vw;
-           font: 600 1.35vw "Work Sans", sans-serif; color: var(--ink); background: var(--card-fill); }
-  .pv-c { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-          padding: 0.5vw 0.7vw; border-radius: 0.9vw; border: 1.5px solid var(--rule-soft);
-          background: var(--paper); font: 400 1.28vw/1.25 "Work Sans", sans-serif; color: var(--ink); }
-  .pv-quote { display: flex; align-items: center; justify-content: center; text-align: center;
-              padding: 0.2vw 0.5vw; font: italic 400 1.1vw/1.25 "Cormorant Garamond", serif; color: var(--ink-soft); }
-  .pv-when { display: flex; align-items: center; justify-content: center; text-align: center;
-             padding: 0.55vw 0.7vw; border-radius: 0.9vw; background: var(--card-fill);
-             font: italic 400 1.18vw/1.3 "Cormorant Garamond", serif; color: var(--ink-soft); }
-  .pv-note { font: 400 1.3vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); text-align: center; max-width: 80vw; }
-  .pv-note b { color: var(--ink); font-weight: 600; }
-</style>
-
-<section class="slide" data-label="In practice: Chatbot">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+<section class="slide" data-label="Our Toolkit">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 8%; bottom: 8%; gap: 1.3vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5vw;">
-      <p class="concept-label">In practice</p>
-      <h1 class="headline" style="font-size: 2.1vw;">Using a chatbot</h1>
-      <p class="body" style="font-size: 1.32vw; color: var(--ink-soft);">Every chatbot offers the same three speeds. Different names, same choice: how capable, and how hard should it think?</p>
+  <div class="conn-wrap">
+    <div class="conn-head">
+      <p class="concept-label">Our worked example</p>
+      <h1 class="headline" style="font-size: 1.9vw; line-height: 1.3; max-width: 66vw; margin: 0.3vw auto 0;">Claude connects to the science stack. We'll use one live source throughout: ClinicalTrials.gov.</h1>
     </div>
+    <div class="conn-stage">
+      <svg class="conn-lines" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#c9b8a2" stroke-width="0.35" stroke-dasharray="0.6 1.1" fill="none" stroke-linecap="round">
+          <line x1="50" y1="50" x2="50" y2="16"/>
+          <line x1="50" y1="50" x2="17" y2="36"/>
+          <line x1="50" y1="50" x2="83" y2="36"/>
+          <line x1="50" y1="50" x2="26" y2="84"/>
+          <line x1="50" y1="50" x2="74" y2="84"/>
+        </g>
+      </svg>
+      <svg class="conn-star" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#a9c08f">
+          <g id="pet"><rect x="45.5" y="6" width="9" height="40" rx="4.5"/></g>
+          <use href="#pet" transform="rotate(36 50 50)"/>
+          <use href="#pet" transform="rotate(72 50 50)"/>
+          <use href="#pet" transform="rotate(108 50 50)"/>
+          <use href="#pet" transform="rotate(144 50 50)"/>
+          <use href="#pet" transform="rotate(180 50 50)"/>
+          <use href="#pet" transform="rotate(216 50 50)"/>
+          <use href="#pet" transform="rotate(252 50 50)"/>
+          <use href="#pet" transform="rotate(288 50 50)"/>
+          <use href="#pet" transform="rotate(324 50 50)"/>
+        </g>
+      </svg>
 
-    <input class="rv-t" type="checkbox" id="rv-chat">
-    <div class="rv-ask">
-      <p class="rv-q">These are the models each chatbot offers. Which do you think is fastest, which is most capable, and what does the last column do?</p>
-      <label class="rv-btn" for="rv-chat"><span class="lbl-show">&#9656; Show the comparison</span><span class="lbl-hide">&#9662; Hide the comparison</span></label>
+      <div class="conn-node" style="left: 50%; top: 12%;">
+        <p class="cn-name">Open Targets</p>
+        <p class="cn-desc">Link genes, pathways, and drug targets to disease.</p>
+      </div>
+      <div class="conn-node" style="left: 15%; top: 36%;">
+        <p class="cn-name">PubMed</p>
+        <p class="cn-desc">Search and summarize the biomedical literature.</p>
+      </div>
+      <div class="conn-node cn-hl" style="left: 85%; top: 36%;">
+        <p class="cn-name">ClinicalTrials.gov</p>
+        <p class="cn-desc">Search trials, pull details, match eligibility, analyze endpoints.</p>
+        <span class="cn-tag">Our example this section</span>
+      </div>
+      <div class="conn-node" style="left: 24%; top: 86%;">
+        <p class="cn-name">Benchling</p>
+        <p class="cn-desc">Lab notebooks, samples, sequences.</p>
+      </div>
+      <div class="conn-node" style="left: 76%; top: 86%;">
+        <p class="cn-name">BioRender</p>
+        <p class="cn-desc">Search figures and generate scientific illustrations.</p>
+      </div>
     </div>
-
-    <div class="pv-table">
-      <!-- header row (revealed) -->
-      <div class="pv-hide"></div>
-      <div class="pv-h pv-hide" style="background: var(--sage);">Fastest<small>simple, high volume</small></div>
-      <div class="pv-h pv-hide" style="background: var(--lemon);">Balanced<small>most everyday work</small></div>
-      <div class="pv-h pv-hide" style="background: var(--pink);">Most capable<small>hard, multi-step</small></div>
-      <div class="pv-h pv-hide" style="background: var(--lilac);">Think harder<small>the reasoning dial</small></div>
-
-      <div class="pv-rl">Claude</div>
-      <div class="pv-c">Haiku 4.5</div>
-      <div class="pv-c">Sonnet 5</div>
-      <div class="pv-c">Opus 4.8<small>Fable 5</small></div>
-      <div class="pv-c">Effort: Low &rarr; Max<small>+ Thinking toggle</small></div>
-
-      <div class="pv-rl">ChatGPT</div>
-      <div class="pv-c">Instant</div>
-      <div class="pv-c">Medium</div>
-      <div class="pv-c">High<small>GPT-5.6 Sol</small></div>
-      <div class="pv-c">Intelligence:<small>Instant / Medium / High</small></div>
-
-      <div class="pv-rl">Gemini</div>
-      <div class="pv-c">3.1 Flash-Lite</div>
-      <div class="pv-c">3.5 Flash</div>
-      <div class="pv-c">3.1 Pro</div>
-      <div class="pv-c">Extended thinking</div>
-
-      <!-- what Google calls each one (revealed) -->
-      <div class="pv-rl pv-hide" style="background: transparent;"></div>
-      <div class="pv-quote pv-hide">&ldquo;fastest answers&rdquo;</div>
-      <div class="pv-quote pv-hide">&ldquo;all-around help&rdquo;</div>
-      <div class="pv-quote pv-hide">&ldquo;advanced math &amp; code&rdquo;</div>
-      <div class="pv-quote pv-hide">&ldquo;complex problem solving&rdquo;</div>
-
-      <!-- when to reach for it (revealed) -->
-      <div class="pv-rl pv-hide" style="background: transparent;"></div>
-      <div class="pv-when pv-hide">a quick rewrite</div>
-      <div class="pv-when pv-hide">a summary, a draft</div>
-      <div class="pv-when pv-hide">an epi calculation</div>
-      <div class="pv-when pv-hide">when errors compound</div>
-    </div>
-
-    <p class="pv-note">
-      Turn it up when the task has <b>steps that build on each other</b>. Leave it low for straightforward language work: it is slower and burns your usage limits faster.
-    </p>
+    <p class="conn-auth">PubMed, Open Targets, and ClinicalTrials.gov connect with no login. Benchling and BioRender need an account.</p>
   </div>
 </section>
 
-<style>
-  /* split layout: instructions left, worked example right */
-  .hp-split { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 2.2vw; width: 84vw; align-items: stretch; }
-  .hp-side { display: flex; flex-direction: column; gap: 0.6vw; padding: 1.1vw 1.4vw; border-radius: 1.4vw;
-             border: 1.5px solid var(--rule-soft); text-align: left; }
-  .hp-side.api { background: #F6EAF1; }
-  .hp-side.local { background: #ECF1E2; }
-  .hp-side.demo { background: var(--paper); }
-  .hp-h { font: 500 1.6vw "Work Sans", sans-serif; color: var(--ink); margin: 0; text-align: left; }
-  .hp-sub { font: italic 400 1.2vw "Cormorant Garamond", serif; color: var(--ink-soft); margin: 0 0 0.2vw; text-align: left; }
-  .hp-grid { display: grid; grid-template-columns: 2.2vw 1fr; row-gap: 0.6vw; column-gap: 0.8vw; align-items: start; }
-  .hp-n { display: flex; align-items: center; justify-content: center; width: 2vw; height: 2vw;
-          border-radius: 50%; background: var(--paper); font: 600 1.1vw "Work Sans", sans-serif; color: var(--ink); }
-  .hp-step { font: 400 1.35vw/1.3 "Work Sans", sans-serif; color: var(--ink); margin: 0; padding-top: 0.15vw; text-align: left; }
-  .hp-step b { font-weight: 600; }
-  .hp-step small { display: block; font-size: 1.25vw; color: var(--ink-soft); font-style: italic;
-                   font-family: "Cormorant Garamond", serif; margin-top: 0.1vw; }
-  .hp-tools { display: flex; flex-wrap: wrap; gap: 0.45vw; margin-top: auto; padding-top: 0.5vw; }
-  .hp-tool { font: 400 1.1vw "Work Sans", sans-serif; padding: 0.2vw 0.8vw; border-radius: 999px;
-             background: var(--paper); color: var(--ink); border: 1.5px solid var(--rule-soft); }
-  .hp-tool small { color: var(--ink-soft); font-style: italic; font-family: "Cormorant Garamond", serif; font-size: 0.95vw; }
-  .hp-take { font: 400 1.15vw/1.35 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0.4vw 0 0; text-align: left; }
 
-  /* code block */
-  .hp-codetitle { font: 600 1vw "Work Sans", sans-serif; letter-spacing: 0.05em; text-transform: uppercase;
-                  color: var(--ink-soft); margin: 0; text-align: left; }
-  pre.hp-code { margin: 0; background: var(--card-fill); border-radius: 0.9vw; padding: 0.8vw 1.1vw;
-                font: 400 1.02vw/1.38 "IBM Plex Mono", monospace; color: var(--ink); overflow: hidden;
-                white-space: pre; text-align: left; }
-  pre.hp-code .c { color: var(--ink-soft); font-style: italic; }
-  pre.hp-code .k { color: #B0553C; }
-  pre.hp-code .s { color: #5f7a55; }
-  .hp-out { border-radius: 0.9vw; padding: 0.6vw 1.1vw; border: 1.5px dashed var(--rule-soft);
-            font: 400 1.15vw/1.4 "Work Sans", sans-serif; color: var(--ink); text-align: left; }
-  .hp-out .lbl { display: block; font: 600 0.95vw "Work Sans", sans-serif; letter-spacing: 0.05em;
-                 text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.25vw; }
-  .hp-out .mono { font-family: "IBM Plex Mono", monospace; font-size: 1.02vw; color: #5f7a55; }
-
-  /* ask-then-reveal */
-  .rv-ask { display: flex; flex-direction: column; align-items: center; gap: 0.5vw; }
-  .rv-q { font: italic 400 1.45vw "Cormorant Garamond", serif; color: var(--ink-soft); text-align: center; margin: 0; }
-  .rv-btn { font: 500 1.3vw "Work Sans", sans-serif; padding: 0.45vw 1.6vw; border-radius: 999px;
-            border: 1.5px solid var(--ink); color: var(--ink); background: var(--paper); cursor: pointer;
-            transition: all .15s ease; }
-  .rv-btn:hover { background: var(--ink); color: var(--paper); }
-  .rv-btn .lbl-hide { display: none; }
-  .rv-t { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
-  .rv-t:checked ~ .rv-ask .rv-btn:not(.rv-btn1):not(.rv-btn2) { background: var(--ink); color: var(--paper); }
-  .rv-t:checked ~ .rv-ask .rv-btn .lbl-show { display: none; }
-  .rv-t:checked ~ .rv-ask .rv-btn .lbl-hide { display: inline; }
-  .rv-t:checked ~ .rv-ask .rv-q { display: none; }
-  /* staged reveal: nothing -> left box -> right box */
-  .hp-split .hp-side.api, .hp-split .hp-side.local, .hp-split .hp-side.demo { display: none; }
-  .st1:checked ~ .hp-split .hp-side.api,
-  .st1:checked ~ .hp-split .hp-side.local { display: flex; }
-  .st2:checked ~ .hp-split .hp-side.demo { display: flex; }
-  .rv-btn2 { display: none; }
-  .st1:checked ~ .rv-ask .rv-btn2 { display: inline-block; }
-  .st1:checked ~ .rv-ask .rv-btn1 { background: var(--ink); color: var(--paper); }
-  .st2:checked ~ .rv-ask .rv-btn2 { background: var(--ink); color: var(--paper); }
-  .st1:checked ~ .rv-ask .rv-q { display: none; }
-  .rv-row { display: flex; gap: 0.7vw; align-items: center; }
-  .pv-hide { display: none !important; }
-  .rv-t:checked ~ .pv-table .pv-h.pv-hide { display: flex !important; }
-  .rv-t:checked ~ .pv-table .pv-quote.pv-hide,
-  .rv-t:checked ~ .pv-table .pv-when.pv-hide,
-  .rv-t:checked ~ .pv-table .pv-rl.pv-hide,
-  .rv-t:checked ~ .pv-table div.pv-hide:not(.pv-h) { display: flex !important; }
-  .rv-t:checked ~ .pv-note { display: block; }
-  .pv-note { display: none; }
-</style>
-
-<!-- ===== In practice: cloud API ===== -->
-<section class="slide" data-label="In practice: API">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+<section class="slide" data-label="Give Direction">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 4%; bottom: 4%; gap: 0.9vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4vw;">
-      <p class="concept-label">In practice</p>
-      <h1 class="headline" style="font-size: 2.1vw;">Using a cloud API</h1>
-      <p class="body" style="font-size: 1.3vw; color: var(--ink-soft);">When you want to run the same task over hundreds of thousands of public records, from your own code.</p>
-    </div>
+  <div class="gd-wrap">
+    <p class="concept-label" style="text-align: left;">Give Direction</p>
+    <h1 class="headline gd-title">Same trial, four prompts. Watch what each added instruction changes. Green = what's new.</h1>
+    <div class="gx-wrap">
+    <input type="checkbox" id="gx-1"><input type="checkbox" id="gx-2"><input type="checkbox" id="gx-3">
+    <input type="checkbox" id="gx-4"><input type="checkbox" id="gx-5"><input type="checkbox" id="gx-6">
+    <div class="gd-grid">
 
-    <input class="rv-t st1" type="checkbox" id="api-s1">
-    <input class="rv-t st2" type="checkbox" id="api-s2">
-    <div class="rv-ask">
-      <p class="rv-q">Has anyone set up an API call before? What do you think it takes?</p>
-      <div class="rv-row">
-        <label class="rv-btn rv-btn1" for="api-s1">&#9656; The steps</label>
-        <label class="rv-btn rv-btn2" for="api-s2">&#9656; A real example</label>
+      <div class="gd-cell">
+        <p class="gd-lbl">Prompt</p>
+        <p class="gd-txt">&ldquo;Summarize this trial in a few sentences.&rdquo;</p>
       </div>
-    </div>
-
-    <div class="hp-split">
-      <div class="hp-side api">
-        <p class="hp-h">The steps</p>
-        <p class="hp-sub">three things, once</p>
-        <div class="hp-grid">
-          <div class="hp-n">1</div>
-          <p class="hp-step">Get an <b>API key</b>. <small>Sign in &rarr; Dashboard &rarr; API keys.</small></p>
-          <div class="hp-n">2</div>
-          <p class="hp-step">Install the <b>package</b> &amp; make a client. <small>e.g. pip install openai</small></p>
-          <div class="hp-n">3</div>
-          <p class="hp-step">Set the <b>four inputs</b>, then send. <small>system prompt &middot; query &middot; model &middot; temperature</small></p>
-        </div>
-        <div class="hp-tools">
-          <span class="hp-tool">OpenAI</span>
-          <span class="hp-tool">Claude</span>
-          <span class="hp-tool">Gemini</span>
-        </div>
-        <p class="hp-take">Roughly 1&ndash;5 cents per record, so ~$10&ndash;50 per 10,000 records, cheaper in batch mode.</p>
+      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Generic recap. What the trial is, no audience in mind. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <div class="gd-full">This is a Phase 3, randomized, double-blind trial comparing orelabrutinib, a CNS-penetrable BTK inhibitor, to placebo in people with primary progressive multiple sclerosis (PPMS). About 705 participants are randomized 2:1 (drug:placebo) and treated for roughly 30 to 60 months. The primary aim is whether orelabrutinib delays confirmed disability progression versus placebo. It is currently recruiting across the US and Europe.</div>
       </div>
 
-      <div class="hp-side demo">
-        <p class="hp-codetitle">Example &middot; a 200,000-report sample from Canada Vigilance</p>
-        <pre class="hp-code"><span class="c"># 1. connect once</span>
-client = OpenAI(api_key=<span class="s">MY_KEY</span>)
-
-<span class="c"># 2. the four inputs</span>
-r = client.responses.create(
-  model=<span class="s">"gpt-5"</span>,
-  instructions=<span class="s">"You are a pharmacovigilance analyst."</span>,
-  input=<span class="s">f"Group this reaction term into one of: "</span>
-        <span class="s">f"cardiac, hepatic, skin, neuro, other. "</span>
-        <span class="s">f"Return JSON with term, group, confidence. "</span>
-        <span class="s">f"If unclear use other + low.\n{term}"</span>,
-  temperature=<span class="s">0</span>,
-)
-
-<span class="c"># 3. loop the sample (public, 1965&ndash;2026)</span>
-<span class="k">for</span> term <span class="k">in</span> reaction_terms:
-  rows.append(group(term))</pre>
-        <div class="hp-out"><span class="lbl">What comes back</span>
-          <span class="mono">{"term": "hepatocellular injury",</span><br>
-          <span class="mono">&nbsp;"group": "hepatic", "confidence": "high"}</span>
-        </div>
-        <p class="hp-take">A free monthly download from Health Canada, so nothing sensitive leaves your machine. Fixed categories + temperature 0 keep all 200,000 grouped the same way.</p>
+      <label class="gx-ph gx-p1" for="gx-1">&#9656; reveal the next prompt</label>
+      <div class="gd-cell gx-cell gx-c1">
+        <p class="gd-lbl">+ Role</p>
+        <p class="gd-txt">&ldquo;<span class="pe-hl">You're an epidemiologist.</span> Summarize this trial in a few sentences.&rdquo;</p>
       </div>
+      <label class="gx-ph gx-p2" for="gx-2">what will change?</label>
+      <div class="gd-cell gd-out gx-cell gx-c2" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Population lens. Adds the PPMS-subset context and who the results would speak to. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <div class="gd-full">This Phase 3 trial compares orelabrutinib, an oral CNS-penetrable BTK inhibitor, with placebo in primary progressive MS, a smaller and harder-to-treat subset of the MS population. It randomizes about 705 adults aged 18 to 60 with an EDSS of 3.0 to 6.5 and documented recent progression, 2:1 to drug or placebo, for up to five years. The primary outcome is time to confirmed disability progression. <em class="gd-em">From a population view, the narrow eligibility means any benefit would speak to ambulatory PPMS patients with active progression, not MS more broadly.</em></div>
+      </div>
+
+      <label class="gx-ph gx-p3" for="gx-3">&#9656; reveal the next prompt</label>
+      <div class="gd-cell gx-cell gx-c3">
+        <p class="gd-lbl">+ Focus</p>
+        <p class="gd-txt">&ldquo;You're an epidemiologist. Summarize this trial <span class="pe-hl">in under 80 words, focusing on whom the results would apply to.</span>&rdquo;</p>
+      </div>
+      <label class="gx-ph gx-p4" for="gx-4">what will change?</label>
+      <div class="gd-cell gd-out gx-cell gx-c4" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Tight, generalizability-first. Leads with whom it applies to. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <div class="gd-full">Whom would this apply to? Enrollment is restricted to adults 18 to 60 with primary progressive MS, EDSS 3.0 to 6.5, and documented progression in the prior 24 months. <em class="gd-em">So any finding would generalize to ambulatory PPMS patients with recent active progression, not to older, more disabled, or relapsing patients.</em> It's a 2:1 placebo-controlled Phase 3 with a confirmed-disability-progression endpoint.</div>
+      </div>
+
+      <label class="gx-ph gx-p5" for="gx-5">&#9656; reveal the next prompt</label>
+      <div class="gd-cell gx-cell gx-c5">
+        <p class="gd-lbl">Swap the role</p>
+        <p class="gd-txt">&ldquo;<span class="pe-hl">You're a clinician advising a patient.</span> Summarize this trial in a few sentences.&rdquo;</p>
+      </div>
+      <label class="gx-ph gx-p6" for="gx-6">what will change?</label>
+      <div class="gd-cell gd-out gx-cell gx-c6" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Different <em>content</em>: not the population, the individual. Placebo odds, what joining involves, who's excluded. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <div class="gd-full">This study tests whether a daily oral drug, orelabrutinib, can slow disability progression in primary progressive MS, compared with placebo. <em class="gd-em">If your patient joins, there's a 2-in-3 chance of the active drug and 1-in-3 of placebo, and neither of you would know which; treatment lasts at least a year, up to five.</em> They'd need PPMS with recent documented progression and moderate disability, and <em class="gd-em">would be excluded if on blood thinners, certain interacting medications, or with other significant health conditions.</em></div>
+      </div>
+
     </div>
+    </div>
+    <p class="gd-take"><b>The takeaway:</b> role shapes <em>what counts as important</em>, not just tone. The epidemiologist asks whom the results generalize to; the clinician asks what it means for one patient. Same record, two different reads.</p>
   </div>
 </section>
 
-<!-- ===== In practice: local model ===== -->
-<section class="slide" data-label="In practice: Local">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+
+<section class="slide" data-label="Show an Example">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 4%; bottom: 4%; gap: 0.9vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4vw;">
-      <p class="concept-label">In practice</p>
-      <h1 class="headline" style="font-size: 2.1vw;">Running a model locally</h1>
-      <p class="body" style="font-size: 1.3vw; color: var(--ink-soft);">When the data is PHI and can&rsquo;t leave your machine. Same four inputs, your own hardware.</p>
-    </div>
+  <div class="gd-wrap">
+    <p class="concept-label" style="text-align: left;">Show an Example</p>
+    <h1 class="headline gd-title">Don't describe the format you want. Show one worked case, and the model matches it.</h1>
+    <div class="gx-wrap">
+    <input type="checkbox" id="sx-1"><input type="checkbox" id="sx-2">
+    <input type="checkbox" id="sx-3"><input type="checkbox" id="sx-4">
+    <div class="gd-grid">
 
-    <input class="rv-t st1" type="checkbox" id="loc-s1">
-    <input class="rv-t st2" type="checkbox" id="loc-s2">
-    <div class="rv-ask">
-      <p class="rv-q">What would you need in place to run a model on your own machine?</p>
-      <div class="rv-row">
-        <label class="rv-btn rv-btn1" for="loc-s1">&#9656; The steps</label>
-        <label class="rv-btn rv-btn2" for="loc-s2">&#9656; A real example</label>
+      <div class="gd-cell">
+        <p class="gd-lbl">No example</p>
+        <p class="gd-txt">&ldquo;Extract the key details from this trial.&rdquo;</p>
       </div>
-    </div>
-
-    <div class="hp-split">
-      <div class="hp-side local">
-        <p class="hp-h">The steps</p>
-        <p class="hp-sub">four things, once</p>
-        <div class="hp-grid">
-          <div class="hp-n">1</div>
-          <p class="hp-step">Get access to the model. <small>e.g. a Hugging Face token for gated models.</small></p>
-          <div class="hp-n">2</div>
-          <p class="hp-step">Install the <b>library</b> that loads it. <small>e.g. pip install transformers, or a no-code app.</small></p>
-          <div class="hp-n">3</div>
-          <p class="hp-step">Build a <b>pipeline</b> with the same inputs. <small>same four knobs, on your hardware.</small></p>
-          <div class="hp-n">4</div>
-          <p class="hp-step">Generate the answer.</p>
-        </div>
-        <div class="hp-tools">
-          <span class="hp-tool">Hugging Face <small>where models live</small></span>
-          <span class="hp-tool">Ollama <small>local runner</small></span>
-          <span class="hp-tool">LM Studio <small>no-code app</small></span>
-        </div>
-        <p class="hp-take">About 2 GB of VRAM per billion parameters, less if it&rsquo;s a compressed version.</p>
+      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">A loose paragraph. Readable, but every trial comes back a different shape: nothing to line up or compare. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <div class="gd-full">This is a Phase 3 trial studying orelabrutinib, a CNS-penetrable BTK inhibitor, for primary progressive MS. Around 705 adults are randomized 2:1 to the drug or placebo and followed for up to five years, with the main goal of seeing whether it slows confirmed disability progression. It is currently recruiting internationally.</div>
       </div>
 
-      <div class="hp-side demo">
-        <p class="hp-codetitle">Example &middot; 100 EHR notes, on your own machine</p>
-        <pre class="hp-code"><span class="c"># 1&ndash;2. load the model onto your machine</span>
-pipe = pipeline(<span class="s">"text-generation"</span>,
-  model=<span class="s">"meta-llama/Llama-3-8B-Instruct"</span>)
-
-<span class="c"># 3. same four inputs as the API</span>
-out = pipe(
-  <span class="s">f"From this clinical note return smoking "</span>
-  <span class="s">f"status, diagnosis, housing.\n{note}"</span>,
-  max_new_tokens=<span class="s">200</span>, temperature=<span class="s">0</span>)
-
-<span class="c"># 4. loop all 100 notes, offline</span>
-<span class="k">for</span> note <span class="k">in</span> ehr_notes:      <span class="c"># 100 rows</span>
-  rows.append(extract(note))</pre>
-        <div class="hp-out"><span class="lbl">What comes back</span>
-          &ldquo;Pt reports quitting 2 yrs ago, now in shelter&hellip;&rdquo;<br>
-          &rarr; <b>smoking:</b> former &middot; <b>housing:</b> unstable
-        </div>
-        <p class="hp-take">All 100 notes stay on your machine. Same four inputs as the API, but nothing crosses the internet, and it finds things the structured fields don&rsquo;t capture.</p>
+      <label class="gx-ph gx-p1" for="sx-1">&#9656; reveal the next prompt</label>
+      <div class="gd-cell gx-cell gx-c1">
+        <p class="gd-lbl">+ One example</p>
+        <p class="gd-txt">&ldquo;Extract trial details in <span class="pe-hl">exactly this format. Here is a worked example: Design / Population / Intervention / Primary outcome / Status &hellip;</span> Now extract the attached trial the same way.&rdquo;</p>
       </div>
+      <label class="gx-ph gx-p2" for="sx-2">what will change?</label>
+      <div class="gd-cell gd-out gx-cell gx-c2" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">The same trial, snapped into your five fields. Nothing invented. It just fills the template. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <div class="gd-full"><em class="gd-em">Design:</em> Phase 3, randomized, double-blind, placebo-controlled, parallel-group (2:1)<br><em class="gd-em">Population:</em> Adults 18&ndash;60 with primary progressive MS, EDSS 3.0&ndash;6.5, documented recent progression; n&approx;705<br><em class="gd-em">Intervention:</em> Orelabrutinib (oral CNS-penetrable BTK inhibitor) vs placebo<br><em class="gd-em">Primary outcome:</em> Time to 12-week composite confirmed disability progression (EDSS / T25FWT / 9HPT)<br><em class="gd-em">Status:</em> Recruiting</div>
+      </div>
+
+      <label class="gx-ph gx-p3" for="sx-3">&#9656; reveal the next prompt</label>
+      <div class="gd-cell gx-cell gx-c3">
+        <p class="gd-lbl">Reuse it &middot; new trial</p>
+        <p class="gd-txt">Same prompt, <span class="pe-hl">a different trial</span> (pediatric relapsing MS, active comparator).</p>
+      </div>
+      <label class="gx-ph gx-p4" for="sx-4">what will change?</label>
+      <div class="gd-cell gd-out gx-cell gx-c4" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Identical structure, different trial. Set the pattern once, reuse it across the whole search. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <div class="gd-full"><em class="gd-em">Design:</em> Phase 2/3, randomized, active- and placebo-controlled, multi-part (PK/PD, non-inferiority, extension)<br><em class="gd-em">Population:</em> Children 10&ndash;17 with relapsing MS, EDSS 0&ndash;5.5, weight &ge;25 kg; n&approx;240<br><em class="gd-em">Intervention:</em> Ublituximab vs fingolimod (Part B); vs placebo (Part A)<br><em class="gd-em">Primary outcome:</em> Ublituximab PK/PD and B-cell counts (Part A); annualized relapse rate (Part B)<br><em class="gd-em">Status:</em> Recruiting</div>
+      </div>
+
     </div>
+    </div>
+    <p class="gd-take"><b>The takeaway:</b> one worked example does what a paragraph of instructions can't: it <em>shows</em> the shape. Define it once, and every trial after that lands in the same fields, ready to compare.</p>
   </div>
 </section>
 
-<!-- ===================== MODEL FAMILIES (combined) ===================== -->
-<style>
-  .mf-list { display: flex; flex-direction: column; gap: 1vw; width: 80vw; }
-  .mf-row { display: grid; grid-template-columns: 20vw 1fr; align-items: center; gap: 1.6vw;
-            border-radius: 1.3vw; padding: 1.2vw 1.7vw;
-            border: 1.5px solid var(--rule-soft); border-left-width: 0.55vw; }
-  .mf-row.g { border-left-color: var(--pink);  background: #F6EAF1; }
-  .mf-row.b { border-left-color: var(--lilac); background: #EEEAF4; }
-  .mf-row.s { border-left-color: var(--sage);  background: #ECF1E2; }
-  .mf-head { display: flex; flex-direction: column; gap: 0.3vw; }
-  .mf-name { font: 500 1.7vw "Work Sans", sans-serif; color: var(--ink); line-height: 1.1; }
-  .mf-str { font: italic 400 1.3vw "Cormorant Garamond", serif; color: var(--ink-soft); }
-  .mf-ex { display: flex; flex-wrap: wrap; gap: 0.6vw; }
-  .mf-ex span { font: 400 1.4vw "Work Sans", sans-serif; padding: 0.35vw 1.1vw; border-radius: 999px;
-                background: var(--paper); border: 1.5px solid var(--rule-soft); color: var(--ink); }
-  .mf-ex span small { color: var(--ink-soft); font-style: italic;
-                      font-family: "Cormorant Garamond", serif; font-size: 1.05vw; margin-left: 0.25vw; }
 
-  /* staged reveal: family, then its examples, one at a time */
-  .mf-t { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
-  .mf-list .mf-row { display: none; }
-  .mf-list .mf-ex { display: none; }
-  .mf-card { display: none; }
-  #mf1:checked ~ .mf-list .mf-row.g { display: grid; }
-  #mf2:checked ~ .mf-list .mf-row.g .mf-ex { display: flex; }
-  #mf3:checked ~ .mf-list .mf-row.b { display: grid; }
-  #mf4:checked ~ .mf-list .mf-row.b .mf-ex { display: flex; }
-  #mf5:checked ~ .mf-list .mf-row.s { display: grid; }
-  #mf6:checked ~ .mf-list .mf-row.s .mf-ex { display: flex; }
-  #mf6:checked ~ .mf-card { display: block; }
-  /* one advancing button */
-  .mf-ask { display: flex; justify-content: center; }
-  .mf-b { font: 500 1.3vw "Work Sans", sans-serif; padding: 0.45vw 1.6vw; border-radius: 999px;
-          border: 1.5px solid var(--ink); color: var(--ink); background: var(--paper); cursor: pointer;
-          transition: all .15s ease; display: none; }
-  .mf-b:hover { background: var(--ink); color: var(--paper); }
-  .mf-b1 { display: inline-block; }
-  #mf1:checked ~ .mf-ask .mf-b1 { display: none; }
-  #mf1:checked ~ .mf-ask .mf-b2 { display: inline-block; }
-  #mf2:checked ~ .mf-ask .mf-b2 { display: none; }
-  #mf2:checked ~ .mf-ask .mf-b3 { display: inline-block; }
-  #mf3:checked ~ .mf-ask .mf-b3 { display: none; }
-  #mf3:checked ~ .mf-ask .mf-b4 { display: inline-block; }
-  #mf4:checked ~ .mf-ask .mf-b4 { display: none; }
-  #mf4:checked ~ .mf-ask .mf-b5 { display: inline-block; }
-  #mf5:checked ~ .mf-ask .mf-b5 { display: none; }
-  #mf5:checked ~ .mf-ask .mf-b6 { display: inline-block; }
-  #mf6:checked ~ .mf-ask .mf-b6 { display: none; }
-</style>
-
-<section class="slide" data-label="Model families">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+<section class="slide" data-label="Divide the Work">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 10%; bottom: 10%; gap: 1.4vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
-      <p class="concept-label">Model types</p>
-      <h1 class="headline" style="font-size: 2.1vw;">Three families you&rsquo;ll actually meet</h1>
-      <p class="body" style="font-size: 1.35vw; color: var(--ink-soft);">Match the family to the job. The names change fast; the categories don&rsquo;t.</p>
-    </div>
+  <div class="gd-wrap">
+    <p class="concept-label" style="text-align: left;">Divide the Work</p>
+    <h1 class="headline gd-title">Four jobs in one prompt, or one job per prompt? Same 12 trials, one measured difference.</h1>
 
-    <input class="mf-t" type="checkbox" id="mf1">
-    <input class="mf-t" type="checkbox" id="mf2">
-    <input class="mf-t" type="checkbox" id="mf3">
-    <input class="mf-t" type="checkbox" id="mf4">
-    <input class="mf-t" type="checkbox" id="mf5">
-    <input class="mf-t" type="checkbox" id="mf6">
-    <div class="mf-ask">
-      <label class="mf-b mf-b1" for="mf1">&#9656; General-purpose</label>
-      <label class="mf-b mf-b2" for="mf2">&#9656; Examples</label>
-      <label class="mf-b mf-b3" for="mf3">&#9656; Biomedical / domain</label>
-      <label class="mf-b mf-b4" for="mf4">&#9656; Examples</label>
-      <label class="mf-b mf-b5" for="mf5">&#9656; Small language models</label>
-      <label class="mf-b mf-b6" for="mf6">&#9656; Examples</label>
-    </div>
-
-    <div class="mf-list">
-      <div class="mf-row g">
-        <div class="mf-head">
-          <span class="mf-name">General-purpose powerhouses</span>
-          <span class="mf-str">Strength: reasoning, works out of the box</span>
+    <div class="dw-cols">
+      <div class="dw-card">
+        <p class="dw-clbl">One overloaded prompt</p>
+        <p class="dw-prompt">&ldquo;For each of these 12 trials, give: study type, a plain-language title, a one-line summary, and two reviewer questions.&rdquo;</p>
+        <div class="dw-scorewrap">
+          <span class="dw-score">10&#8202;/&#8202;12</span>
+          <span class="dw-scoresub">classified correctly</span>
         </div>
-        <div class="mf-ex"><span>GPT <small>openai</small></span><span>Claude <small>anthropic</small></span><span>Gemini <small>google</small></span></div>
       </div>
-
-      <div class="mf-row b">
-        <div class="mf-head">
-          <span class="mf-name">Biomedical / domain models</span>
-          <span class="mf-str">Strength: clinical vocabulary, medical focus</span>
+      <div class="dw-card dw-win">
+        <p class="dw-clbl">One task per prompt</p>
+        <p class="dw-prompt">
+          <span class="dw-q">1. &ldquo;Classify each: interventional or observational. One word each.&rdquo;</span>
+          <span class="dw-q">2. &ldquo;Write a plain-language title for each.&rdquo;</span>
+          <span class="dw-q">3. &ldquo;Summarize each in one line.&rdquo;</span>
+        </p>
+        <div class="dw-scorewrap">
+          <span class="dw-score">12&#8202;/&#8202;12</span>
+          <span class="dw-scoresub">classified correctly</span>
         </div>
-        <div class="mf-ex"><span>BioMedLM <small>stanford &middot; 2.7b</small></span><span>Med-PaLM <small>google &middot; 540b</small></span><span>Meditron <small>epfl &middot; 7&ndash;70b</small></span></div>
-      </div>
-
-      <div class="mf-row s">
-        <div class="mf-head">
-          <span class="mf-name">Small language models</span>
-          <span class="mf-str">Strength: efficient, runs on your own hardware</span>
-        </div>
-        <div class="mf-ex"><span>Qwen <small>alibaba &middot; 0.5&ndash;72b</small></span><span>Llama 3 <small>meta &middot; 8b</small></span><span>Gemma <small>google &middot; 2&ndash;27b</small></span></div>
       </div>
     </div>
 
-    <div class="card mf-card" style="padding: 1vw 2.2vw; max-width: 74vw;">
-      <p class="body" style="font-size: 1.4vw; text-align: center;">A big cloud model for a quick question; a small local or medical model for sensitive or specialized work.</p>
+    <div class="dw-why">
+      <p class="dw-why-h">Both misses were <span class="dw-hl">traps</span>: observational trials that name a drug or device.</p>
+      <div class="dw-traps">
+        <p class="dw-trap"><b>NCT02677077</b>: observational MRI study of patients already on natalizumab. Bundled, the model saw the drug name and called it interventional.</p>
+        <p class="dw-trap"><b>NCT03993275</b>: observational balance study that lists a device (MindMotion GO). Same slip: the device cue overrode the design.</p>
+      </div>
     </div>
+
+    <p class="gd-take"><b>The takeaway:</b> juggling four jobs at once, the model grabs a surface cue and mislabels. Give each task its own prompt and the irrelevant details fall away. Independent tasks don't belong in one prompt. <span style="color: var(--ink-soft);">(Shi et al., &ldquo;Large language models can be easily distracted by irrelevant context.&rdquo;)</span></p>
   </div>
 </section>
 
-<!-- ===================== SHARED REVEAL-CARD STYLES ===================== -->
-<style>
-  .rev-wrap > .rev-t { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
-  .rev-row { display: flex; gap: 2vw; width: 84vw; align-items: stretch; justify-content: center; }
-  .rev-card { flex: 1; display: flex; flex-direction: column; gap: 1vw; border: 1.5px solid var(--rule-soft);
-              border-radius: 1.6vw; padding: 1.6vw 1.5vw; cursor: pointer; text-align: left;
-              transition: transform .15s ease, border-color .15s ease; }
-  .rev-card:hover { transform: translateY(-0.4vw); border-color: var(--ink-soft); }
-  .rev-b1 { background: #E8ECA9; } .rev-b2 { background: #F2E1D7; } .rev-b3 { background: #E1DBEC; }
-  .rev-num { display: inline-flex; align-items: center; justify-content: center; width: 2.6vw; height: 2.6vw;
-             border-radius: 50%; background: rgba(42,36,27,0.12); font: italic 500 1.5vw "Cormorant Garamond", serif; color: var(--ink); }
-  .rev-scenario { font: 400 1.45vw/1.4 "Work Sans", sans-serif; margin: 0; }
-  .rev-reveal { margin-top: auto; }
-  .rev-prompt { display: flex; align-items: center; gap: 0.5vw; font: italic 400 1.3vw "Cormorant Garamond", serif; color: var(--ink-soft); }
-  .rev-answer { display: none; flex-direction: column; gap: 0.6vw; }
-  .rev-answer .chip { align-self: flex-start; font-size: 1.5vw; }
-  .rev-reason { font: 400 1.25vw/1.4 "Work Sans", sans-serif; color: var(--ink-soft); margin: 0; }
-  #mtq1:checked ~ .rev-row label[for="mtq1"] .rev-prompt,
-  #mtq2:checked ~ .rev-row label[for="mtq2"] .rev-prompt,
-  #mtq3:checked ~ .rev-row label[for="mtq3"] .rev-prompt,
-  #rzq1:checked ~ .rev-row label[for="rzq1"] .rev-prompt,
-  #rzq2:checked ~ .rev-row label[for="rzq2"] .rev-prompt,
-  #rzq3:checked ~ .rev-row label[for="rzq3"] .rev-prompt { display: none; }
-  #mtq1:checked ~ .rev-row label[for="mtq1"] .rev-answer,
-  #mtq2:checked ~ .rev-row label[for="mtq2"] .rev-answer,
-  #mtq3:checked ~ .rev-row label[for="mtq3"] .rev-answer,
-  #rzq1:checked ~ .rev-row label[for="rzq1"] .rev-answer,
-  #rzq2:checked ~ .rev-row label[for="rzq2"] .rev-answer,
-  #rzq3:checked ~ .rev-row label[for="rzq3"] .rev-answer { display: flex; }
-  #mtq1:checked ~ .rev-row label[for="mtq1"],
-  #mtq2:checked ~ .rev-row label[for="mtq2"],
-  #mtq3:checked ~ .rev-row label[for="mtq3"],
-  #rzq1:checked ~ .rev-row label[for="rzq1"],
-  #rzq2:checked ~ .rev-row label[for="rzq2"],
-  #rzq3:checked ~ .rev-row label[for="rzq3"] { border-color: var(--ink); }
-</style>
 
-<!-- ===================== PH EXAMPLES (REVEAL) ===================== -->
-<section class="slide" data-label="Model match">
-  <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
+<section class="slide" data-label="Specify Format">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 11%; bottom: 11%; gap: 1.9vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7vw;">
-      <p class="concept-label">Your turn</p>
-      <h1 class="headline" style="font-size: 2.4vw;">Which model for which public health task?</h1>
-      <p class="body" style="font-size: 1.4vw; color: var(--ink-soft);">Which model family fits each task? Tap to reveal.</p>
+  <div class="gd-wrap">
+    <p class="concept-label" style="text-align: left;">Specify Format</p>
+    <h1 class="headline gd-title">Same two trials, same fields. You name the container. Green = what's new.</h1>
+    <div class="gx-wrap">
+    <input type="checkbox" id="fx-1"><input type="checkbox" id="fx-2"><input type="checkbox" id="fx-3">
+    <input type="checkbox" id="fx-4"><input type="checkbox" id="fx-5"><input type="checkbox" id="fx-6">
+    <div class="gd-grid">
+
+      <div class="gd-cell">
+        <p class="gd-lbl">No format</p>
+        <p class="gd-txt">&ldquo;Summarize the key details of these two trials.&rdquo;</p>
+      </div>
+      <div class="gd-cell gd-out" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Two prose blobs. Fine to read, but you can't scan a column or compute across trials. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <div class="gd-full">The first trial (NCT07067463) is a Phase 3, placebo-controlled study of orelabrutinib in adults with primary progressive MS, enrolling about 705 people to test whether it slows disability progression; it is recruiting. The second (NCT07220252) is a Phase 2/3 study of ublituximab in children with relapsing MS, comparing it against fingolimod and placebo across roughly 240 participants, measuring drug levels and relapse rate; it is also recruiting.</div>
+      </div>
+
+      <label class="gx-ph gx-p1" for="fx-1">&#9656; reveal the next prompt</label>
+      <div class="gd-cell gx-cell gx-c1">
+        <p class="gd-lbl">+ Table</p>
+        <p class="gd-txt">&ldquo;Summarize these two trials <span class="pe-hl">as a table: Design, Population, Intervention, Primary outcome, Status.</span>&rdquo;</p>
+      </div>
+      <label class="gx-ph gx-p2" for="fx-2">what will change?</label>
+      <div class="gd-cell gd-out gx-cell gx-c2" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">A scannable grid, one row per trial. Paste straight into a review. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <div class="gd-full"><table class="fmt"><tr><th>Trial</th><th>Design</th><th>Population</th><th>Intervention</th><th>Primary outcome</th><th>Status</th></tr><tr><td>Orelabrutinib (NCT07067463)</td><td>Ph3 RCT, double-blind, placebo, 2:1</td><td>Adults 18&ndash;60, PPMS, EDSS 3.0&ndash;6.5, n&approx;705</td><td>Orelabrutinib vs placebo</td><td>Time to 12-wk confirmed disability progression</td><td>Recruiting</td></tr><tr><td>Ublituximab (NCT07220252)</td><td>Ph2/3 RCT, active + placebo, multi-part</td><td>Children 10&ndash;17, RMS, EDSS 0&ndash;5.5, n&approx;240</td><td>Ublituximab vs fingolimod / placebo</td><td>PK/PD &amp; B-cell counts (A); ARR (B)</td><td>Recruiting</td></tr></table></div>
+      </div>
+
+      <label class="gx-ph gx-p3" for="fx-3">&#9656; reveal the next prompt</label>
+      <div class="gd-cell gx-cell gx-c3">
+        <p class="gd-lbl">+ CSV</p>
+        <p class="gd-txt">&ldquo;&hellip;same fields, <span class="pe-hl">as CSV instead.</span>&rdquo;</p>
+      </div>
+      <label class="gx-ph gx-p4" for="fx-4">what will change?</label>
+      <div class="gd-cell gd-out gx-cell gx-c4" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Same content, comma-separated. Opens in Excel or imports to a reference manager. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <div class="gd-full"><pre class="fmt">trial,design,population,intervention,primary_outcome,status
+Orelabrutinib (NCT07067463),Phase 3 RCT double-blind placebo 2:1,Adults 18-60 PPMS EDSS 3.0-6.5 n=705,Orelabrutinib vs placebo,Time to 12-week confirmed disability progression,Recruiting
+Ublituximab (NCT07220252),Phase 2/3 RCT active+placebo multi-part,Children 10-17 RMS EDSS 0-5.5 n=240,Ublituximab vs fingolimod/placebo,PK-PD and B-cell counts (A); ARR (B),Recruiting</pre></div>
+      </div>
+
+      <label class="gx-ph gx-p5" for="fx-5">&#9656; reveal the next prompt</label>
+      <div class="gd-cell gx-cell gx-c5">
+        <p class="gd-lbl">+ JSON</p>
+        <p class="gd-txt">&ldquo;&hellip;same fields, <span class="pe-hl">as JSON instead.</span>&rdquo;</p>
+      </div>
+      <label class="gx-ph gx-p6" for="fx-6">what will change?</label>
+      <div class="gd-cell gd-out gx-cell gx-c6" tabindex="0" onclick="this.classList.toggle('gd-open')">
+        <p class="gd-lbl">What you get</p>
+        <p class="gd-txt gd-soft">Same content, structured. Ready to pipe into code or a database. The format is yours to dictate. <span class="gd-peek">&#9662; hover for the real output</span></p>
+        <div class="gd-full"><pre class="fmt">[
+  {
+    "nct_id": "NCT07067463",
+    "drug": "Orelabrutinib",
+    "design": "Phase 3, RCT, double-blind, placebo-controlled, 2:1",
+    "population": "Adults 18-60, PPMS, EDSS 3.0-6.5, n=705",
+    "primary_outcome": "Time to 12-week confirmed disability progression",
+    "status": "Recruiting"
+  },
+  {
+    "nct_id": "NCT07220252",
+    "drug": "Ublituximab",
+    "design": "Phase 2/3, RCT, active- and placebo-controlled",
+    "population": "Children 10-17, relapsing MS, EDSS 0-5.5, n=240",
+    "primary_outcome": "PK/PD and B-cell counts (A); ARR (B)",
+    "status": "Recruiting"
+  }
+]</pre></div>
+      </div>
+
     </div>
-    <div class="rev-wrap">
-      <input class="rev-t" type="checkbox" id="mtq1">
-      <input class="rev-t" type="checkbox" id="mtq2">
-      <input class="rev-t" type="checkbox" id="mtq3">
-      <div class="rev-row">
-        <label class="rev-card rev-b1" for="mtq1">
-          <span class="rev-num">1</span>
-          <p class="rev-scenario">Draft a plain-language explainer of a new guideline for the public.</p>
-          <div class="rev-reveal">
-            <span class="rev-prompt">&#9656; tap to reveal</span>
-            <span class="rev-answer">
-              <span class="chip card--pink">Large &amp; general</span>
-              <p class="rev-reason">An everyday writing task, a big cloud chatbot handles it well.</p>
-            </span>
-          </div>
-        </label>
-        <label class="rev-card rev-b2" for="mtq2">
-          <span class="rev-num">2</span>
-          <p class="rev-scenario">Summarize a line list with patient identifiers, kept private and offline.</p>
-          <div class="rev-reveal">
-            <span class="rev-prompt">&#9656; tap to reveal</span>
-            <span class="rev-answer">
-              <span class="chip card--sage">Small &amp; local</span>
-              <p class="rev-reason">Sensitive data, a model on your own machine keeps it private.</p>
-            </span>
-          </div>
-        </label>
-        <label class="rev-card rev-b3" for="mtq3">
-          <span class="rev-num">3</span>
-          <p class="rev-scenario">Pull diagnoses and findings out of messy clinical notes.</p>
-          <div class="rev-reveal">
-            <span class="rev-prompt">&#9656; tap to reveal</span>
-            <span class="rev-answer">
-              <span class="chip card--lilac">Medical / domain</span>
-              <p class="rev-reason">Clinical language, a health-tuned model reads it best.</p>
-            </span>
-          </div>
-        </label>
+    </div>
+    <p class="gd-take"><b>The takeaway:</b> the information is identical across all four. What changes is the container, and you choose it. Pick the shape you can use next: eyeball a table, load the CSV, script the JSON.</p>
+  </div>
+</section>
+
+
+<section class="slide" data-label="Evaluate Quality">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="gd-wrap">
+    <p class="concept-label" style="text-align: left;">Evaluate Quality</p>
+    <h1 class="headline gd-title">Don't trust the first answer. Independent checks catch what the author can't see.</h1>
+
+    <div class="eq-author">
+      <p class="eq-albl">The extraction under review (the ublituximab trial, from Show an Example)</p>
+      <p class="eq-atxt"><b>Design:</b> Ph2/3 RCT, active + placebo, multi-part &nbsp;&middot;&nbsp; <b>Population:</b> Children 10&ndash;17, RMS, EDSS 0&ndash;5.5, n&approx;240 &nbsp;&middot;&nbsp; <b>Intervention:</b> Ublituximab vs fingolimod / placebo &nbsp;&middot;&nbsp; <b>Primary outcome:</b> PK/PD and B-cell counts (A); ARR (B) &nbsp;&middot;&nbsp; <b>Status:</b> Recruiting</p>
+    </div>
+
+    <div class="eq-cols">
+      <div class="eq-card">
+        <p class="eq-h">ChatGPT</p>
+        <p class="eq-sub">Independent, different model. Flags:</p>
+        <ul class="eq-list">
+          <li>Design omits Part C; comparator structure differs by part.</li>
+          <li><b>&ldquo;RCT&rdquo; over-claims randomization</b>: only Part B's comparison is verified.</li>
+          <li><b>Part B is a non-inferiority design</b>; misses the week-96 and week-168 horizons.</li>
+          <li>Deeper on exclusions: prior anti-CD20, S1P modulators, recent steroids.</li>
+        </ul>
+      </div>
+      <div class="eq-card">
+        <p class="eq-h">Gemini</p>
+        <p class="eq-sub">Independent, different model. Flags:</p>
+        <ul class="eq-list">
+          <li>Design omits the three-part structure; Part C missing entirely.</li>
+          <li><b>Population drops the Part A weight limit (25&ndash;40 kg)</b> and the 30-day stability rule.</li>
+          <li>Comparators are part-specific: fingolimod in Part B only.</li>
+          <li>Primary outcome omits the named PK endpoints (AUC, Cmax).</li>
+        </ul>
       </div>
     </div>
+
+    <div class="eq-claude">
+      <p class="eq-h">And Claude, in a fresh chat</p>
+      <p class="eq-ctxt">Asked to check its own extraction, a new Claude chat caught the big gaps too (the missing Part C, the dropped weight criteria) <b>plus two the others underplayed:</b> &ldquo;n&approx;240&rdquo; is falsely approximate (240 is a precise target), and &ldquo;RCT&rdquo; is an unverified field, not a confirmed one. Self-review isn't worthless, but only when it actually checks the record instead of ratifying.</p>
+    </div>
+
+    <p class="gd-take"><b>The takeaway:</b> the author can't see its own blind spots. A different model catches them, and two different models catch different things. Even a fresh pass from the same model helps, as long as it verifies against the primary record rather than trusting the first answer.</p>
+  </div>
+</section>
+
+
+<!-- ========================= TEAM EXERCISES: PROMPTING ========================= -->
+<style>
+  .px-frame { --warn: #B0553C; --ok: #5f7a55; }
+  .px-task { display: flex; align-items: center; gap: 1vw; width: 80vw; padding: 0.7vw 1.4vw;
+             border-radius: 1vw; background: var(--card-fill); }
+  .px-task .clock { font: 500 1.5vw "Cormorant Garamond", serif; color: var(--ink); white-space: nowrap; }
+  .px-task .goal { font: 400 1.3vw/1.35 "Work Sans", sans-serif; color: var(--ink); }
+  .px-cols { display: flex; gap: 2vw; width: 84vw; align-items: stretch; justify-content: center; }
+  .px-col { flex: 1; display: flex; flex-direction: column; gap: 0.6vw; }
+  .px-lbl { font: 600 1vw "Work Sans", sans-serif; letter-spacing: 0.05em; text-transform: uppercase;
+            color: var(--ink-soft); margin: 0; }
+  .px-box { border-radius: 1vw; padding: 1vw 1.3vw; border: 1.5px solid var(--rule-soft); background: var(--paper);
+            font: 400 1.35vw/1.5 "Work Sans", sans-serif; color: var(--ink); flex: 1; }
+  .px-box.weak { background: #F8EEE6; }
+  .px-box.strong { background: #ECF1E2; }
+  .px-box .mono { font-family: "IBM Plex Mono", "Work Sans", monospace; }
+  .px-box ul { margin: 0.3vw 0 0; padding-left: 1.4vw; }
+  .px-box li { margin: 0.15vw 0; }
+  .px-tag { color: var(--ok); font-weight: 600; }
+  .px-frame input[type="checkbox"] { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .px-reveal-btn { font: 500 1.35vw "Work Sans", sans-serif; padding: 0.5vw 1.8vw; border-radius: 999px;
+                   border: 1.5px solid var(--ink); color: var(--ink); background: var(--paper); cursor: pointer;
+                   transition: all .15s ease; align-self: center; }
+  .px-reveal-btn:hover { background: var(--ink); color: var(--paper); }
+  .px-reveal-btn .lbl-hide { display: none; }
+  .px-answer { display: none; }
+  .px-frame input[type="checkbox"]:checked ~ .px-cols .px-answer { display: flex; }
+  .px-frame input[type="checkbox"]:checked ~ .px-reveal-btn { background: var(--ink); color: var(--paper); }
+  .px-frame input[type="checkbox"]:checked ~ .px-reveal-btn .lbl-show { display: none; }
+  .px-frame input[type="checkbox"]:checked ~ .px-reveal-btn .lbl-hide { display: inline; }
+  .px-fixes { display: flex; flex-wrap: wrap; gap: 0.5vw; margin-top: 0.6vw; }
+  .px-fix { font: 500 1.05vw "Work Sans", sans-serif; padding: 0.2vw 0.9vw; border-radius: 999px;
+            background: var(--paper); border: 1.5px solid var(--rule-soft); color: var(--ink); }
+  .px-note { font: italic 400 1.2vw/1.4 "Cormorant Garamond", serif; text-align: center; max-width: 80vw; color: var(--ink-soft); }
+</style>
+
+<!-- ===== Exercise 1: FIX this prompt ===== -->
+<section class="slide px-frame" data-label="Exercise: fix the prompt">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 6%; bottom: 6%; gap: 1vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
+      <p class="concept-label">Exercise 1 &middot; Fix it</p>
+      <h1 class="headline" style="font-size: 1.9vw;">Rewrite a lazy screening prompt into a reproducible one.</h1>
+    </div>
+    <div class="px-task">
+      <span class="clock">&#9201; 10 min &middot; in teams</span>
+      <span class="goal">You're screening abstracts for a systematic review. A colleague wrote the prompt below to speed it up. Rewrite it using the principles.</span>
+    </div>
+    <input type="checkbox" id="px1-ans">
+    <div class="px-cols">
+      <div class="px-col">
+        <p class="px-lbl">The prompt they wrote</p>
+        <div class="px-box weak"><span class="mono">&ldquo;Tell me if these abstracts are relevant to my review.&rdquo;</span>
+          <p class="px-note" style="text-align: left; margin-top: 0.6vw;">No criteria, no output shape, no reason given. Across 200 abstracts you get inconsistent calls you can't audit or report.</p>
+        </div>
+      </div>
+      <div class="px-col px-answer" style="flex-direction: column; gap: 0.6vw;">
+        <p class="px-lbl">One strong rewrite</p>
+        <div class="px-box strong"><span class="mono">&ldquo;You are screening abstracts for a systematic review. Include if: adult population, randomized design, reports a clinical outcome. Exclude otherwise. For each abstract return one row: ID | INCLUDE or EXCLUDE | the single criterion that decided it | confidence (high/med/low). If the abstract doesn&rsquo;t report enough to judge, return UNCLEAR rather than guessing.&rdquo;</span>
+          <div class="px-fixes"><span class="px-fix">role</span><span class="px-fix">explicit criteria</span><span class="px-fix">format</span><span class="px-fix">reason per call</span><span class="px-fix">no-guessing rule</span></div>
+        </div>
+      </div>
+    </div>
+    <label class="px-reveal-btn" for="px1-ans"><span class="lbl-show">&#9656; Reveal one strong rewrite</span><span class="lbl-hide">&#9662; Hide the rewrite</span></label>
+    <p class="px-note">There&rsquo;s no single right answer, only prompts that make the decision rule explicit enough to reproduce.</p>
+  </div>
+</section>
+
+<!-- ===== Exercise 2: DIAGNOSE what's missing ===== -->
+<section class="slide px-frame" data-label="Exercise: spot what's missing">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 6%; bottom: 6%; gap: 1vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
+      <p class="concept-label">Exercise 2 &middot; Diagnose</p>
+      <h1 class="headline" style="font-size: 1.9vw;">Spot what this prompt is missing.</h1>
+    </div>
+    <div class="px-task">
+      <span class="clock">&#9201; 10 min &middot; in teams</span>
+      <span class="goal">This prompt extracts data from 200 survey responses. It&rsquo;s not terrible, but it will give messy, inconsistent output. Check it against the five principles: which are missing?</span>
+    </div>
+    <input type="checkbox" id="px2-ans">
+    <div class="px-cols">
+      <div class="px-col">
+        <p class="px-lbl">The prompt</p>
+        <div class="px-box weak"><span class="mono">&ldquo;Read each open-ended survey answer about barriers to vaccination and tell me the main themes. Be thorough.&rdquo;</span>
+          <p class="px-note" style="text-align: left; margin-top: 0.6vw;">It has a role-ish task and a topic. So what will go wrong across 200 rows?</p>
+        </div>
+      </div>
+      <div class="px-col px-answer" style="flex-direction: column; gap: 0.6vw;">
+        <p class="px-lbl">What&rsquo;s missing</p>
+        <div class="px-box strong">
+          <ul>
+            <li><span class="px-tag">Format</span>: no fixed output shape, so every row comes back differently.</li>
+            <li><span class="px-tag">Example</span>: no worked case, so the theme labels drift.</li>
+            <li><span class="px-tag">Fixed categories</span>: &ldquo;main themes&rdquo; is open-ended; give it a set list to sort into.</li>
+            <li><span class="px-tag">Evaluate</span>: nothing asks it to flag low-confidence or ambiguous answers.</li>
+          </ul>
+          <div class="px-fixes"><span class="px-fix">add a table format</span><span class="px-fix">show one example</span><span class="px-fix">give categories</span><span class="px-fix">ask for a confidence flag</span></div>
+        </div>
+      </div>
+    </div>
+    <label class="px-reveal-btn" for="px2-ans"><span class="lbl-show">&#9656; Reveal the gaps</span><span class="lbl-hide">&#9662; Hide the gaps</span></label>
+    <p class="px-note">&ldquo;Be thorough&rdquo; is not an instruction. Structure is what makes 200 rows come back consistent.</p>
+  </div>
+</section>
+
+<!-- ===== Exercise 3: BUILD from scratch ===== -->
+<section class="slide px-frame" data-label="Exercise: fix the analysis prompt">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 6%; bottom: 6%; gap: 1vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
+      <p class="concept-label">Exercise 3 &middot; Fix it</p>
+      <h1 class="headline" style="font-size: 1.9vw;">Make an analysis prompt auditable.</h1>
+    </div>
+    <div class="px-task">
+      <span class="clock">&#9201; 10 min &middot; in teams</span>
+      <span class="goal">You have a cohort dataset: incident type 2 diabetes as the outcome, physical inactivity as the exposure, plus age, sex, BMI, and household income. A colleague wrote the prompt below to get a quick answer. Rewrite it using the principles.</span>
+    </div>
+    <input type="checkbox" id="px3-ans">
+    <div class="px-cols">
+      <div class="px-col">
+        <p class="px-lbl">The prompt they wrote</p>
+        <div class="px-box weak"><span class="mono">&ldquo;Run a regression on this data and tell me what&rsquo;s significant.&rdquo;</span>
+          <p class="px-note" style="text-align: left; margin-top: 0.6vw;">You&rsquo;ll get numbers. You won&rsquo;t know which model it chose, which cases it dropped, or whether the assumptions hold.</p>
+        </div>
+      </div>
+      <div class="px-col px-answer" style="flex-direction: column; gap: 0.6vw;">
+        <p class="px-lbl">One strong rewrite</p>
+        <div class="px-box strong"><span class="mono">&ldquo;You are an epidemiologist. Fit a logistic regression predicting incident type 2 diabetes from physical inactivity, adjusting for age, sex, BMI, and household income. Report: the model specification, N included and N excluded with the reason, the adjusted odds ratio with its 95% CI for inactivity, and every covariate in the model. State the assumptions you are relying on and any you could not check. Do not drop records silently. Do not call anything significant beyond what the interval supports.&rdquo;</span>
+          <div class="px-fixes"><span class="px-fix">role</span><span class="px-fix">specified model</span><span class="px-fix">named covariates</span><span class="px-fix">reporting format</span><span class="px-fix">missing-data transparency</span><span class="px-fix">assumption check</span></div>
+        </div>
+      </div>
+    </div>
+    <label class="px-reveal-btn" for="px3-ans"><span class="lbl-show">&#9656; Reveal one strong rewrite</span><span class="lbl-hide">&#9662; Hide the rewrite</span></label>
+    <p class="px-note">With analysis, the dangerous failure isn&rsquo;t a messy answer. It&rsquo;s a confident one you can&rsquo;t audit.</p>
+  </div>
+</section>
+
+
+<section class="slide" data-label="Coffee Break">
+  <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
+  <div class="pagedot"></div>
+  <div class="layout-hero" style="top: 14%; bottom: 14%; gap: 1.8vw;">
+    <p class="concept-label">Break</p>
+    <h1 class="headline" style="font-size: 3.4vw;">Coffee break</h1>
+
+    <svg viewBox="0 0 420 170" style="width: 42vw; max-width: 620px; height: auto;" xmlns="http://www.w3.org/2000/svg">
+      <!-- steam -->
+      <g stroke="#c9b8a2" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.75">
+        <path d="M150 44 q9 -13 0 -26 q-9 -13 0 -26"/>
+        <path d="M172 38 q9 -12 0 -24 q-9 -12 0 -22"/>
+        <path d="M194 44 q9 -13 0 -26 q-9 -13 0 -26"/>
+      </g>
+      <!-- saucer -->
+      <ellipse cx="172" cy="150" rx="86" ry="12" fill="#e0d6c2"/>
+      <!-- cup body -->
+      <path d="M108 62 h128 v46 a64 64 0 0 1 -128 0 z" fill="#faf8f0" stroke="#8a8577" stroke-width="4" stroke-linejoin="round"/>
+      <!-- coffee surface -->
+      <ellipse cx="172" cy="64" rx="64" ry="13" fill="#7a5c46" stroke="#8a8577" stroke-width="4"/>
+      <!-- handle -->
+      <path d="M236 74 a30 30 0 0 1 0 46" fill="none" stroke="#8a8577" stroke-width="9" stroke-linecap="round"/>
+
+      <!-- bagel back -->
+      <g transform="translate(322 92) rotate(-12)">
+        <ellipse cx="0" cy="6" rx="52" ry="46" fill="#d9b57e"/>
+        <ellipse cx="0" cy="0" rx="52" ry="46" fill="#e8c894" stroke="#b8935e" stroke-width="3.5"/>
+        <ellipse cx="0" cy="0" rx="17" ry="14" fill="#f0ede1" stroke="#b8935e" stroke-width="3.5"/>
+        <g fill="#c9a26b">
+          <circle cx="-26" cy="-18" r="2.6"/><circle cx="4" cy="-28" r="2.6"/>
+          <circle cx="30" cy="-12" r="2.6"/><circle cx="-32" cy="12" r="2.6"/>
+          <circle cx="22" cy="20" r="2.6"/><circle cx="-8" cy="28" r="2.6"/>
+          <circle cx="-18" cy="-2" r="2.6"/><circle cx="16" cy="-2" r="2.6"/>
+        </g>
+      </g>
+      <!-- bagel front, half -->
+      <g transform="translate(268 126) rotate(8)">
+        <ellipse cx="0" cy="4" rx="38" ry="33" fill="#d9b57e"/>
+        <ellipse cx="0" cy="0" rx="38" ry="33" fill="#eed3a4" stroke="#b8935e" stroke-width="3.5"/>
+        <ellipse cx="0" cy="0" rx="12" ry="10" fill="#f0ede1" stroke="#b8935e" stroke-width="3.5"/>
+        <g fill="#c9a26b">
+          <circle cx="-20" cy="-12" r="2.2"/><circle cx="6" cy="-20" r="2.2"/>
+          <circle cx="22" cy="-4" r="2.2"/><circle cx="-22" cy="10" r="2.2"/>
+          <circle cx="12" cy="16" r="2.2"/>
+        </g>
+      </g>
+    </svg>
+
+    <p class="body" style="font-size: 2vw; color: var(--ink-soft);">&#9201; 30 minutes</p>
   </div>
 </section>
