@@ -424,7 +424,7 @@
       <div class="cmp-c">Sensitive or offline work</div>
     </div>
 
-    <p style="font: italic 400 1.15vw/1.35 'Cormorant Garamond', serif; color: var(--ink-soft); text-align: center; max-width: 78vw; margin: 0;">
+    <p class="slide-source">
       Source: <em>Enhancing Statistical Research with Task-Specific LLMs and Structured Agents</em>, Professor Yanxun Xu
     </p>
   </div>
@@ -677,9 +677,13 @@
   /* code block */
   .hp-codetitle { font: 600 1vw "Work Sans", sans-serif; letter-spacing: 0.05em; text-transform: uppercase;
                   color: var(--ink-soft); margin: 0; text-align: left; }
-  pre.hp-code { margin: 0; background: var(--card-fill); border-radius: 0.9vw; padding: 0.8vw 1.1vw;
-                font: 400 1.02vw/1.38 "IBM Plex Mono", monospace; color: var(--ink); overflow: hidden;
+  pre.hp-code { margin: 0; background: var(--card-fill); border-radius: 0.9vw; padding: 0.7vw 1.1vw;
+                font: 400 1.02vw/1.3 "IBM Plex Mono", monospace; color: var(--ink); overflow: hidden;
                 white-space: pre; text-align: left; }
+
+  /* small attribution line at the foot of a slide */
+  .slide-source { font: italic 400 1.15vw/1.35 "Cormorant Garamond", serif; color: var(--ink-soft);
+                  text-align: center; max-width: 78vw; margin: 0; }
   pre.hp-code .c { color: var(--ink-soft); font-style: italic; }
   pre.hp-code .k { color: #B0553C; }
   pre.hp-code .s { color: #5f7a55; }
@@ -727,8 +731,8 @@
 <section class="slide" data-label="In practice: API">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 1 &middot; LLM Foundations</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 4%; bottom: 4%; gap: 0.9vw;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4vw;">
+  <div class="layout-hero" style="top: 3.5%; bottom: 3.5%; gap: 0.6vw;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3vw;">
       <p class="concept-label">In practice</p>
       <h1 class="headline" style="font-size: 2.1vw;">Using a cloud API</h1>
       <p class="body" style="font-size: 1.3vw; color: var(--ink-soft);">When you want to run the same task over hundreds of thousands of public records, from your own code.</p>
@@ -790,6 +794,10 @@ r = client.responses.create(
         <p class="hp-take">A free monthly download from Health Canada, so nothing sensitive leaves your machine. Fixed categories + temperature 0 keep all 200,000 grouped the same way.</p>
       </div>
     </div>
+
+    <p class="slide-source">
+      Source: <em>Enhancing Statistical Research with Task-Specific LLMs and Structured Agents</em>, Professor Yanxun Xu
+    </p>
   </div>
 </section>
 
