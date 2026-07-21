@@ -1,6 +1,10 @@
 <style>
   .pe-hl { background: #bcd1a6; color: #2f4318; padding: 0.02em 0.28em; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 
+  /* small attribution line at the foot of a slide */
+  .slide-source { font: italic 400 1.15vw/1.35 "Cormorant Garamond", serif; color: var(--ink-soft);
+                  text-align: center; max-width: 78vw; margin: 0; }
+
   /* ===== The Principles · click-to-reveal ===== */
   .pr-wrap > input { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
   .pr-card { cursor: pointer; display: block; transition: background 0.2s ease; }
@@ -202,19 +206,19 @@
 <section class="slide" data-label="The Principles">
   <div class="eyebrow" style="font-size: 1.5vw;">Part 2 &middot; Prompt Engineering</div>
   <div class="pagedot"></div>
-  <div class="layout-hero" style="top: 15%; bottom: 7%; gap: 1.4vw; align-items: flex-start; padding-left: 8vw; padding-right: 8vw;">
-    <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 1vw;">
+  <div class="layout-hero" style="top: 11%; bottom: 6%; gap: 1vw; align-items: flex-start; padding-left: 8vw; padding-right: 8vw;">
+    <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.7vw;">
       <p class="concept-label" style="text-align: left;">The principles</p>
       <p class="body" style="font-size: 1.6vw; line-height: 1.35; text-align: left; max-width: 74vw;">Prompt engineering is the discipline that has grown up around a set of best practices for making AI output more reliable, efficient, and accurate.</p>
     </div>
-    <div class="pr-wrap" style="display: flex; flex-direction: column; gap: 0.9vw; width: 100%;">
+    <div class="pr-wrap" style="display: flex; flex-direction: column; gap: 0.7vw; width: 100%;">
       <input type="checkbox" id="pr-1">
       <input type="checkbox" id="pr-2">
       <input type="checkbox" id="pr-3">
       <input type="checkbox" id="pr-4">
       <input type="checkbox" id="pr-5">
-      <div class="pr-list" style="display: flex; flex-direction: column; gap: 0.9vw; width: 100%;">
-        <label class="card pr-card pr-c1" for="pr-1" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+      <div class="pr-list" style="display: flex; flex-direction: column; gap: 0.7vw; width: 100%;">
+        <label class="card pr-card pr-c1" for="pr-1" style="padding: 0.75vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
           <span class="chip card--sage" style="font-size: 1.5vw;">1</span>
           <div>
             <span class="pr-hint">click to reveal</span>
@@ -224,7 +228,7 @@
             </div>
           </div>
         </label>
-        <label class="card pr-card pr-c2" for="pr-2" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+        <label class="card pr-card pr-c2" for="pr-2" style="padding: 0.75vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
           <span class="chip card--sage" style="font-size: 1.5vw;">2</span>
           <div>
             <span class="pr-hint">click to reveal</span>
@@ -234,7 +238,7 @@
             </div>
           </div>
         </label>
-        <label class="card pr-card pr-c3" for="pr-3" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+        <label class="card pr-card pr-c3" for="pr-3" style="padding: 0.75vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
           <span class="chip card--sage" style="font-size: 1.5vw;">3</span>
           <div>
             <span class="pr-hint">click to reveal</span>
@@ -244,7 +248,7 @@
             </div>
           </div>
         </label>
-        <label class="card pr-card pr-c4" for="pr-4" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+        <label class="card pr-card pr-c4" for="pr-4" style="padding: 0.75vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
           <span class="chip card--sage" style="font-size: 1.5vw;">4</span>
           <div>
             <span class="pr-hint">click to reveal</span>
@@ -254,7 +258,7 @@
             </div>
           </div>
         </label>
-        <label class="card pr-card pr-c5" for="pr-5" style="padding: 0.9vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
+        <label class="card pr-card pr-c5" for="pr-5" style="padding: 0.75vw 2vw; display: flex; align-items: baseline; gap: 1.4vw;">
           <span class="chip card--sage" style="font-size: 1.5vw;">5</span>
           <div>
             <span class="pr-hint">click to reveal</span>
@@ -266,6 +270,10 @@
         </label>
       </div>
     </div>
+
+    <p class="slide-source" style="text-align: left; margin-top: 0.2vw;">
+      Source: <em>Prompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI Outputs</em>, Phoenix &amp; Taylor 2025, O&rsquo;Reilly Media
+    </p>
   </div>
 </section>
 
